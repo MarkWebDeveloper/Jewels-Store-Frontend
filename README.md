@@ -1,6 +1,19 @@
-# jewels-store-frontend
+# Jewels Store Project
 
-This template should help get you started developing with Vue 3 in Vite.
+This is a frontend part of a future full working online store. 
+
+## Dependencies
+
+[Vue](https://vuejs.org/)<br />
+[Vuetify](https://vuetifyjs.com/)<br />
+[Vue-Router](https://router.vuejs.org/)<br />
+[Pinia](https://pinia.vuejs.org/)<br />
+[Typescript](https://www.typescriptlang.org/)<br />
+[ESLint](https://eslint.org/)<br />
+[Sass](https://sass-lang.com/)<br />
+[Scss-Reset](https://www.npmjs.com/package/scss-reset)<br />
+[Vite](https://vitejs.dev/)<br />
+[Vitest](https://vitest.dev/)<br />
 
 ## Recommended IDE Setup
 
