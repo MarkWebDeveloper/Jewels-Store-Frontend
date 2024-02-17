@@ -18,6 +18,8 @@
                         <v-btn icon="mdi-heart-outline"></v-btn>
 
                         <v-btn icon="mdi-cart-outline"></v-btn>
+
+                        
                     </template>
                 </v-app-bar>
             </v-container>
