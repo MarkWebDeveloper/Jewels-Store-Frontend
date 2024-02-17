@@ -1,10 +1,11 @@
 <script setup lang="ts">
+import HeaderNav from '@/components/header/HeaderNav.vue';
 
 </script>
 
 <template>
   <main>
-   
+    <HeaderNav />
   </main>
 </template>
 
