@@ -1,29 +1,51 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 
+    const searchInput = ref()
 </script>
 
 <template>
     <header>
-        <v-container class="elevation-3" dense id="navbar-top-mobile">
-            <v-row align="center">
+        <v-container class="elevation-3" dense fluid id="navbar-top-mobile">
+            <v-row align="center" justify-md="space-between">
                 <v-img max-width="150" aspect-ratio="16/9" cover src="/images/logos/jj-full-logo-black.png"
-                    class="ml-2"></v-img>
+                    class="ml-3"></v-img>
 
-                <v-spacer></v-spacer>
+                <v-spacer id="first-row-spacer"></v-spacer>
 
-                <v-btn class="mr-2" icon="mdi-heart-outline" variant="flat" density="comfortable"></v-btn>
+                <div class="first-row-search-container">
+                    <div class="categories-container mr-8">
+                        <v-app-bar-nav-icon density="comfortable"></v-app-bar-nav-icon>
+                        <p class="categories-title">Categories</p>
+                    </div>
+                    <div class="search-bar-container">
+                        <input v-model="searchInput" class="search-bar" type="text">
+                        <v-btn icon="mdi-magnify" variant="flat" size="small" density="compact"></v-btn>
+                    </div>
+                </div>
 
-                <v-btn class="mr-3" icon="mdi-cart-outline" variant="flat" density="comfortable"></v-btn>
+                <div class="mr-4" id="icons-container">
+                    <v-btn class="mr-2" icon="mdi-heart-outline" variant="flat" density="comfortable"></v-btn>
 
-                <v-avatar image="/images/pictures/ai-generated-8501940_1920.jpg" size="28" class="mr-4"></v-avatar>
+                    <v-btn class="mr-3" icon="mdi-cart-outline" variant="flat" density="comfortable"></v-btn>
+
+                    <div id="avatar-container">
+                        <v-avatar image="/images/pictures/ai-generated-8501940_1920.jpg" size="28"></v-avatar>
+                        <img class="mr-4" id="avatar-arrow" src="/images/logos/triangle-arrow.png" alt="">
+                    </div>
+                    
+                </div>
+
             </v-row>
 
-            <v-row align="center">
-                <v-app-bar-nav-icon class="ml-3" density="comfortable"></v-app-bar-nav-icon>
-                <p id="categories-title">Categories</p>
-                <v-spacer></v-spacer>
-                <div class="mr-3" id="search-bar-container">
-                    <input id="search-bar" type="text">
+            <v-row class="second-row-container" justify="space-evenly" justify-sm="space-evenly" justify-md="space-around"
+                align="center">
+                <div class="categories-container">
+                    <v-app-bar-nav-icon density="comfortable"></v-app-bar-nav-icon>
+                    <p class="categories-title">Categories</p>
+                </div>
+                <div class="search-bar-container">
+                    <input v-model="searchInput" class="search-bar" type="text">
                     <v-btn icon="mdi-magnify" variant="flat" size="small" density="compact"></v-btn>
                 </div>
             </v-row>
@@ -32,12 +54,37 @@
 </template>
 
 <style lang="scss" scoped>
-#categories-title {
+.first-row-search-container {
+    display: none;
+}
+
+#icons-container {
+    display: flex;
+    align-items: center;
+}
+
+#avatar-container {
+    display: flex;
+    align-items: end;
+}
+
+#avatar-arrow {
+    height: 7px;
+}
+
+.categories-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.categories-title {
     font-family: "Aleo", serif;
     font-size: 0.6rem;
 }
 
-#search-bar-container {
+.search-bar-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -48,10 +95,37 @@
     border-radius: 5px;
 }
 
-#search-bar {
+.search-bar {
     font-size: 0.8rem;
     padding: 0;
     margin: 0;
     min-width: 200px;
+}
+
+@media only screen and (min-width: 600px) {
+    .search-bar {
+        min-width: 350px;
+    }
+}
+
+@media only screen and (min-width: 960px) {
+    .second-row-container {
+        display: none;
+    }
+
+    .first-row-search-container {
+        display: flex;
+        justify-content: space-evenly;
+        height: 1.5rem;
+    }
+
+    .search-bar {
+        min-width: 450px;
+    }
+
+    #first-row-spacer {
+        display: none;
+    }
+
 }
 </style>
