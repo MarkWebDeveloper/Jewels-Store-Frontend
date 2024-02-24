@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue';
 
+import { ref } from 'vue';
     const searchInput = ref()
 </script>
 
@@ -8,28 +8,28 @@ import { ref } from 'vue';
     <header>
         <v-container class="elevation-3" dense fluid id="navbar-top-mobile">
             <v-row align="center" justify-md="space-between">
-                <v-img max-width="150" aspect-ratio="16/9" cover src="/images/logos/jj-full-logo-black.png"
+                <v-img id="main-logo" title="Home" max-width="150" aspect-ratio="16/9" cover src="/images/logos/jj-full-logo-black.png"
                     class="ml-3"></v-img>
 
                 <v-spacer id="first-row-spacer"></v-spacer>
 
                 <div class="first-row-search-container">
                     <div class="categories-container mr-8">
-                        <v-app-bar-nav-icon density="comfortable"></v-app-bar-nav-icon>
+                        <v-app-bar-nav-icon title="Categories" density="comfortable"></v-app-bar-nav-icon>
                         <p class="categories-title">Categories</p>
                     </div>
                     <div class="search-bar-container">
                         <input v-model="searchInput" class="search-bar" type="text">
-                        <v-btn icon="mdi-magnify" variant="flat" size="small" density="compact"></v-btn>
+                        <v-btn icon="mdi-magnify" title="Search" variant="flat" size="small" density="compact"></v-btn>
                     </div>
                 </div>
 
                 <div class="mr-4" id="icons-container">
-                    <v-btn class="mr-2" icon="mdi-heart-outline" variant="flat" density="comfortable"></v-btn>
+                    <v-btn class="mr-2" title="Favorites" icon="mdi-heart-outline" variant="flat" density="comfortable"></v-btn>
 
-                    <v-btn class="mr-3" icon="mdi-cart-outline" variant="flat" density="comfortable"></v-btn>
+                    <v-btn class="mr-3" title="Cart" icon="mdi-cart-outline" variant="flat" density="comfortable"></v-btn>
 
-                    <div id="avatar-container">
+                    <div id="avatar-container" title="Profile">
                         <v-avatar image="/images/pictures/ai-generated-8501940_1920.jpg" size="28"></v-avatar>
                         <img class="mr-4" id="avatar-arrow" src="/images/logos/triangle-arrow.png" alt="">
                     </div>
@@ -41,12 +41,12 @@ import { ref } from 'vue';
             <v-row class="second-row-container" justify="space-evenly" justify-sm="space-evenly" justify-md="space-around"
                 align="center">
                 <div class="categories-container">
-                    <v-app-bar-nav-icon density="comfortable"></v-app-bar-nav-icon>
+                    <v-app-bar-nav-icon density="comfortable" title="Categories"></v-app-bar-nav-icon>
                     <p class="categories-title">Categories</p>
                 </div>
                 <div class="search-bar-container">
                     <input v-model="searchInput" class="search-bar" type="text">
-                    <v-btn icon="mdi-magnify" variant="flat" size="small" density="compact"></v-btn>
+                    <v-btn icon="mdi-magnify" title="Search" variant="flat" size="small" density="compact"></v-btn>
                 </div>
             </v-row>
         </v-container>
@@ -58,6 +58,10 @@ import { ref } from 'vue';
     display: none;
 }
 
+#main-logo {
+    cursor: pointer;
+}
+
 #icons-container {
     display: flex;
     align-items: center;
@@ -66,6 +70,7 @@ import { ref } from 'vue';
 #avatar-container {
     display: flex;
     align-items: end;
+    cursor: pointer;
 }
 
 #avatar-arrow {
