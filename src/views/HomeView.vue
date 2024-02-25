@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import HeaderNavVuetify from '@/components/header/HeaderNavVuetify.vue';
 import HeaderNav from '@/components/header/HeaderNav.vue';
+import Banner from '@/components/home/Banner.vue';
 
 </script>
 
@@ -8,7 +8,7 @@ import HeaderNav from '@/components/header/HeaderNav.vue';
     <!-- <HeaderNavVuetify /> -->
     <HeaderNav />
     <main>
-      <h1>Hi!</h1>
+      <Banner />
     </main>
 </template>
 
