@@ -1,12 +1,11 @@
 <script setup lang="ts">
-
 </script>
 
 <template>
     <div>
         <img
   src="/images/pictures/ai-generated-8501940_1920.jpg"
-  alt="Sample image of a turtle riding on top of an alligator that is swimming in the water - scaled to 600 x 337."
+  alt="Banner image"
 />
     </div>
 </template>
