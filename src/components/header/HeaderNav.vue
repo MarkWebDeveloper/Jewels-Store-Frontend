@@ -104,13 +104,11 @@ import { ref } from 'vue';
     font-size: 0.8rem;
     padding: 0;
     margin: 0;
-    min-width: 200px;
+    width: clamp(200px, 40dvw, 500px);
 }
 
 @media only screen and (min-width: 600px) {
-    .search-bar {
-        min-width: 350px;
-    }
+   
 }
 
 @media only screen and (min-width: 960px) {
@@ -122,10 +120,6 @@ import { ref } from 'vue';
         display: flex;
         justify-content: space-evenly;
         height: 1.5rem;
-    }
-
-    .search-bar {
-        min-width: 450px;
     }
 
     #first-row-spacer {
