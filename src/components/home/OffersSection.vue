@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import CarouselItem from "@/components/global/CarouselItem.vue"
-const model = null
+// const model = null
 </script>
 
 <template>
