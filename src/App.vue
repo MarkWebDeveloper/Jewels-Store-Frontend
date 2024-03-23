@@ -1,5 +1,11 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
+import { useProductsStore } from './stores/productsStore';
+
+const productsStore = useProductsStore()
+
+const gettingProducts = async () => { await productsStore.getAllProducts() }
+gettingProducts()
 </script>
 
 <template>

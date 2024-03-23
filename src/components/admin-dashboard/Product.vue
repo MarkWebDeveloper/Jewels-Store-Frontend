@@ -1,12 +1,17 @@
 <script setup lang="ts">
+import type { IProduct } from '@/core/products/IProduct'
 let x = 0
+
+const props = defineProps<{
+    product: IProduct
+}>()
 </script>
 
 <template>
     <div class="product-container">
         <img class="product-image" src="/images/earrings/scheherazade-blue-earrings.png" alt="">
-        <p class="product-name">Red Earrings</p>
-        <p class="product-description">Beautiful earrings for a night queen</p>
+        <p class="product-name">{{props.product.productName}}</p>
+        <p class="product-description">{{props.product.productDescription}}</p>
         <div class="buttons-container">
             <v-btn class="edit-button mr-2" title="Favorites" icon="mdi-pencil" variant="flat"
                 density="comfortable"></v-btn>

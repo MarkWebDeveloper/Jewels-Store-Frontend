@@ -1,16 +1,17 @@
 <script setup lang="ts">
 import HeaderNav from '@/components/header/HeaderNav.vue';
 import Product from '@/components/admin-dashboard/Product.vue';
+import { useProductsStore } from '@/stores/productsStore';
 
+const productsStore = useProductsStore()
 </script>
 
 <template>
   <HeaderNav />
   <main>
     <h1 class="products-title">Products</h1>
-
     <div class="products-container">
-      <Product class="product" />
+      <Product v-for="product in productsStore.products" v-if="productsStore.isLoaded" :product="product"/>
     </div>
   </main>
 </template>
