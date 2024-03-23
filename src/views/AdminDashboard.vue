@@ -22,7 +22,7 @@ const openCloseForm = () => {
         start></v-icon>New Product</v-btn>
     <CreateProductForm v-if="formIsOpened" @openCloseEvent="openCloseForm" />
     <div class="products-container">
-      <Product v-for="product in productsStore.products" v-if="productsStore.isLoaded" :product="product" />
+      <Product v-for="product in productsStore.products" :key="product.id" v-if="productsStore.isLoaded" :product="product" />
     </div>
   </main>
 </template>
