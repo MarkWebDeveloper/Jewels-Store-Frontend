@@ -7,7 +7,6 @@ import OffersSection from '@/components/home/OffersSection.vue';
 </script>
 
 <template>
-    <!-- <HeaderNavVuetify /> -->
     <HeaderNav />
     <main>
       <HomeBanner />
