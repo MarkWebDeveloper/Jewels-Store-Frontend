@@ -2,6 +2,7 @@ import { ref, computed, reactive } from 'vue'
 import { defineStore } from 'pinia'
 import ProductService from '@/core/products/ProductService'
 import type { IProduct } from '@/core/products/IProduct'
+import type { IProductDTO } from '@/core/products/IProductDTO'
 
 export const useProductsStore = defineStore('products', () => {
   
@@ -12,9 +13,13 @@ export const useProductsStore = defineStore('products', () => {
     async function getAllProducts(this: any): Promise<IProduct[]> {
         this.products = await service.get()
         isLoaded.value = true
-        console.log(products)
+        console.log(this.products)
         return products
     }
 
-  return { products, isLoaded, getAllProducts }
+    async function saveProduct(product: IProductDTO): Promise<void> {
+      await service.post(product)
+  }
+
+  return { products, isLoaded, getAllProducts, saveProduct }
 })

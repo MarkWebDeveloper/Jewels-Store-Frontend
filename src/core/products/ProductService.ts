@@ -40,12 +40,12 @@ export default class ProductService {
         }
     }
 
-    async put(Product: IProductDTO): Promise<void> {
+    async put(product: IProductDTO): Promise<void> {
 
-        const uri = `${this.uri}/${Product.id}`
+        const uri = `${this.uri}/${product.id}`
 
         try {
-            const response = await axios.put(uri, Product)
+            const response = await axios.put(uri, product)
             const status = response.status
             console.log(status);
             

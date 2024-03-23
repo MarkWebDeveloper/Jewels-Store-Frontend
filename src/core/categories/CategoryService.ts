@@ -3,7 +3,7 @@ import type { ICategory } from "./ICategory";
 
 export default class CategoryService {
 
-    private uri = import.meta.env.VITE_APP_API_CategoryS
+    private uri = import.meta.env.VITE_APP_API_CATEGORIES
 
     async get(): Promise<ICategory[]> {
         try {

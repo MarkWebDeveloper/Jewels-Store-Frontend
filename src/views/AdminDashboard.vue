@@ -18,8 +18,9 @@ const openCloseForm = () => {
   <HeaderNav />
   <main>
     <h1 class="products-title">Products</h1>
-    <v-btn class="new-product-button rounded-lg" @click.prevent="openCloseForm()"><v-icon icon="mdi-plus" start></v-icon>New Product</v-btn>
-    <CreateProductForm v-if="formIsOpened"/>
+    <v-btn class="new-product-button rounded-lg" @click.prevent="openCloseForm()"><v-icon icon="mdi-plus"
+        start></v-icon>New Product</v-btn>
+    <CreateProductForm v-if="formIsOpened" @openCloseEvent="openCloseForm" />
     <div class="products-container">
       <Product v-for="product in productsStore.products" v-if="productsStore.isLoaded" :product="product" />
     </div>
@@ -29,9 +30,10 @@ const openCloseForm = () => {
 <style lang="scss" scoped>
 .new-product-button {
   border: 0.1rem solid black;
-  margin-left: 2.5%;
+  margin-left: 5%;
   margin-bottom: 2%;
 }
+
 .products-title {
   font-family: "Alex Brush", cursive;
   text-align: center;
