@@ -8,11 +8,12 @@ import Alerts from '@/components/admin-dashboard/Alerts.vue';
 
 const productsStore = useProductsStore()
 
-const formIsOpened = ref<Boolean>(false)
+const createFormIsOpened = ref<Boolean>(false)
 
-const openCloseForm = () => {
-  formIsOpened.value = !formIsOpened.value
+const openCloseCreateForm = () => {
+  createFormIsOpened.value = !createFormIsOpened.value
 }
+
 </script>
 
 <template>
@@ -20,9 +21,9 @@ const openCloseForm = () => {
   <main>
     <Alerts />
     <h1 class="products-title">Products</h1>
-    <v-btn class="new-product-button rounded-lg" @click.prevent="openCloseForm()"><v-icon icon="mdi-plus"
+    <v-btn class="new-product-button rounded-lg" @click.prevent="openCloseCreateForm()"><v-icon icon="mdi-plus"
         start></v-icon>New Product</v-btn>
-    <CreateProductForm v-if="formIsOpened" @openCloseEvent="openCloseForm" />
+    <CreateProductForm v-if="createFormIsOpened" @openCloseEvent="openCloseCreateForm" />
     <div class="products-container">
       <Product v-for="product in productsStore.products" :key="product.id" v-if="productsStore.isLoaded" :product="product" />
     </div>

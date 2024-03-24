@@ -13,6 +13,8 @@ export const useProductsStore = defineStore("products", {
       showProductSaveFailedAlert: false as boolean,
       showProductDeleteSuccessAlert: false as boolean,
       showProductDeleteFailedAlert: false as boolean,
+      showProductUpdateSuccessAlert: false as boolean,
+      showProductUpdateFailedAlert: false as boolean,
     };
   },
 
@@ -47,7 +49,21 @@ export const useProductsStore = defineStore("products", {
 
     async updateProduct(product: IProductDTO, id: number): Promise<void> {
       const service = new ProductService();
-      await service.put(product, id);
+      try {
+        const response = await service.put(product, id);
+        // this.deleteProductFromArray(this.products.findIndex((element) => element.id == response.id))
+        // this.addProductToArray(response)
+        this.replaceProductInArray(this.products.findIndex((element) => element.id == response.id), response)
+        this.showProductUpdateSuccessAlert = true;
+        setTimeout(() => {
+          this.showProductUpdateSuccessAlert = false;
+        }, 5000);
+      } catch (error) {
+        this.showProductUpdateFailedAlert = true;
+        setTimeout(() => {
+          this.showProductUpdateFailedAlert = false;
+        }, 5000);
+      }
     },
 
     async deleteProduct(id: number): Promise<void> {
@@ -72,6 +88,10 @@ export const useProductsStore = defineStore("products", {
 
     addProductToArray(product: IProduct): void  {
       this.products.push(product)
+    },
+
+    replaceProductInArray(id: number, product: IProduct): void {
+      this.products.splice(id, 1, product);
     }
   },
 });

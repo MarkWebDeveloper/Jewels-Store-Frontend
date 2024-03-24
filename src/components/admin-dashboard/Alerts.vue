@@ -10,6 +10,8 @@ const productsStore = useProductsStore()
     <v-alert class="alert" text="Unexpected error occurred during the save process of the new product" type="error" v-if="productsStore.showProductSaveFailedAlert"></v-alert>
     <v-alert class="alert" text="Product is deleted successfully" type="success" v-if="productsStore.showProductDeleteSuccessAlert"></v-alert>
     <v-alert class="alert" text="Unexpected error occurred during the product delete process" type="error" v-if="productsStore.showProductDeleteFailedAlert"></v-alert>
+    <v-alert class="alert" text="Product is updated successfully" type="success" v-if="productsStore.showProductUpdateSuccessAlert"></v-alert>
+    <v-alert class="alert" text="Unexpected error occurred during the product update process" type="error" v-if="productsStore.showProductUpdateFailedAlert"></v-alert>
 </template>
 
 <style lang="scss" scoped>

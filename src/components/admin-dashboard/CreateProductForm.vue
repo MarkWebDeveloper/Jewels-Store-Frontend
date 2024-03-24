@@ -1,14 +1,11 @@
 <script setup lang="ts">
 import type { IProductDTO } from '@/core/products/IProductDTO';
-import ProductService from '@/core/products/ProductService';
 import { useCategoriesStore } from '@/stores/categoriesStore';
 import { useProductsStore } from '@/stores/productsStore';
 import { ref } from 'vue';
 
 const categoriesStore = useCategoriesStore()
 const productsStore = useProductsStore()
-
-// const service = new ProductService
 
 const gettingCategories = async () => { await categoriesStore.getAllCategories() }
 gettingCategories()
@@ -31,24 +28,26 @@ let newProduct: IProductDTO = {
     price: 0
 }
 
-// async function saveProduct(product: IProductDTO): Promise<void> {
-//       await service.post(product)
-//   }
-
 function submitForm() {
     newProduct.productName = productName.value
     newProduct.categoryId = categoryId.value
     newProduct.productDescription = productDescription.value
     newProduct.price = price.value
-    productsStore.saveProduct(newProduct)
+    try {
+        productsStore.saveProduct(newProduct)
+        productName.value = ""
+        categoryId.value = 0
+        productDescription.value = ""
+        price.value = 0
+    } catch (error) {
+        return
+    }
 }
 
 </script>
 
 <template>
     <div class="form-background">
-        <!-- <v-alert class="alert" text="New product is saved successfully" type="success" v-if="productsStore.showProductSaveSuccessAlert"></v-alert>
-        <v-alert class="alert" text="Unexpected error occurred during the save process of the new product" type="error" v-if="productsStore.showProductSaveFailedAlert"></v-alert> -->
         <form @submit.prevent="submitForm" class="form">
             <v-btn class="close-button" density="comfortable" icon="mdi-close" variant="flat"
                 @click="$emit('openCloseEvent')"></v-btn>
@@ -75,11 +74,6 @@ function submitForm() {
     background-color: rgba($color: #000000, $alpha: 0.2);
     z-index: 99;
 }
-
-// .alert {
-//     position: absolute;
-//     top: 0;
-// }
 
 .form {
     width: 40rem;

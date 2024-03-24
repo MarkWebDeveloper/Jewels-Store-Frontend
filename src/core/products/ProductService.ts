@@ -41,7 +41,7 @@ export default class ProductService {
         }
     }
 
-    async put(product: IProductDTO, id: number): Promise<void> {
+    async put(product: IProductDTO, id: number): Promise<IProduct> {
 
         const uri = `${this.uri}/${id}`
 
@@ -49,6 +49,7 @@ export default class ProductService {
             const response = await axios.put(uri, product)
             const status = response.status
             console.log(status);
+            return response.data
             
         } catch (error) {
             throw new Error('Error with API calling: ' + error)
