@@ -4,7 +4,7 @@ import type { IProductDTO } from "./IProductDTO";
 
 export default class ProductService {
 
-    private uri = import.meta.env.VITE_APP_API_PRODUCTS
+    private uri: string = import.meta.env.VITE_APP_API_PRODUCTS
 
     async get(): Promise<IProduct[]> {
         try {
@@ -16,12 +16,13 @@ export default class ProductService {
         }
     }
 
-    async post(newProduct: IProductDTO): Promise<void> {
+    async post(newProduct: IProductDTO): Promise<IProduct> {
 
         try {
             const response = await axios.post(this.uri, newProduct)
             const status = response.status
-            console.log(status);            
+            console.log(status);
+            return response.data            
         } catch (error) {
             throw new Error('Error with API calling: ' + error)
         }

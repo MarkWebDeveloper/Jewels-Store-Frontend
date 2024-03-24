@@ -7,6 +7,7 @@ export const useProductsStore = defineStore("products", {
   state: () => {
     return {
       products: [] as IProduct[],
+      newProduct: {} as IProduct,
       isLoaded: false as boolean,
       showProductSaveSuccessAlert: false as boolean,
       showProductSaveFailedAlert: false as boolean,
@@ -30,7 +31,8 @@ export const useProductsStore = defineStore("products", {
     async saveProduct(product: IProductDTO): Promise<void> {
       const service = new ProductService();
       try {
-        await service.post(product);
+        const response = await service.post(product);
+        this.addProductToArray(response)
         this.showProductSaveSuccessAlert = true;
         setTimeout(() => {
           this.showProductSaveSuccessAlert = false;
