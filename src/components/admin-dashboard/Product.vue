@@ -9,6 +9,12 @@ const props = defineProps<{
     product: IProduct
 }>()
 
+function findMainImage(): string | undefined {
+    const mainImage = props.product.images.find(image => image.mainImage == true)
+    const mainImageName = mainImage?.imageName
+    const imageDirectory = 'http://localhost:8080/api/v1/images/' + mainImageName
+    return imageDirectory
+}
 const editFormIsOpened = ref<boolean>(false)
 
 const openCloseEditForm = () => {
@@ -19,7 +25,7 @@ const openCloseEditForm = () => {
 <template>
     <EditProductForm v-if="editFormIsOpened" @openCloseEditEvent="openCloseEditForm" :product="product"/>
     <div class="product-container">
-        <img class="product-image" src="/images/earrings/scheherazade-blue-earrings.png" alt="">
+        <img class="product-image" :src="findMainImage()" alt="">
         <p class="product-name">{{ props.product.productName }}</p>
         <p class="product-description">{{ props.product.productDescription }}</p>
         <div class="buttons-container">

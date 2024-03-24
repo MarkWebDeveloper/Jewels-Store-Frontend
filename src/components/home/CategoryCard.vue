@@ -5,14 +5,22 @@ const props = defineProps<{
     category: ICategory
 }>()
 
+const imageURL = import.meta.env.VITE_APP_API_CATEGORIES
+
+const imageDirectory = 'http://localhost:8080/api/v1/images/' + props.category.categoryImage.imageName
 </script>
 
 <template>
     <div class="category-container">
         <div class="category-frame">
-            <img class="category-image" src="/images/earrings/scheherazade-blue-earrings.png" alt="Earrings Category">
+            <v-img class="category-image" aspect-ratio="1/1" :src="imageDirectory"><template
+                    v-slot:placeholder>
+                    <div class="d-flex align-center justify-center fill-height">
+                        <v-progress-circular color="yellow-accent-3" indeterminate></v-progress-circular>
+                    </div>
+                </template></v-img>
         </div>
-        <p class="category-name">{{props.category.categoryName}}</p>
+        <p class="category-name">{{ props.category.categoryName }}</p>
     </div>
 </template>
 
@@ -36,14 +44,14 @@ const props = defineProps<{
 }
 
 .category-image {
-    width: 8rem;
+    max-height: 12rem;
     margin: 3rem auto 3rem auto;
 }
 
 .category-name {
-    font-size: 1.3rem;
-    font-family: "Aleo", serif;
-    font-style: italic;
+    font-size: 2rem;
+    font-family: "Alex Brush", cursive;
+    // font-style: italic;
     font-weight: bold;
     text-align: center;
     margin: 1rem auto 1rem auto;
