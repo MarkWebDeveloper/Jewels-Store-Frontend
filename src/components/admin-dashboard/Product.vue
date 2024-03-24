@@ -33,7 +33,7 @@ const openCloseEditForm = () => {
             <v-btn class="edit-button mr-2" title="Favorites" icon="mdi-pencil" variant="flat"
                 density="comfortable" @click="openCloseEditForm()"></v-btn>
             <v-btn class="delete-button mr-2" title="Favorites" icon="mdi-delete" variant="flat" density="comfortable"
-                @click="productsStore.deleteProductFromArray(productsStore.products.findIndex((element) => element.id == props.product.id)), productsStore.deleteProduct(props.product.id)"></v-btn>
+                @click="productsStore.deleteProduct(props.product.id)"></v-btn>
         </div>
     </div>
 </template>

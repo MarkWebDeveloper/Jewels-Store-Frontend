@@ -70,6 +70,7 @@ export const useProductsStore = defineStore("products", {
       const service = new ProductService();
       try {
         await service.delete(id);
+        this.deleteProductFromArray(this.products.findIndex((element) => element.id == id));
         this.showProductDeleteSuccessAlert = true;
         setTimeout(() => {
           this.showProductDeleteSuccessAlert = false;
