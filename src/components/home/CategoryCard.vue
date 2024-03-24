@@ -1,4 +1,9 @@
 <script setup lang="ts">
+import type { ICategory } from '@/core/categories/ICategory';
+
+const props = defineProps<{
+    category: ICategory
+}>()
 
 </script>
 
@@ -7,11 +12,19 @@
         <div class="category-frame">
             <img class="category-image" src="/images/earrings/scheherazade-blue-earrings.png" alt="Earrings Category">
         </div>
-        <p class="category-name">EARRINGS</p>
+        <p class="category-name">{{props.category.categoryName}}</p>
     </div>
 </template>
 
 <style lang="scss" scoped>
+.category-container {
+    width: 33%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 3rem;
+}
+
 .category-frame {
     display: flex;
     justify-content: center;

@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import CategoryService from "@/core/categories/CategoryService";
 import type { ICategory } from "@/core/categories/ICategory";
 
-export const useCategorysStore = defineStore("categories", {
+export const useCategoriesStore = defineStore("categories", {
   state: () => {
     return {
       categories: [] as ICategory[],
@@ -11,7 +11,7 @@ export const useCategorysStore = defineStore("categories", {
   },
 
   actions: {
-    async getAllCategorys(this: any): Promise<ICategory[]> {
+    async getAllCategories(this: any): Promise<ICategory[]> {
       const service = new CategoryService();
       if (this.isLoaded == true) {
         this.isLoaded = false;

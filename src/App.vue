@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import { useProductsStore } from './stores/productsStore';
+import { useCategoriesStore } from './stores/categoriesStore';
 
 const productsStore = useProductsStore()
+const categoriesStore = useCategoriesStore()
 
 productsStore.getAllProducts()
+categoriesStore.getAllCategories()
 // const gettingProducts = async () => { await productsStore.getAllProducts() }
 // gettingProducts()
 </script>
