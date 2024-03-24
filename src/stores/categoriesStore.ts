@@ -1,20 +1,25 @@
-import { ref, computed, reactive } from 'vue'
-import { defineStore } from 'pinia'
-import CategoryService from '@/core/categories/CategoryService'
-import type { ICategory } from '@/core/categories/ICategory'
+import { defineStore } from "pinia";
+import CategoryService from "@/core/categories/CategoryService";
+import type { ICategory } from "@/core/categories/ICategory";
 
-export const useCategoriesStore = defineStore('categories', () => {
-  
-    const service = new CategoryService
-    let categories: ICategory[] = reactive([])
-    const isLoaded = ref<Boolean>(false)
+export const useCategorysStore = defineStore("categories", {
+  state: () => {
+    return {
+      categories: [] as ICategory[],
+      isLoaded: false as boolean,
+    };
+  },
 
-    async function getAllCategories(this: any): Promise<ICategory[]> {
-        this.categories = await service.get()
-        isLoaded.value = true
-        console.log(this.categories)
-        return categories
-    }
-
-  return { categories, isLoaded, getAllCategories }
-})
+  actions: {
+    async getAllCategorys(this: any): Promise<ICategory[]> {
+      const service = new CategoryService();
+      if (this.isLoaded == true) {
+        this.isLoaded = false;
+      }
+      this.categories = await service.get();
+      this.isLoaded = true;
+      console.log(this.categories);
+      return this.categories;
+    },
+  },
+});
