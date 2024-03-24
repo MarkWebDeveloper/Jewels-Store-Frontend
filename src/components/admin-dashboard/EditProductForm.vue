@@ -3,11 +3,15 @@ import type { IProduct } from '@/core/products/IProduct';
 import type { IProductDTO } from '@/core/products/IProductDTO';
 import { useCategoriesStore } from '@/stores/categoriesStore';
 import { useProductsStore } from '@/stores/productsStore';
-import { ref } from 'vue';
+import { onMounted, onUpdated, ref } from 'vue';
 
 const props = defineProps<{
     product: IProduct
 }>()
+
+onMounted(() => {
+    refillInputs(props.product)
+})
 
 const categoriesStore = useCategoriesStore()
 const productsStore = useProductsStore()
@@ -15,7 +19,14 @@ const productsStore = useProductsStore()
 const gettingCategories = async () => { await categoriesStore.getAllCategories() }
 gettingCategories()
 
-function itemProps(item:any) {
+function refillInputs(product: IProduct): void {
+    productName.value = product.productName
+    categoryId.value = product.categories[0].id
+    productDescription.value = product.productDescription
+    price.value = product.price
+}
+
+function itemProps(item:any): any {
         return {
           title: item.categoryName
         }
@@ -53,7 +64,7 @@ function submitForm() {
 
 <template>
     <div class="form-background">
-        <form @submit.prevent="submitForm" class="form">
+        <form @submit.prevent="submitForm(), $emit('openCloseEditEvent')" class="form">
             <v-btn class="close-button" density="comfortable" icon="mdi-close" variant="flat"
                 @click="$emit('openCloseEditEvent')"></v-btn>
                 <h2 class="form-title">Edit Product</h2>
