@@ -4,6 +4,7 @@ import Product from '@/components/admin-dashboard/Product.vue';
 import { useProductsStore } from '@/stores/productsStore';
 import { ref } from 'vue';
 import CreateProductForm from '@/components/admin-dashboard/CreateProductForm.vue';
+import Alerts from '@/components/admin-dashboard/Alerts.vue';
 
 const productsStore = useProductsStore()
 
@@ -17,6 +18,7 @@ const openCloseForm = () => {
 <template>
   <HeaderNav />
   <main>
+    <Alerts />
     <h1 class="products-title">Products</h1>
     <v-btn class="new-product-button rounded-lg" @click.prevent="openCloseForm()"><v-icon icon="mdi-plus"
         start></v-icon>New Product</v-btn>

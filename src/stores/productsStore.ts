@@ -3,19 +3,23 @@ import ProductService from "@/core/products/ProductService";
 import type { IProduct } from "@/core/products/IProduct";
 import type { IProductDTO } from "@/core/products/IProductDTO";
 
-export const useProductsStore = defineStore('products', {
+export const useProductsStore = defineStore("products", {
   state: () => {
     return {
       products: [] as IProduct[],
-      isLoaded: false as boolean
-    }
+      isLoaded: false as boolean,
+      showProductSaveSuccessAlert: false as boolean,
+      showProductSaveFailedAlert: false as boolean,
+      showProductDeleteSuccessAlert: false as boolean,
+      showProductDeleteFailedAlert: false as boolean,
+    };
   },
 
   actions: {
     async getAllProducts(this: any): Promise<IProduct[]> {
       const service = new ProductService();
       if (this.isLoaded == true) {
-        this.isLoaded = false
+        this.isLoaded = false;
       }
       this.products = await service.get();
       this.isLoaded = true;
@@ -25,16 +29,47 @@ export const useProductsStore = defineStore('products', {
 
     async saveProduct(product: IProductDTO): Promise<void> {
       const service = new ProductService();
-      await service.post(product);
+      try {
+        await service.post(product);
+        this.showProductSaveSuccessAlert = true;
+        setTimeout(() => {
+          this.showProductSaveSuccessAlert = false;
+        }, 5000);
+      } catch (error) {
+        this.showProductSaveFailedAlert = true;
+        setTimeout(() => {
+          this.showProductSaveFailedAlert = false;
+        }, 5000);
+      }
+    },
+
+    async updateProduct(product: IProductDTO, id: number): Promise<void> {
+      const service = new ProductService();
+      await service.put(product, id);
     },
 
     async deleteProduct(id: number): Promise<void> {
       const service = new ProductService();
-      await service.delete(id);
+      try {
+        await service.delete(id);
+        this.showProductDeleteSuccessAlert = true;
+        setTimeout(() => {
+          this.showProductDeleteSuccessAlert = false;
+        }, 5000);
+      } catch (error) {
+        this.showProductDeleteFailedAlert = true;
+        setTimeout(() => {
+          this.showProductDeleteFailedAlert = false;
+        }, 5000);
+      }
     },
-    
+
     deleteProductFromArray(id: number): void {
-      this.products.splice(id, 1)
+      this.products.splice(id, 1);
+    },
+
+    addProductToArray(product: IProduct): void  {
+      this.products.push(product)
     }
   },
-})
+});

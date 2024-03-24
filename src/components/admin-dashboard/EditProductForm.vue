@@ -2,13 +2,11 @@
 import type { IProductDTO } from '@/core/products/IProductDTO';
 import ProductService from '@/core/products/ProductService';
 import { useCategoriesStore } from '@/stores/categoriesStore';
-import { useProductsStore } from '@/stores/productsStore';
 import { ref } from 'vue';
 
 const categoriesStore = useCategoriesStore()
-const productsStore = useProductsStore()
 
-// const service = new ProductService
+const service = new ProductService
 
 const gettingCategories = async () => { await categoriesStore.getAllCategories() }
 gettingCategories()
@@ -27,36 +25,34 @@ const price = ref<number>(0)
 let newProduct: IProductDTO = {
     productName: "",
     productDescription: "",
-    categoryId: 1,
+    categoryId: 0,
     price: 0
 }
 
-// async function saveProduct(product: IProductDTO): Promise<void> {
-//       await service.post(product)
-//   }
+async function saveProduct(product: IProductDTO): Promise<void> {
+      await service.post(product)
+  }
 
 function submitForm() {
     newProduct.productName = productName.value
     newProduct.categoryId = categoryId.value
     newProduct.productDescription = productDescription.value
     newProduct.price = price.value
-    productsStore.saveProduct(newProduct)
+    saveProduct(newProduct)
 }
 
 </script>
 
 <template>
     <div class="form-background">
-        <!-- <v-alert class="alert" text="New product is saved successfully" type="success" v-if="productsStore.showProductSaveSuccessAlert"></v-alert>
-        <v-alert class="alert" text="Unexpected error occurred during the save process of the new product" type="error" v-if="productsStore.showProductSaveFailedAlert"></v-alert> -->
         <form @submit.prevent="submitForm" class="form">
             <v-btn class="close-button" density="comfortable" icon="mdi-close" variant="flat"
-                @click="$emit('openCloseEvent')"></v-btn>
+                @click="$emit('openCloseEvent')" </v-btn>
                 <h2 class="form-title">Create New Product</h2>
-                <v-text-field class="product-name-input" v-model="productName" hide-details="auto" label="Product Name" clearable density="comfortable" required></v-text-field>
-                <v-select class="categories-dropdown" v-model="categoryId" label="Category" :items="categoriesStore.categories" :item-props="itemProps" variant="outlined" density="comfortable" v-if="categoriesStore.isLoaded" item-value="id"></v-select>
-                <v-text-field class="description-input" v-model="productDescription" hide-details="auto" label="Description" clearable density="comfortable" required></v-text-field>
-                <v-text-field class="price-input" v-model="price" hide-details="auto" label="Price" prefix="€" clearable density="comfortable" required></v-text-field>
+                <v-text-field class="product-name-input" v-model="productName" hide-details="auto" label="Product Name" clearable density="comfortable"></v-text-field>
+                <v-select class="categories-dropdown" v-model="categoryId" label="Category" :items="categoriesStore.categories" :item-props="itemProps" variant="outlined" density="comfortable" v-if="categoriesStore.isLoaded" item-value="id"</v-select>
+                <v-text-field class="description-input" v-model="productDescription" hide-details="auto" label="Description" clearable density="comfortable"></v-text-field>
+                <v-text-field class="price-input" v-model="price" hide-details="auto" label="Price" prefix="€" clearable density="comfortable"></v-text-field>
                 <v-btn class="send-button rounded-lg" type="submit">SEND</v-btn>
         </form>
     </div>
@@ -75,11 +71,6 @@ function submitForm() {
     background-color: rgba($color: #000000, $alpha: 0.2);
     z-index: 99;
 }
-
-// .alert {
-//     position: absolute;
-//     top: 0;
-// }
 
 .form {
     width: 40rem;

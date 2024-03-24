@@ -7,12 +7,6 @@ const productsStore = useProductsStore()
 const props = defineProps<{
     product: IProduct
 }>()
-
-// const gettingProducts = async () => { await productsStore.getAllProducts() }
-
-// onUpdated(async() => {
-//     productsStore.getAllProducts()
-// })
 </script>
 
 <template>
@@ -24,7 +18,7 @@ const props = defineProps<{
             <v-btn class="edit-button mr-2" title="Favorites" icon="mdi-pencil" variant="flat"
                 density="comfortable"></v-btn>
             <v-btn class="delete-button mr-2" title="Favorites" icon="mdi-delete" variant="flat"
-                density="comfortable" @click="productsStore.deleteProductFromArray(productsStore.products.findIndex((element) => element.id == props.product.id)) ,productsStore.deleteProduct(props.product.id)"></v-btn>
+                density="comfortable" @click="productsStore.deleteProductFromArray(productsStore.products.findIndex((element) => element.id == props.product.id)), productsStore.deleteProduct(props.product.id)"></v-btn>
         </div>
     </div>
 </template>
