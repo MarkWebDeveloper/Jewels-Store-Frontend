@@ -40,20 +40,73 @@ const imageDirectory = 'http://localhost:8080/api/v1/images/' + props.category.c
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
-    width: 16rem;
+    width: 8rem;
 }
 
 .category-image {
-    max-height: 12rem;
-    margin: 3rem auto 3rem auto;
+    max-height: 6em;
+    margin: 1.5rem auto 1.5rem auto;
 }
 
 .category-name {
-    font-size: 2rem;
+    font-size: 1rem;
     font-family: "Alex Brush", cursive;
-    // font-style: italic;
     font-weight: bold;
     text-align: center;
-    margin: 1rem auto 1rem auto;
+    margin: 0.2rem auto 0.2rem auto;
+}
+
+@media only screen and (min-width: 600px) {
+    .category-container {
+    width: 33%;
+    margin-bottom: 3rem;
+}
+.category-frame {
+    width: 100%;
+}
+.category-image {
+    max-height: 8em;
+    margin: 1.5rem auto 1.5rem auto;
+}
+.category-name {
+    font-size: 1.5rem;
+    margin: 0.4rem auto 0.4rem auto;
+}
+}
+
+@media only screen and (min-width: 960px) {
+    .category-container {
+    width: 33%;
+    margin-bottom: 3rem;
+}
+.category-frame {
+    width: 100%;
+}
+.category-image {
+    max-height: 12em;
+    margin: 1.5rem auto 1.5rem auto;
+}
+.category-name {
+    font-size: 2rem;
+    margin: 0.7rem auto 0.7rem auto;
+}
+}
+
+@media only screen and (min-width: 1264px) {
+    .category-container {
+    width: 20%;
+    margin-bottom: 3rem;
+}
+.category-frame {
+    width: 100%;
+}
+.category-image {
+    max-height: 12em;
+    margin: 1.5rem auto 1.5rem auto;
+}
+.category-name {
+    font-size: 2rem;
+    margin: 0.7rem auto 0.7rem auto;
+}
 }
 </style>

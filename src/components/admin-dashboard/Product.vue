@@ -27,6 +27,7 @@ const openCloseEditForm = () => {
     <div class="product-container">
         <img class="product-image" :src="findMainImage()" alt="">
         <p class="product-name">{{ props.product.productName }}</p>
+        <p class="product-category">{{ props.product.categories[0].categoryName }}</p>
         <p class="product-description">{{ props.product.productDescription }}</p>
         <p class="product-price">{{ props.product.price }}€</p>
         <div class="buttons-container">
@@ -56,7 +57,7 @@ const openCloseEditForm = () => {
     margin-right: 2rem;
 }
 
-.product-name, .product-price {
+.product-name, .product-price, .product-category {
     font-family: "Aleo", serif;
     width: 30%;
 }
