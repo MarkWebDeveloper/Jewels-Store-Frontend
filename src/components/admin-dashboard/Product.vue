@@ -28,6 +28,7 @@ const openCloseEditForm = () => {
         <img class="product-image" :src="findMainImage()" alt="">
         <p class="product-name">{{ props.product.productName }}</p>
         <p class="product-description">{{ props.product.productDescription }}</p>
+        <p class="product-price">{{ props.product.price }}€</p>
         <div class="buttons-container">
             <v-btn class="edit-button mr-2" title="Favorites" icon="mdi-pencil" variant="flat"
                 density="comfortable" @click="openCloseEditForm()"></v-btn>
@@ -52,24 +53,30 @@ const openCloseEditForm = () => {
 .product-image {
     width: 2rem;
     margin-left: 1rem;
+    margin-right: 2rem;
 }
 
-.product-name {
+.product-name, .product-price {
     font-family: "Aleo", serif;
-    font-size: 1rem;
-    margin-left: 2rem;
-    margin-right: 3rem;
+    width: 30%;
 }
 
 .product-description {
     font-family: "Aleo", serif;
     font-size: 1rem;
-    margin-left: 2rem;
-    margin-right: 3rem;
+    width: 50%;
     font-style: italic;
 }
 
+.product-price {
+    display: block;
+    font-family: "Aleo", serif;
+    font-size: 1rem;
+    width: 10%;
+}
+
 .buttons-container {
+    width: 10%;
     margin-left: auto
 }
 </style>
