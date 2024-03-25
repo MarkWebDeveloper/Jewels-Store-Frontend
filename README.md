@@ -1,6 +1,28 @@
 # Jewels Store Project
 
-This is a frontend part of a future full working online store. 
+This is a frontend part of a future full working online store. This is work-in-progress project. The application will the following features: <br />
+
+Secured login and register<br />
+Сheckout with Stripe <br /> 
+Full admin control over the products, categories and offers <br />
+User dashboard to control purchases, refunds, help tickets
+Search and filters for users and admin <br />
+Product ratings system <br />
+Favorites page <br />
+And more... <br />
+
+## Currently implemented features
+
+Admin full products CRUD
+
+## App Design
+Home page design
+
+![Home Page Design](<public/images/readme/Desktop Home Prototype.png>)
+
+## Link to backend repository
+
+https://github.com/MarkWebDeveloper/Jewels-Store-Backend
 
 ## Dependencies
 
