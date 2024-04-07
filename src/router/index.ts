@@ -13,6 +13,11 @@ const router = createRouter({
       path: '/admin-dashboard',
       name: 'admin-dashboard',
       component: () => import('../views/AdminDashboard.vue')
+    },
+    {
+      path: '/stripe-payment',
+      name: 'stripe-payment',
+      component: () => import('../views/StripePaymentView.vue')
     }
   ]
 })

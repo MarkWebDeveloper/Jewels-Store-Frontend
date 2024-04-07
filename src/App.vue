@@ -18,6 +18,7 @@ categoriesStore.getAllCategories()
       <nav>
         <RouterLink class="link" to="/">Home</RouterLink>
         <RouterLink class="link" to="/admin-dashboard">Dashboard</RouterLink>
+        <RouterLink class="link" to="/stripe-payment">Stripe</RouterLink>
       </nav>
     </div>
   </div>
