@@ -4,20 +4,19 @@ import type { IPaymentRequest } from "./IPaymentRequest";
 
 export default class StripeService {
 
-    private uri: string = import.meta.env.VITE_APP_API_PAYMENTS
+    private uri: string = import.meta.env.VITE_APP_API_STRIPE_PAYMENT
 
     async post(paymentRequest: IPaymentRequest): Promise<IStripeResponse> {
 
         let config: RawAxiosRequestConfig = {
             maxBodyLength: Infinity,
-            url: 'http://localhost:8080/api/v1/payments/create-payment-intent/stripe',
             headers: { 
               'Content-Type': 'application/json'
             },
           };
 
         try {
-            const response: AxiosResponse = await axios.post(this.uri + 'create-payment-intent/stripe', paymentRequest, config)
+            const response: AxiosResponse = await axios.post(this.uri, paymentRequest, config)
             const status: number = response.status
             console.log(status);
             return response.data
