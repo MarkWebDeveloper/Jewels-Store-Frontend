@@ -2,8 +2,7 @@
 import { ref, onMounted, computed } from "vue";
 import { useRoute } from "vue-router";
 import { loadStripe } from "@stripe/stripe-js";
-
-import SrMessages from "./SrMessages.vue";
+import StripeMessages from "@/components/payments/stripe/StripeMessages.vue";
 
 const messages = ref([]);
 const clientSecret = ref('');
@@ -37,7 +36,7 @@ onMounted(async () => {
     <main>
       <a href="/">home</a>
       <h1>Thank you!</h1>
-      <sr-messages
+      <StripeMessages
         v-if="clientSecret"
         :messages="messages"
       />

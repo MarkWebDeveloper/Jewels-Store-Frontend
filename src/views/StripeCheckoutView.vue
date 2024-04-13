@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { ref, onMounted, reactive } from "vue";
-import { loadStripe, type Appearance, type Stripe, type StripeElement, type StripeElements, type StripeElementsOptionsClientSecret } from "@stripe/stripe-js";
-
-import SrMessages from "@/components/payments/stripe/StripeMessages.vue";
+import { loadStripe, type Appearance, type Stripe, type StripeElements} from "@stripe/stripe-js";
 import StripeService from "@/core/payments/stripe/StripeService";
+import StripeMessages from "@/components/payments/stripe/StripeMessages.vue";
 
 const service: StripeService = new StripeService()
 
@@ -30,13 +29,9 @@ const cart = reactive({
 })
 
 onMounted(async () => {
-  // const { publishableKey } = await fetch("/api/config").then((res) => res.json());
+
   const publishableKey: string = import.meta.env.VITE_APP_STRIPE_PK
   stripe = (await loadStripe(publishableKey))!
-
-  // const uri: string = import.meta.env.VITE_APP_API_STRIPE_PAYMENT
-
-  // const clientSecret = await fetch(uri).then((res) => res.json());
 
   const clientSecret: string = (await service.post(cart)).clientSecret
 
@@ -75,7 +70,7 @@ onMounted(async () => {
       boxShadow: '0 0 0 1.5px var(--colorPrimaryText), 0px 1px 1px rgba(0, 0, 0, 0.03), 0px 3px 7px rgba(18, 42, 66, 0.04)'
     },
     '.Label': {
-      fontWeight: '500'
+      fontWeight: '500',
     }
   }
 }
@@ -120,14 +115,6 @@ const handleSubmit = async (): Promise<void> => {
   <main>
     <h1>Payment</h1>
 
-    <p>
-      Enable more payment method types
-      <a
-        href="https://dashboard.stripe.com/settings/payment_methods"
-        target="_blank"
-      >in your dashboard</a>.
-    </p>
-
     <form
       id="payment-form"
       @submit.prevent="handleSubmit"
@@ -140,11 +127,35 @@ const handleSubmit = async (): Promise<void> => {
       >
         Pay now
       </button>
-      <sr-messages :messages="messages" />
+      <StripeMessages :messages="messages" />
     </form>
   </main>
 </template>
 
 <style lang="scss" scoped>
+h1 {
+  text-align: center;
+  font-family: "Alex Brush", cursive;
+  font-size: 2rem;
+  padding: 2%;
+}
+main {
+  background-color: white;
+  min-height: 100vh;
+}
 
+#payment-element, #link-authentication-element {
+  width: 60%;
+  margin: auto;
+}
+
+button {
+  background-color: darkcyan;
+  padding: 0.5rem;
+  // border: 1px solid black;
+  border-radius: 1rem;
+  margin-left: 20%;
+  margin-top: 2%;
+  color: white;
+}
 </style>
