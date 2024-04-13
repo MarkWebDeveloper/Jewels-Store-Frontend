@@ -5,9 +5,9 @@ const props = defineProps<{
     category: ICategory
 }>()
 
-const imageURL = import.meta.env.VITE_APP_API_CATEGORIES
+const imageURL: string = import.meta.env.VITE_APP_API_IMAGES
 
-const imageDirectory = 'http://localhost:8080/api/v1/images/' + props.category.categoryImage.imageName
+const imageDirectory: string = imageURL + props.category.categoryImage.imageName
 </script>
 
 <template>

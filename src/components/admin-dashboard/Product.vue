@@ -3,23 +3,54 @@ import type { IProduct } from '@/core/products/IProduct'
 import { useProductsStore } from '@/stores/productsStore';
 import EditProductForm from '@/components/admin-dashboard/EditProductForm.vue';
 import { ref } from 'vue';
+import type { IImage } from '@/core/images/IImage';
 const productsStore = useProductsStore()
 
 const props = defineProps<{
     product: IProduct
 }>()
 
-function findMainImage(): string | undefined {
-    const mainImage = props.product.images.find(image => image.mainImage == true)
-    const mainImageName = mainImage?.imageName
-    const imageDirectory = 'http://localhost:8080/api/v1/images/' + mainImageName
+const imageURL: string = import.meta.env.VITE_APP_API_IMAGES
+
+const findMainImage = (): string | undefined => {
+    const mainImage: IImage = props.product.images.find(image => image.mainImage == true)!
+    const mainImageName: string = mainImage?.imageName
+    const imageDirectory: string = imageURL + mainImageName
     return imageDirectory
 }
+
 const editFormIsOpened = ref<boolean>(false)
 
-const openCloseEditForm = () => {
+const openCloseEditForm = (): void => {
     editFormIsOpened.value = !editFormIsOpened.value
 }
+
+function convertToDecimal(number: number) {
+    if (typeof number !== 'number' || number % 1 !== 0) {
+        return 'Invalid input. Please provide an integer.';
+    }
+
+    let numberStr = number.toString();
+
+    if (numberStr.length < 2) {
+        return 'The number must have at least two digits.';
+    }
+
+    let lastTwoDigits = numberStr.slice(-2);
+
+    let decimalNumber = ""
+
+    if (lastTwoDigits == "00") {
+        decimalNumber = numberStr.slice(0, -2)
+    }
+
+    if (lastTwoDigits != "00") {
+        decimalNumber = numberStr.slice(0, -2) + ',' + lastTwoDigits;
+    }
+
+    return decimalNumber;
+}
+
 </script>
 
 <template>
@@ -29,7 +60,7 @@ const openCloseEditForm = () => {
         <p class="product-name">{{ props.product.productName }}</p>
         <p class="product-category">{{ props.product.categories[0].categoryName }}</p>
         <p class="product-description">{{ props.product.productDescription }}</p>
-        <p class="product-price">{{ props.product.price }}€</p>
+        <p class="product-price">{{ convertToDecimal(props.product.price) }}€</p>
         <div class="buttons-container">
             <v-btn class="edit-button mr-2" title="Favorites" icon="mdi-pencil" variant="flat"
                 density="comfortable" @click="openCloseEditForm()"></v-btn>
