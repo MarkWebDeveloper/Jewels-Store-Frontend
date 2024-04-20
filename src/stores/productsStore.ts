@@ -3,6 +3,7 @@ import ProductService from "@/core/products/ProductService";
 import type { IProduct } from "@/core/products/IProduct";
 import type { IProductDTO } from "@/core/products/IProductDTO";
 import type { IImage } from "@/core/images/IImage";
+import { ref } from "vue";
 
 export const useProductsStore = defineStore("products", {
   state: () => {
@@ -16,7 +17,8 @@ export const useProductsStore = defineStore("products", {
       showProductDeleteFailedAlert: false as boolean,
       showProductUpdateSuccessAlert: false as boolean,
       showProductUpdateFailedAlert: false as boolean,
-      imageURL: import.meta.env.VITE_APP_API_IMAGES as string
+      imageURL: import.meta.env.VITE_APP_API_IMAGES as string,
+      showImageEditForm: false as boolean
     };
   },
 
@@ -60,6 +62,7 @@ export const useProductsStore = defineStore("products", {
         setTimeout(() => {
           this.showProductUpdateSuccessAlert = false;
         }, 5000);
+        this.openCloseEditPhotosForm()
       } catch (error) {
         this.showProductUpdateFailedAlert = true;
         setTimeout(() => {
@@ -98,9 +101,18 @@ export const useProductsStore = defineStore("products", {
     },
 
     findMainImage(product: IProduct): string | undefined {
-      const mainImage: IImage = product.images.find(image => image.mainImage == true)!
-      const mainImageName: string = mainImage?.imageName
-      const imageDirectory: string = this.imageURL + mainImageName
+      let imageDirectory: string = ""
+
+      if (product.images != null) {
+        const mainImage: IImage = product.images.find(image => image.mainImage == true)!
+        const mainImageName: string = mainImage?.imageName
+        imageDirectory = this.imageURL + mainImageName
+      }
+
+      if (product.images == null || product.images.length == 0) {
+        imageDirectory = "/images/Placeholder_image.svg"
+      }
+      
       return imageDirectory
   },
 
@@ -128,6 +140,10 @@ export const useProductsStore = defineStore("products", {
       }
   
       return decimalNumber;
-  }
+  },
+
+  openCloseEditPhotosForm(): void {
+    this.showImageEditForm = !this.showImageEditForm
+}
   },
 });

@@ -19,7 +19,7 @@ export default class ProductService {
     async post(newProduct: IProductDTO): Promise<IProduct> {
 
         try {
-            const response = await axios.post(this.uri, newProduct)
+            const response = await axios.post(this.uri, newProduct, {withCredentials: true})
             const status = response.status
             console.log(status);
             return response.data            
@@ -46,7 +46,7 @@ export default class ProductService {
         const uri = `${this.uri}/${id}`
 
         try {
-            const response = await axios.put(uri, product)
+            const response = await axios.put(uri, product, {withCredentials: true})
             const status = response.status
             console.log(status);
             return response.data

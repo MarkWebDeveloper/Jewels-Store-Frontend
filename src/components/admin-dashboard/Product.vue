@@ -4,22 +4,24 @@ import { useProductsStore } from '@/stores/productsStore';
 import EditProductForm from '@/components/admin-dashboard/EditProductForm.vue';
 import { ref } from 'vue';
 import type { IImage } from '@/core/images/IImage';
+import EditProductPhotosForm from './EditProductPhotosForm.vue';
 const productsStore = useProductsStore()
 
 const props = defineProps<{
     product: IProduct
 }>()
 
-const editFormIsOpened = ref<boolean>(false)
+const showProductEditForm = ref<boolean>(false)
 
 const openCloseEditForm = (): void => {
-    editFormIsOpened.value = !editFormIsOpened.value
+    showProductEditForm.value = !showProductEditForm.value
 }
 
 </script>
 
 <template>
-    <EditProductForm v-if="editFormIsOpened" @openCloseEditEvent="openCloseEditForm" :product="product"/>
+    <EditProductForm v-if="showProductEditForm" @openCloseEditEvent="openCloseEditForm" :product="product"/>
+    <EditProductPhotosForm v-if="productsStore.showImageEditForm"  :product="product"/>
     <div class="product-container">
         <img class="product-image" :src="productsStore.findMainImage(props.product)" alt="">
         <p class="product-name">{{ props.product.productName }}</p>

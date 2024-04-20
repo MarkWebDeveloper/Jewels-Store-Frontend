@@ -3,7 +3,7 @@ import type { IProduct } from '@/core/products/IProduct';
 import type { IProductDTO } from '@/core/products/IProductDTO';
 import { useCategoriesStore } from '@/stores/categoriesStore';
 import { useProductsStore } from '@/stores/productsStore';
-import { onMounted, onUpdated, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
 const props = defineProps<{
     product: IProduct
@@ -71,7 +71,7 @@ function submitForm() {
                 <v-text-field class="product-name-input" v-model="productName" hide-details="auto" label="Product Name" clearable density="comfortable" required></v-text-field>
                 <v-select class="categories-dropdown" v-model="categoryId" label="Category" :items="categoriesStore.categories" :item-props="itemProps" variant="outlined" density="comfortable" v-if="categoriesStore.isLoaded" item-value="id"></v-select>
                 <v-text-field class="description-input" v-model="productDescription" hide-details="auto" label="Description" clearable density="comfortable" required></v-text-field>
-                <v-text-field class="price-input" v-model="price" hide-details="auto" label="Price" prefix="€" clearable density="comfortable" required></v-text-field>
+                <v-text-field class="price-input" v-model="price" hide-details="auto" label="Price (in cents)" prefix="€" clearable density="comfortable" required></v-text-field>
                 <v-btn class="send-button rounded-lg" type="submit">SEND</v-btn>
         </form>
     </div>
@@ -84,10 +84,10 @@ function submitForm() {
     left: 0;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     width: 100%;
     height: 100%;
-    background-color: rgba($color: #000000, $alpha: 0.2);
+    // background-color: rgba($color: #000000, $alpha: 0.2);
     z-index: 99;
 }
 
@@ -95,6 +95,7 @@ function submitForm() {
     width: 40rem;
     background-color: white;
     border-radius: 1rem;
+    margin-top: 5%;
 }
 
 .close-button {
