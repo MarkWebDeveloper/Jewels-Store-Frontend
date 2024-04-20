@@ -68,7 +68,7 @@ function submitForm() {
     left: 0;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     width: 100%;
     height: 100%;
     background-color: rgba($color: #000000, $alpha: 0.2);
@@ -79,6 +79,7 @@ function submitForm() {
     width: 40rem;
     background-color: white;
     border-radius: 1rem;
+    margin-top: 5%;
 }
 
 .close-button {

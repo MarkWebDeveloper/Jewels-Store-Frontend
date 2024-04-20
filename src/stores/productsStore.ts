@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import ProductService from "@/core/products/ProductService";
 import type { IProduct } from "@/core/products/IProduct";
 import type { IProductDTO } from "@/core/products/IProductDTO";
+import type { IImage } from "@/core/images/IImage";
 
 export const useProductsStore = defineStore("products", {
   state: () => {
@@ -15,6 +16,7 @@ export const useProductsStore = defineStore("products", {
       showProductDeleteFailedAlert: false as boolean,
       showProductUpdateSuccessAlert: false as boolean,
       showProductUpdateFailedAlert: false as boolean,
+      imageURL: import.meta.env.VITE_APP_API_IMAGES as string
     };
   },
 
@@ -93,6 +95,39 @@ export const useProductsStore = defineStore("products", {
 
     replaceProductInArray(id: number, product: IProduct): void {
       this.products.splice(id, 1, product);
-    }
+    },
+
+    findMainImage(product: IProduct): string | undefined {
+      const mainImage: IImage = product.images.find(image => image.mainImage == true)!
+      const mainImageName: string = mainImage?.imageName
+      const imageDirectory: string = this.imageURL + mainImageName
+      return imageDirectory
+  },
+
+    convertToDecimal(number: number): string {
+      if (typeof number !== 'number' || number % 1 !== 0) {
+          return 'Invalid input. Please provide an integer.';
+      }
+  
+      let numberStr = number.toString();
+  
+      if (numberStr.length < 2) {
+          return 'The number must have at least two digits.';
+      }
+  
+      let lastTwoDigits = numberStr.slice(-2);
+  
+      let decimalNumber = ""
+  
+      if (lastTwoDigits == "00") {
+          decimalNumber = numberStr.slice(0, -2)
+      }
+  
+      if (lastTwoDigits != "00") {
+          decimalNumber = numberStr.slice(0, -2) + ',' + lastTwoDigits;
+      }
+  
+      return decimalNumber;
+  }
   },
 });
