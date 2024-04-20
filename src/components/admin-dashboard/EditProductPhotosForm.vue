@@ -25,7 +25,12 @@ function submitForm() {
             <v-btn class="close-button" density="comfortable" icon="mdi-close" variant="flat"
                 @click="productsStore.openCloseEditPhotosForm()"></v-btn>
                 <h2 class="form-title">Edit Product Photos</h2>
-                <h3 class="main-photo-title">Main Photo</h3>
+                <h3 class="titles">Main Image</h3>
+                <label for="main-image-upload" class="main-image-input-label">
+                    <img class="main-image" src="/images/placeholder-image.svg" alt="placeholder-image">
+                    <input class="main-image-input" type="file" name="file" id="main-image-upload">
+                </label>
+                <h3 class="titles">Additional Images</h3>
                 <v-btn class="send-button rounded-lg" type="submit">SEND</v-btn>
         </form>
         </div>
@@ -63,6 +68,37 @@ function submitForm() {
     text-align: center;
     font-size: 1.5rem;
     font-family: "Aleo", serif;
+    margin-bottom: 1rem;
+}
+
+.titles {
+    display: block;
+    text-align: center;
+    font-size: 1rem;
+    font-family: "Aleo", serif;
+    margin-bottom: 1rem;
+}
+
+#main-image-input-label {
+    display: block;
+    margin: auto;
+}
+
+.main-image-input {
+    display: none;
+}
+
+.main-image {
+    display: block;
+    width:15%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1rem;
+}
+
+.send-button {
+    display: block;
+    margin: 0 auto 4rem auto;
     margin-bottom: 1rem;
 }
 </style>

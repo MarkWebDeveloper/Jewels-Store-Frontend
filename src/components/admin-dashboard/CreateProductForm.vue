@@ -39,6 +39,8 @@ function submitForm() {
         categoryId.value = 0
         productDescription.value = ""
         price.value = 0
+        productsStore.openCloseCreateProductForm()
+        productsStore.openCloseAddPhotosForm()
     } catch (error) {
         return
     }
@@ -50,7 +52,7 @@ function submitForm() {
     <div class="form-background">
         <form @submit.prevent="submitForm" class="form">
             <v-btn class="close-button" density="comfortable" icon="mdi-close" variant="flat"
-                @click="$emit('openCloseEvent')"></v-btn>
+                @click="productsStore.openCloseCreateProductForm()"></v-btn>
                 <h2 class="form-title">Create New Product</h2>
                 <v-text-field class="product-name-input" v-model="productName" hide-details="auto" label="Product Name" clearable density="comfortable" required></v-text-field>
                 <v-select class="categories-dropdown" v-model="categoryId" label="Category" :items="categoriesStore.categories" :item-props="itemProps" variant="outlined" density="comfortable" v-if="categoriesStore.isLoaded" item-value="id"></v-select>

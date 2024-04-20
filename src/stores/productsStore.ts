@@ -9,7 +9,7 @@ export const useProductsStore = defineStore("products", {
   state: () => {
     return {
       products: [] as IProduct[],
-      newProduct: {} as IProduct,
+      newProductId: 0 as number,
       isLoaded: false as boolean,
       showProductSaveSuccessAlert: false as boolean,
       showProductSaveFailedAlert: false as boolean,
@@ -17,8 +17,10 @@ export const useProductsStore = defineStore("products", {
       showProductDeleteFailedAlert: false as boolean,
       showProductUpdateSuccessAlert: false as boolean,
       showProductUpdateFailedAlert: false as boolean,
-      imageURL: import.meta.env.VITE_APP_API_IMAGES as string,
-      showImageEditForm: false as boolean
+      imageURL: import.meta.env.VITE_APP_API_IMGS as string,
+      showImageEditForm: false as boolean,
+      showImageUploadForm: false as boolean,
+      showCreateProductForm: false as boolean,
     };
   },
 
@@ -38,6 +40,7 @@ export const useProductsStore = defineStore("products", {
       const service = new ProductService();
       try {
         const response = await service.post(product);
+        this.newProductId = response.id
         this.addProductToArray(response)
         this.showProductSaveSuccessAlert = true;
         setTimeout(() => {
@@ -55,8 +58,6 @@ export const useProductsStore = defineStore("products", {
       const service = new ProductService();
       try {
         const response = await service.put(product, id);
-        // this.deleteProductFromArray(this.products.findIndex((element) => element.id == response.id))
-        // this.addProductToArray(response)
         this.replaceProductInArray(this.products.findIndex((element) => element.id == response.id), response)
         this.showProductUpdateSuccessAlert = true;
         setTimeout(() => {
@@ -110,7 +111,7 @@ export const useProductsStore = defineStore("products", {
       }
 
       if (product.images == null || product.images.length == 0) {
-        imageDirectory = "/images/Placeholder_image.svg"
+        imageDirectory = "/images/placeholder-image.svg"
       }
       
       return imageDirectory
@@ -142,8 +143,16 @@ export const useProductsStore = defineStore("products", {
       return decimalNumber;
   },
 
+  openCloseCreateProductForm(): void {
+    this.showCreateProductForm = !this.showCreateProductForm
+},
+
   openCloseEditPhotosForm(): void {
     this.showImageEditForm = !this.showImageEditForm
-}
+},
+
+  openCloseAddPhotosForm(): void {
+  this.showImageUploadForm = !this.showImageUploadForm
+  }
   },
 });

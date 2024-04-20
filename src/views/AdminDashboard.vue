@@ -2,17 +2,11 @@
 import HeaderNav from '@/components/header/HeaderNav.vue';
 import Product from '@/components/admin-dashboard/Product.vue';
 import { useProductsStore } from '@/stores/productsStore';
-import { ref } from 'vue';
 import CreateProductForm from '@/components/admin-dashboard/CreateProductForm.vue';
 import Alerts from '@/components/admin-dashboard/Alerts.vue';
+import AddProductPhotosForm from '@/components/admin-dashboard/AddProductPhotosForm.vue';
 
 const productsStore = useProductsStore()
-
-const createFormIsOpened = ref<Boolean>(false)
-
-const openCloseCreateForm = () => {
-  createFormIsOpened.value = !createFormIsOpened.value
-}
 
 </script>
 
@@ -21,9 +15,10 @@ const openCloseCreateForm = () => {
   <main>
     <Alerts />
     <h1 class="products-title">Products</h1>
-    <v-btn class="new-product-button rounded-lg" @click.prevent="openCloseCreateForm()"><v-icon icon="mdi-plus"
+    <v-btn class="new-product-button rounded-lg" @click.prevent="productsStore.openCloseCreateProductForm"><v-icon icon="mdi-plus"
         start></v-icon>New Product</v-btn>
-    <CreateProductForm v-if="createFormIsOpened" @openCloseEvent="openCloseCreateForm" />
+    <CreateProductForm v-if="productsStore.showCreateProductForm" />
+    <AddProductPhotosForm v-if="productsStore.showImageUploadForm" />
     <div class="products-container">
       <Product v-for="product in productsStore.products" :key="product.id" v-if="productsStore.isLoaded" :product="product" />
     </div>
