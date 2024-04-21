@@ -1,28 +1,36 @@
 <script setup lang="ts">
 import ImageService from '@/core/images/ImageService';
 import type { IProduct } from '@/core/products/IProduct';
+import ProductService from '@/core/products/ProductService';
 import { useProductsStore } from '@/stores/productsStore';
 import { onMounted, ref } from 'vue';
 
 const productsStore = useProductsStore()
 
-const service = new ImageService()
+const imageService = new ImageService()
+const productService = new ProductService()
 
 let file = ref<File | null>()
 const files = ref<File[]>([]);
 
 const handleFileUpload = (event: Event) => {
     const target = event.target as HTMLInputElement;
-    if (!target.files) return;
-    file.value = target.files[0];
-    console.log(file.value)
-    };
+    if (target && target.files) {
+        file.value = target.files[0];
+        console.log(file.value)
+    } else {
+        alert('File input event is undefined');
+    }
+};
 
 const handleFilesUpload = (event: Event) => {
     const target = event.target as HTMLInputElement;
-    if (!target.files) return
-    files.value = Array.from(target.files);
-    console.log(files)
+    if (target && target.files) {
+        files.value = Array.from(target.files);
+        console.log(files)
+    } else {
+        alert('File input event is undefined');
+    }
 };
 
 const product = ref<IProduct | undefined>({
@@ -40,19 +48,25 @@ categories: []
 //     console.log(product.value)
 // })
 
-function handleSubmit() {
+async function handleSubmit() {
 
     product.value = productsStore.products.find((product) => product.id == productsStore.newProductId)
     console.log(product.value)
+
 
     const formData = new FormData()
     formData.append('file', file.value!)
     files.value.forEach((image) => {
         formData.append(`files`, image);
-      });
+    });
     console.log(formData.getAll)
-
-    service.post(product.value!.id, formData)
+    
+    try {
+        await imageService.post(product.value!.id, formData)
+    } catch (error) {
+        throw new Error ("Unexpected error happened during images upload" + error)
+    }
+    
 }
 </script>
 
@@ -68,7 +82,7 @@ function handleSubmit() {
                     </label>
                     <h3 class="titles">Additional Images</h3>
                     <input @change="handleFilesUpload" type="file" name="files" id="main-image-upload" multiple>
-                <v-btn class="send-button rounded-lg" type="button" @click="handleSubmit">SEND</v-btn>
+                <v-btn class="send-button rounded-lg" type="button" @click.prevent="handleSubmit">SEND</v-btn>
             </form>
         </div>
 </template>
