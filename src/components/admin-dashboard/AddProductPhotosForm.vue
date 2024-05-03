@@ -10,37 +10,23 @@ const productsStore = useProductsStore()
 const imageService = new ImageService()
 const productService = new ProductService()
 
-const selectedFile = ref<File | null>(null);
 const mainImageUrl = ref<string>("/images/placeholder-image.svg")
 let file = ref<File | null>()
 const files = ref<File[]>([]);
 
-// const handleFileChange = (event: Event) => {
-//       const file = (event.target as HTMLInputElement).files?.[0];
-//       if (!file) {
-//         selectedFile.value = null;
-//         return;
-//       }
-//       selectedFile.value = file;
-//       previewFile(file);
-//     };
-
-const previewFile = (file: File) => {
+const previewMainImage = (file: File) => {
     const reader = new FileReader();
+    reader.readAsDataURL(file);
     reader.onload = (e: ProgressEvent<FileReader>) => {
-    // Assuming you have a reactive property to hold the image URL
-    // If not, you can directly use e.target.result in the template
-    // This step is optional if you directly use e.target.result in the template
     mainImageUrl.value = e.target?.result as string;
     };
-    reader.readAsDataURL(file);
 };
 
 const handleFileUpload = (event: Event) => {
     const target = event.target as HTMLInputElement;
     if (target && target.files) {
         file.value = target.files[0];
-        previewFile(file.value)
+        previewMainImage(file.value)
         console.log(file.value)
     } else {
         alert('File input event is undefined');
@@ -56,6 +42,11 @@ const handleFilesUpload = (event: Event) => {
         alert('File input event is undefined');
     }
 };
+
+const removeMainImage = () => {
+    mainImageUrl.value = "/images/placeholder-image.svg"
+    file.value = null
+}
 
 const product = ref<IProduct | undefined>({
 id: 0,
@@ -103,6 +94,7 @@ async function handleSubmit() {
                         <img class="main-image" :src="mainImageUrl" alt="placeholder-image">
                         <input @change="handleFileUpload" class="main-image-input" type="file" name="file" id="main-image-upload">
                     </label>
+                    <button v-if="mainImageUrl != '/images/placeholder-image.svg'" class="main-image-remove-button" @click="removeMainImage">Remove</button>
                     <h3 class="titles">Additional Images</h3>
                     <input @change="handleFilesUpload" type="file" name="files" id="main-image-upload" multiple>
                 <v-btn class="send-button rounded-lg" type="button" @click.prevent="handleSubmit">SEND</v-btn>
@@ -167,6 +159,18 @@ async function handleSubmit() {
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 1rem;
+}
+
+.main-image-remove-button {
+    display: block;
+    width:10%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1rem;
+    font-size: .8rem;
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    border: 1px solid black;
 }
 
 .send-button {
