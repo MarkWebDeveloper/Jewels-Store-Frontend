@@ -107,7 +107,7 @@ export const useProductsStore = defineStore("products", {
       if (product.images != null) {
         const mainImage: IImage = product.images.find(image => image.mainImage == true)!
         const mainImageName: string = mainImage?.imageName
-        imageDirectory = this.imageURL + mainImageName
+        imageDirectory = this.imageURL + `/${mainImageName}`
       }
 
       if (product.images == null || product.images.length == 0) {

@@ -6,19 +6,16 @@ const props = defineProps<{
 }>()
 
 const imageURL: string = import.meta.env.VITE_APP_API_IMGS
+console.log(imageURL)
 
-const imageDirectory: string = imageURL + props.category.categoryImage.imageName
+const imageDirectory: string = imageURL + `/${props.category.categoryImage.imageName}`
+console.log(imageDirectory)
 </script>
 
 <template>
     <div class="category-container">
         <div class="category-frame">
-            <v-img class="category-image" aspect-ratio="1/1" :src="imageDirectory"><template
-                    v-slot:placeholder>
-                    <div class="d-flex align-center justify-center fill-height">
-                        <v-progress-circular color="yellow-accent-3" indeterminate></v-progress-circular>
-                    </div>
-                </template></v-img>
+            <img class="category-image" aspect-ratio="1/1" :src="imageDirectory">
         </div>
         <p class="category-name">{{ props.category.categoryName }}</p>
     </div>
