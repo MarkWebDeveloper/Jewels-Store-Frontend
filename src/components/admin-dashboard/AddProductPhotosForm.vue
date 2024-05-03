@@ -90,7 +90,7 @@ async function handleSubmit() {
                 <v-btn class="close-button" density="comfortable" icon="mdi-close" variant="flat" @click="productsStore.openCloseAddPhotosForm()"></v-btn>
                     <h2 class="form-title">Add Product Photos</h2>
                     <h3 class="titles">Main Image</h3>
-                    <label for="main-image-upload" class="main-image-input-label">
+                    <label for="main-image-upload" class="main-image-input-label" :title="file?.name">
                         <img class="main-image" :src="mainImageUrl" alt="placeholder-image">
                         <input @change="handleFileUpload" class="main-image-input" type="file" name="file" id="main-image-upload">
                     </label>
@@ -134,12 +134,13 @@ async function handleSubmit() {
     font-size: 1.5rem;
     font-family: "Aleo", serif;
     margin-bottom: 1rem;
+    font-weight: bold;
 }
 
 .titles {
     display: block;
     text-align: center;
-    font-size: 1rem;
+    font-size: 1.3rem;
     font-family: "Aleo", serif;
     margin-bottom: 1rem;
 }
