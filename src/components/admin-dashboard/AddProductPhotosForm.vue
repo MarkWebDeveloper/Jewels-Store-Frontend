@@ -14,7 +14,7 @@ const mainImageUrl = ref<string>("/images/placeholder-image.svg")
 let file = ref<File | null>()
 const files = ref<File[]>([]);
 
-const previewMainImage = (file: File) => {
+const previewMainImage = (file: File): void => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = (e: ProgressEvent<FileReader>) => {
@@ -22,7 +22,7 @@ const previewMainImage = (file: File) => {
     };
 };
 
-const handleFileUpload = (event: Event) => {
+const handleFileUpload = (event: Event): void => {
     const target = event.target as HTMLInputElement;
     if (target && target.files) {
         file.value = target.files[0];
@@ -43,7 +43,7 @@ const handleFilesUpload = (event: Event) => {
     }
 };
 
-const removeMainImage = () => {
+const removeMainImage = (): void => {
     mainImageUrl.value = "/images/placeholder-image.svg"
     file.value = null
 }
@@ -57,7 +57,7 @@ price: 0,
 categories: []
 })
 
-async function handleSubmit() {
+async function handleSubmit(): Promise<void> {
 
     product.value = productsStore.products.find((product) => product.id == productsStore.newProductId)
     console.log(product.value)
@@ -96,7 +96,12 @@ async function handleSubmit() {
                     </label>
                     <v-btn v-if="mainImageUrl != '/images/placeholder-image.svg'" class="main-image-remove-button" type="button" @click="removeMainImage" size="x-small">REMOVE</v-btn>
                     <h3 class="titles">Additional Images</h3>
-                    <input @change="handleFilesUpload" type="file" name="files" id="main-image-upload" multiple>
+                    <label for="other-images-upload" class="other-images-label">
+                        <div class="add-image-div">
+                            <img src="/images/logos/plus.svg" alt="plus" class="plus-image">
+                        </div>
+                        <input @change="handleFilesUpload" type="file" name="files" class="other-images-input" id="other-images-upload" multiple>
+                    </label>
                 <v-btn class="send-button rounded-lg" type="button" @click.prevent="handleSubmit">SEND</v-btn>
             </form>
         </div>
@@ -171,6 +176,25 @@ async function handleSubmit() {
     border-radius: 0.5rem;
     background-color: #5d5d5d;
     color: white;
+}
+
+.other-images-input {
+    display: none;
+}
+
+.add-image-div {
+    width: 5rem;
+    margin: 0 0 0 3%;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: center;
+    background-color: #ffffff;
+    border-radius: 1rem;
+    border: 1px solid black;
+}
+
+.plus-image {
+    width: 2rem;
 }
 
 .send-button {
