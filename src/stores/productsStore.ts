@@ -123,23 +123,27 @@ export const useProductsStore = defineStore("products", {
       }
   
       let numberStr = number.toString();
-  
-      if (numberStr.length < 2) {
-          return 'The number must have at least two digits.';
-      }
-  
+      
       let lastTwoDigits = numberStr.slice(-2);
-  
+      
       let decimalNumber = ""
+      
+      if (numberStr.length == 1) {
+        decimalNumber = `0,0${numberStr}`
+      }
+
+      if (numberStr.length == 2) {
+        decimalNumber = `0,${numberStr}`
+      }
   
       if (lastTwoDigits == "00") {
-          decimalNumber = numberStr.slice(0, -2)
+        decimalNumber = numberStr.slice(0, -2)
       }
   
-      if (lastTwoDigits != "00") {
-          decimalNumber = numberStr.slice(0, -2) + ',' + lastTwoDigits;
+      if (lastTwoDigits != "00" && numberStr.length != 1 && numberStr.length != 2) {
+        decimalNumber = numberStr.slice(0, -2) + ',' + lastTwoDigits;
       }
-  
+
       return decimalNumber;
   },
 
