@@ -10,13 +10,37 @@ const productsStore = useProductsStore()
 const imageService = new ImageService()
 const productService = new ProductService()
 
+const selectedFile = ref<File | null>(null);
+const mainImageUrl = ref<string>("/images/placeholder-image.svg")
 let file = ref<File | null>()
 const files = ref<File[]>([]);
+
+// const handleFileChange = (event: Event) => {
+//       const file = (event.target as HTMLInputElement).files?.[0];
+//       if (!file) {
+//         selectedFile.value = null;
+//         return;
+//       }
+//       selectedFile.value = file;
+//       previewFile(file);
+//     };
+
+const previewFile = (file: File) => {
+    const reader = new FileReader();
+    reader.onload = (e: ProgressEvent<FileReader>) => {
+    // Assuming you have a reactive property to hold the image URL
+    // If not, you can directly use e.target.result in the template
+    // This step is optional if you directly use e.target.result in the template
+    mainImageUrl.value = e.target?.result as string;
+    };
+    reader.readAsDataURL(file);
+};
 
 const handleFileUpload = (event: Event) => {
     const target = event.target as HTMLInputElement;
     if (target && target.files) {
         file.value = target.files[0];
+        previewFile(file.value)
         console.log(file.value)
     } else {
         alert('File input event is undefined');
@@ -76,7 +100,7 @@ async function handleSubmit() {
                     <h2 class="form-title">Add Product Photos</h2>
                     <h3 class="titles">Main Image</h3>
                     <label for="main-image-upload" class="main-image-input-label">
-                        <img class="main-image" src="/images/placeholder-image.svg" alt="placeholder-image">
+                        <img class="main-image" :src="mainImageUrl" alt="placeholder-image">
                         <input @change="handleFileUpload" class="main-image-input" type="file" name="file" id="main-image-upload">
                     </label>
                     <h3 class="titles">Additional Images</h3>
