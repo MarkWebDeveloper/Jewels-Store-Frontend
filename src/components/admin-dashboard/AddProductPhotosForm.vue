@@ -94,7 +94,7 @@ async function handleSubmit() {
                         <img class="main-image" :src="mainImageUrl" alt="placeholder-image">
                         <input @change="handleFileUpload" class="main-image-input" type="file" name="file" id="main-image-upload">
                     </label>
-                    <button v-if="mainImageUrl != '/images/placeholder-image.svg'" class="main-image-remove-button" @click="removeMainImage">Remove</button>
+                    <v-btn v-if="mainImageUrl != '/images/placeholder-image.svg'" class="main-image-remove-button" type="button" @click="removeMainImage" size="x-small">REMOVE</v-btn>
                     <h3 class="titles">Additional Images</h3>
                     <input @change="handleFilesUpload" type="file" name="files" id="main-image-upload" multiple>
                 <v-btn class="send-button rounded-lg" type="button" @click.prevent="handleSubmit">SEND</v-btn>
@@ -164,19 +164,20 @@ async function handleSubmit() {
 
 .main-image-remove-button {
     display: block;
-    width:10%;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 1rem;
     font-size: .8rem;
-    background-color: #ffffff;
     border-radius: 0.5rem;
-    border: 1px solid black;
+    background-color: #5d5d5d;
+    color: white;
 }
 
 .send-button {
     display: block;
     margin: 0 auto 4rem auto;
     margin-bottom: 1rem;
+    background-color: #5d5d5d;
+    color: white;
 }
 </style>
