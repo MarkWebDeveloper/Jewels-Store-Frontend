@@ -8,6 +8,7 @@ import AddProductPhotosForm from '@/components/admin-dashboard/AddProductPhotosF
 
 const productsStore = useProductsStore()
 
+productsStore.getAllProducts()
 </script>
 
 <template>

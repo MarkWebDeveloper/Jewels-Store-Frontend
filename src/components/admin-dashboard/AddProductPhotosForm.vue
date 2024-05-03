@@ -42,12 +42,6 @@ price: 0,
 categories: []
 })
 
-// onMounted(async () => {
-//     productsStore.getAllProducts()
-//     product.value = productsStore.products.find((product) => product.id == productsStore.newProductId)
-//     console.log(product.value)
-// })
-
 async function handleSubmit() {
 
     product.value = productsStore.products.find((product) => product.id == productsStore.newProductId)
@@ -63,6 +57,11 @@ async function handleSubmit() {
     
     try {
         await imageService.post(product.value!.id, formData)
+        productsStore.deleteProductFromArray(productsStore.products.findIndex((element) => element.id == product.value!.id))
+        const productWithImages = await productService.getOneById(product.value!.id)
+        setTimeout(() => {
+            productsStore.addProductToArray(productWithImages)
+        }, 1000);
     } catch (error) {
         throw new Error ("Unexpected error happened during images upload" + error)
     }

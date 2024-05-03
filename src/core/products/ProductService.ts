@@ -16,6 +16,16 @@ export default class ProductService {
         }
     }
 
+    async getOneById(id: number): Promise<IProduct> {
+        try {
+            const response = await axios.get(`${this.uri}/${id}`)
+            const data: IProduct = await response.data
+            return data
+        } catch (error) {
+            throw new Error('Error with API calling: ' + error)
+        }
+    }
+
     async post(newProduct: IProductDTO): Promise<IProduct> {
 
         try {
