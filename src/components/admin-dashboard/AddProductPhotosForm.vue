@@ -4,8 +4,11 @@ import type { IProduct } from '@/core/products/IProduct';
 import ProductService from '@/core/products/ProductService';
 import { useProductsStore } from '@/stores/productsStore';
 import { onMounted, ref } from 'vue';
+import ImageMiniature from './ImageMiniature.vue';
+import { useImagesStore } from '@/stores/imagesStore';
 
 const productsStore = useProductsStore()
+const imagesStore = useImagesStore()
 
 const imageService = new ImageService()
 const productService = new ProductService()
@@ -37,6 +40,7 @@ const handleFilesUpload = (event: Event) => {
     const target = event.target as HTMLInputElement;
     if (target && target.files) {
         files.value = Array.from(target.files);
+        imagesStore.images = Array.from(target.files);
         console.log(files)
     } else {
         alert('File input event is undefined');
@@ -96,12 +100,15 @@ async function handleSubmit(): Promise<void> {
                     </label>
                     <v-btn v-if="mainImageUrl != '/images/placeholder-image.svg'" class="main-image-remove-button" type="button" @click="removeMainImage" size="x-small">REMOVE</v-btn>
                     <h3 class="titles">Additional Images</h3>
-                    <label for="other-images-upload" class="other-images-label">
-                        <div class="add-image-div">
-                            <img src="/images/logos/plus.svg" alt="plus" class="plus-image">
-                        </div>
-                        <input @change="handleFilesUpload" type="file" name="files" class="other-images-input" id="other-images-upload" multiple>
-                    </label>
+                    <div class="other-images-container">
+                        <ImageMiniature v-for="image in files" v-if="files.length > 0" :file="image" :arr="files"/>
+                        <label for="other-images-upload" class="other-images-label">
+                            <div class="add-image-div">
+                                <img src="/images/logos/plus.svg" alt="plus" class="plus-image">
+                            </div>
+                            <input @change="handleFilesUpload" type="file" name="files" class="other-images-input" id="other-images-upload" multiple>
+                        </label>
+                    </div>
                 <v-btn class="send-button rounded-lg" type="button" @click.prevent="handleSubmit">SEND</v-btn>
             </form>
         </div>
@@ -148,6 +155,12 @@ async function handleSubmit(): Promise<void> {
     font-size: 1.3rem;
     font-family: "Aleo", serif;
     margin-bottom: 1rem;
+}
+
+.other-images-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 #main-image-input-label {
