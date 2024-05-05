@@ -6,11 +6,12 @@ export const useImagesStore = defineStore("images", {
       image: null as File | null,
       images: [] as File[],
       mainImageUrl: "/images/placeholder-image.svg" as string,
+      showImageUploadSuccessAlert: false as boolean,
+      showImageUploadFailedAlert: false as boolean,
     };
   },
 
   actions: {
-
     handleFileUpload(event: Event): void {
       const target = event.target as HTMLInputElement;
       if (target && target.files) {
@@ -30,9 +31,22 @@ export const useImagesStore = defineStore("images", {
       };
     },
 
+    handleFilesUpload(event: Event) {
+      const target = event.target as HTMLInputElement;
+      if (target && target.files) {
+        const filesArray = Array.from(target.files);
+
+        for (let index = 0; index < Array.from(target.files).length; index++) {
+          this.images.push(filesArray[index]);
+        }
+      } else {
+        alert("File input event is undefined");
+      }
+    },
+
     removeMainImage(): void {
-      this.mainImageUrl = "/images/placeholder-image.svg"
-      this.image = null
-  }
+      this.mainImageUrl = "/images/placeholder-image.svg";
+      this.image = null;
+    },
   },
 });

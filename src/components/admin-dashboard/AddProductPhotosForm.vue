@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import ImageService from '@/core/images/ImageService';
-import type { IProduct } from '@/core/products/IProduct';
 import ProductService from '@/core/products/ProductService';
 import { useProductsStore } from '@/stores/productsStore';
-import { ref } from 'vue';
 import ImageMiniature from './ImageMiniature.vue';
 import { useImagesStore } from '@/stores/imagesStore';
 
@@ -12,20 +10,6 @@ const imagesStore = useImagesStore()
 
 const imageService = new ImageService()
 const productService = new ProductService()
-
-const handleFilesUpload = (event: Event) => {
-    const target = event.target as HTMLInputElement;
-    if (target && target.files) {
-        const filesArray = Array.from(target.files)
-
-        for (let index = 0; index < Array.from(target.files).length; index++) {
-            imagesStore.images.push(filesArray[index]);
-        }
-
-    } else {
-        alert('File input event is undefined');
-    }
-};
 
 async function handleSubmit(): Promise<void> {
 
@@ -44,7 +28,18 @@ async function handleSubmit(): Promise<void> {
             productsStore.addProductToArray(productWithImages)
         }, 1000);
         productsStore.showImageUploadForm = false
+        imagesStore.image = null
+        imagesStore.images = []
+        imagesStore.mainImageUrl = "/images/placeholder-image.svg"
+        imagesStore.showImageUploadSuccessAlert = true
+        setTimeout(() => {
+            imagesStore.showImageUploadSuccessAlert = false
+        }, 5000);
     } catch (error) {
+        imagesStore.showImageUploadFailedAlert = true
+        setTimeout(() => {
+            imagesStore.showImageUploadFailedAlert = false
+        }, 5000);
         throw new Error ("Unexpected error happened during images upload" + error)
     }
     
@@ -52,29 +47,36 @@ async function handleSubmit(): Promise<void> {
 </script>
 
 <template>
-        <div class="form-background">
-            <form class="form">
-                <v-btn class="close-button" density="comfortable" icon="mdi-close" variant="flat" @click="productsStore.openCloseAddPhotosForm()"></v-btn>
-                    <h2 class="form-title">Add Product Photos</h2>
-                    <h3 class="titles">Main Image</h3>
-                    <label for="main-image-upload" class="main-image-input-label" :title="imagesStore.image?.name">
-                        <img class="main-image" :class="{ smallmargin: imagesStore.mainImageUrl != '/images/placeholder-image.svg' }" :src="imagesStore.mainImageUrl" alt="placeholder-image">
-                        <input @change="imagesStore.handleFileUpload" class="main-image-input" type="file" name="file" id="main-image-upload">
-                    </label>
-                    <v-btn v-if="imagesStore.mainImageUrl != '/images/placeholder-image.svg'" class="main-image-remove-button" type="button" @click="imagesStore.removeMainImage" size="x-small">REMOVE</v-btn>
-                    <h3 class="titles">Additional Images</h3>
-                    <div class="other-images-container">
-                        <ImageMiniature v-for="image in imagesStore.images" v-if="imagesStore.images.length > 0" :file="image"/>
-                        <label for="other-images-upload" class="other-images-label">
-                            <div class="add-image-div">
-                                <img src="/images/logos/plus.svg" alt="plus" class="plus-image">
-                            </div>
-                            <input @change="handleFilesUpload" type="file" name="files" class="other-images-input" id="other-images-upload" multiple>
-                        </label>
+    <div class="form-background">
+        <form class="form">
+            <v-btn class="close-button" density="comfortable" icon="mdi-close" variant="flat"
+                @click="productsStore.openCloseAddPhotosForm()"></v-btn>
+            <h2 class="form-title">Add Product Photos</h2>
+            <h3 class="titles">Main Image</h3>
+            <label for="main-image-upload" class="main-image-input-label" :title="imagesStore.image?.name">
+                <img class="main-image"
+                    :class="{ smallmargin: imagesStore.mainImageUrl != '/images/placeholder-image.svg' }"
+                    :src="imagesStore.mainImageUrl" alt="placeholder-image">
+                <input @change="imagesStore.handleFileUpload" class="main-image-input" type="file" name="file"
+                    id="main-image-upload">
+            </label>
+            <v-btn v-if="imagesStore.mainImageUrl != '/images/placeholder-image.svg'" class="main-image-remove-button"
+                type="button" @click="imagesStore.removeMainImage" size="x-small">REMOVE</v-btn>
+            <h3 class="titles">Additional Images</h3>
+            <div class="other-images-container">
+                <ImageMiniature v-for="image in imagesStore.images" v-if="imagesStore.images.length > 0"
+                    :file="image" />
+                <label for="other-images-upload" class="other-images-label">
+                    <div class="add-image-div">
+                        <img src="/images/logos/plus.svg" alt="plus" class="plus-image">
                     </div>
-                <v-btn class="send-button rounded-lg" type="button" @click.prevent="handleSubmit">SEND</v-btn>
-            </form>
-        </div>
+                    <input @change="imagesStore.handleFilesUpload" type="file" name="files" class="other-images-input"
+                        id="other-images-upload" multiple>
+                </label>
+            </div>
+            <v-btn class="send-button rounded-lg" type="button" @click.prevent="handleSubmit">SEND</v-btn>
+        </form>
+    </div>
 </template>
 
 <style lang="scss" scoped>

@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import { useImagesStore } from '@/stores/imagesStore';
 import { useProductsStore } from '@/stores/productsStore';
 
 const productsStore = useProductsStore()
+const imagesStore = useImagesStore()
 
 </script>
 
@@ -12,6 +14,8 @@ const productsStore = useProductsStore()
     <v-alert class="alert" text="Unexpected error occurred during the product delete process" type="error" v-if="productsStore.showProductDeleteFailedAlert"></v-alert>
     <v-alert class="alert" text="Product is updated successfully" type="success" v-if="productsStore.showProductUpdateSuccessAlert"></v-alert>
     <v-alert class="alert" text="Unexpected error occurred during the product update process" type="error" v-if="productsStore.showProductUpdateFailedAlert"></v-alert>
+    <v-alert class="alert" text="Images for the product are uploaded successfully" type="success" v-if="imagesStore.showImageUploadSuccessAlert"></v-alert>
+    <v-alert class="alert" text="Unexpected error occurred during the images upload process" type="error" v-if="imagesStore.showImageUploadFailedAlert"></v-alert>
 </template>
 
 <style lang="scss" scoped>
