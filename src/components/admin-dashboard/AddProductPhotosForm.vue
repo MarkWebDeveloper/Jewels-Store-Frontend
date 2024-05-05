@@ -39,8 +39,15 @@ const handleFileUpload = (event: Event): void => {
 const handleFilesUpload = (event: Event) => {
     const target = event.target as HTMLInputElement;
     if (target && target.files) {
-        files.value = Array.from(target.files);
-        imagesStore.images = Array.from(target.files);
+        const filesArray = Array.from(target.files)
+
+        for (let index = 0; index < Array.from(target.files).length; index++) {
+            files.value.push(filesArray[index])
+
+                imagesStore.images.push(filesArray[index]);
+
+        }
+
         console.log(files)
     } else {
         alert('File input event is undefined');
@@ -160,7 +167,7 @@ async function handleSubmit(): Promise<void> {
 .other-images-container {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
 }
 
 #main-image-input-label {
@@ -197,7 +204,7 @@ async function handleSubmit(): Promise<void> {
 
 .add-image-div {
     width: 5rem;
-    margin: 0 0 0 3%;
+    margin: 0 0 0 1rem;
     padding: 1.5rem;
     display: flex;
     justify-content: center;
