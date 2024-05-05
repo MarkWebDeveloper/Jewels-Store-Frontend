@@ -1,21 +1,13 @@
 <script setup lang="ts">
-import { useImagesStore } from '@/stores/imagesStore';
-import { useProductsStore } from '@/stores/productsStore';
+import { useAlertsStore } from '@/stores/alertsStore';
 
-const productsStore = useProductsStore()
-const imagesStore = useImagesStore()
+const alertsStore = useAlertsStore()
 
 </script>
 
 <template>
-    <v-alert class="alert" text="New product is saved successfully" type="success" v-if="productsStore.showProductSaveSuccessAlert"></v-alert>
-    <v-alert class="alert" text="Unexpected error occurred during the save process of the new product" type="error" v-if="productsStore.showProductSaveFailedAlert"></v-alert>
-    <v-alert class="alert" text="Product is deleted successfully" type="success" v-if="productsStore.showProductDeleteSuccessAlert"></v-alert>
-    <v-alert class="alert" text="Unexpected error occurred during the product delete process" type="error" v-if="productsStore.showProductDeleteFailedAlert"></v-alert>
-    <v-alert class="alert" text="Product is updated successfully" type="success" v-if="productsStore.showProductUpdateSuccessAlert"></v-alert>
-    <v-alert class="alert" text="Unexpected error occurred during the product update process" type="error" v-if="productsStore.showProductUpdateFailedAlert"></v-alert>
-    <v-alert class="alert" text="Images for the product are uploaded successfully" type="success" v-if="imagesStore.showImageUploadSuccessAlert"></v-alert>
-    <v-alert class="alert" text="Unexpected error occurred during the images upload process" type="error" v-if="imagesStore.showImageUploadFailedAlert"></v-alert>
+    <v-alert class="alert" :text="alertsStore.alertText" type="success" v-if="alertsStore.showSuccessAlert"></v-alert>
+    <v-alert class="alert" :text="alertsStore.alertText" type="error" v-if="alertsStore.showErrorAlert"></v-alert>
 </template>
 
 <style lang="scss" scoped>

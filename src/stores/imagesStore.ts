@@ -6,8 +6,6 @@ export const useImagesStore = defineStore("images", {
       image: null as File | null,
       images: [] as File[],
       mainImageUrl: "/images/placeholder-image.svg" as string,
-      showImageUploadSuccessAlert: false as boolean,
-      showImageUploadFailedAlert: false as boolean,
     };
   },
 
@@ -48,5 +46,11 @@ export const useImagesStore = defineStore("images", {
       this.mainImageUrl = "/images/placeholder-image.svg";
       this.image = null;
     },
+
+    resetImagesForm(): void {
+      this.image = null
+      this.images = []
+      this.mainImageUrl = "/images/placeholder-image.svg"
+    }
   },
 });

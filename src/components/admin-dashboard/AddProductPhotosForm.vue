@@ -4,9 +4,11 @@ import ProductService from '@/core/products/ProductService';
 import { useProductsStore } from '@/stores/productsStore';
 import ImageMiniature from './ImageMiniature.vue';
 import { useImagesStore } from '@/stores/imagesStore';
+import { useAlertsStore } from '@/stores/alertsStore';
 
 const productsStore = useProductsStore()
 const imagesStore = useImagesStore()
+const alertsStore = useAlertsStore()
 
 const imageService = new ImageService()
 const productService = new ProductService()
@@ -28,18 +30,10 @@ async function handleSubmit(): Promise<void> {
             productsStore.addProductToArray(productWithImages)
         }, 1000);
         productsStore.showImageUploadForm = false
-        imagesStore.image = null
-        imagesStore.images = []
-        imagesStore.mainImageUrl = "/images/placeholder-image.svg"
-        imagesStore.showImageUploadSuccessAlert = true
-        setTimeout(() => {
-            imagesStore.showImageUploadSuccessAlert = false
-        }, 5000);
+        imagesStore.resetImagesForm()
+        alertsStore.createAlert("success", "Images are uploaded successfully")
     } catch (error) {
-        imagesStore.showImageUploadFailedAlert = true
-        setTimeout(() => {
-            imagesStore.showImageUploadFailedAlert = false
-        }, 5000);
+        alertsStore.createAlert("error", "Unexpected error occurred during the images upload")
         throw new Error ("Unexpected error happened during images upload" + error)
     }
     

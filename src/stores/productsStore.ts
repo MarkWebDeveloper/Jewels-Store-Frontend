@@ -3,6 +3,7 @@ import ProductService from "@/core/products/ProductService";
 import type { IProduct } from "@/core/products/IProduct";
 import type { IProductDTO } from "@/core/products/IProductDTO";
 import type { IImage } from "@/core/images/IImage";
+import { useAlertsStore } from "./alertsStore";
 
 export const useProductsStore = defineStore("products", {
   state: () => {
@@ -10,16 +11,11 @@ export const useProductsStore = defineStore("products", {
       products: [] as IProduct[],
       newProductId: 0 as number,
       isLoaded: false as boolean,
-      showProductSaveSuccessAlert: false as boolean,
-      showProductSaveFailedAlert: false as boolean,
-      showProductDeleteSuccessAlert: false as boolean,
-      showProductDeleteFailedAlert: false as boolean,
-      showProductUpdateSuccessAlert: false as boolean,
-      showProductUpdateFailedAlert: false as boolean,
       imageURL: import.meta.env.VITE_APP_API_IMGS as string,
       showImageEditForm: false as boolean,
       showImageUploadForm: false as boolean,
       showCreateProductForm: false as boolean,
+      alertsStore: useAlertsStore()
     };
   },
 
@@ -41,33 +37,21 @@ export const useProductsStore = defineStore("products", {
         const response = await service.post(product);
         this.newProductId = response.id
         this.addProductToArray(response)
-        this.showProductSaveSuccessAlert = true;
-        setTimeout(() => {
-          this.showProductSaveSuccessAlert = false;
-        }, 5000);
+        this.alertsStore.createAlert("success", "New product is saved successfully")
       } catch (error) {
-        this.showProductSaveFailedAlert = true;
-        setTimeout(() => {
-          this.showProductSaveFailedAlert = false;
-        }, 5000);
+        this.alertsStore.createAlert("error", "Unexpected error occurred during the save process of the new product")
       }
     },
-
+    
     async updateProduct(product: IProductDTO, id: number): Promise<void> {
       const service = new ProductService();
       try {
         const response = await service.put(product, id);
         this.replaceProductInArray(this.products.findIndex((element) => element.id == response.id), response)
-        this.showProductUpdateSuccessAlert = true;
-        setTimeout(() => {
-          this.showProductUpdateSuccessAlert = false;
-        }, 5000);
+        this.alertsStore.createAlert("success", "The product is updated successfully")
         this.openCloseEditPhotosForm()
       } catch (error) {
-        this.showProductUpdateFailedAlert = true;
-        setTimeout(() => {
-          this.showProductUpdateFailedAlert = false;
-        }, 5000);
+        this.alertsStore.createAlert("error", "Unexpected error occurred during the product update")
       }
     },
 
@@ -76,15 +60,9 @@ export const useProductsStore = defineStore("products", {
       try {
         await service.delete(id);
         this.deleteProductFromArray(this.products.findIndex((element) => element.id == id));
-        this.showProductDeleteSuccessAlert = true;
-        setTimeout(() => {
-          this.showProductDeleteSuccessAlert = false;
-        }, 5000);
+        this.alertsStore.createAlert("success", "The product is deleted successfully")
       } catch (error) {
-        this.showProductDeleteFailedAlert = true;
-        setTimeout(() => {
-          this.showProductDeleteFailedAlert = false;
-        }, 5000);
+        this.alertsStore.createAlert("error", "Unexpected error occurred during the product delete")
       }
     },
 
