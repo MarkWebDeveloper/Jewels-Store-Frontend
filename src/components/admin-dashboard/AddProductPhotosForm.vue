@@ -76,7 +76,7 @@ async function handleSubmit(): Promise<void> {
 
     const formData = new FormData()
     formData.append('file', file.value!)
-    files.value.forEach((image) => {
+    imagesStore.images.forEach((image) => {
         formData.append(`files`, image);
     });
     console.log(formData.getAll)
@@ -102,7 +102,7 @@ async function handleSubmit(): Promise<void> {
                     <h2 class="form-title">Add Product Photos</h2>
                     <h3 class="titles">Main Image</h3>
                     <label for="main-image-upload" class="main-image-input-label" :title="file?.name">
-                        <img class="main-image" :src="mainImageUrl" alt="placeholder-image">
+                        <img class="main-image" :class="{ smallmargin: mainImageUrl != '/images/placeholder-image.svg' }" :src="mainImageUrl" alt="placeholder-image">
                         <input @change="handleFileUpload" class="main-image-input" type="file" name="file" id="main-image-upload">
                     </label>
                     <v-btn v-if="mainImageUrl != '/images/placeholder-image.svg'" class="main-image-remove-button" type="button" @click="removeMainImage" size="x-small">REMOVE</v-btn>
@@ -128,9 +128,9 @@ async function handleSubmit(): Promise<void> {
     left: 0;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     background-color: rgba($color: #000000, $alpha: 0.2);
     z-index: 99;
 }
@@ -139,7 +139,7 @@ async function handleSubmit(): Promise<void> {
     width: 40rem;
     background-color: white;
     border-radius: 1rem;
-    margin-top: 5%;
+    position: fixed;
 }
 
 .close-button {
@@ -219,9 +219,12 @@ async function handleSubmit(): Promise<void> {
 
 .send-button {
     display: block;
-    margin: 0 auto 4rem auto;
-    margin-bottom: 1rem;
+    margin: 0 auto 2rem auto;
     background-color: #5d5d5d;
     color: white;
+}
+
+.smallmargin {
+    margin-bottom: 0.5rem;
 }
 </style>

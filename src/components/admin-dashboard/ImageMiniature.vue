@@ -40,12 +40,12 @@ const imageUrl = ref<string>("/images/placeholder-image.svg")
 <style lang="scss" scoped>
 .mini-image {
     width: 5rem;
-    margin: 0 0 0 3%;
+    margin-bottom: 0.5rem;
 }
 
 .image-remove-button {
     display: block;
-    margin: auto auto 1rem auto;
+    margin: auto auto 2rem auto;
     font-size: .8rem;
     border-radius: 0.5rem;
     background-color: #5d5d5d;
