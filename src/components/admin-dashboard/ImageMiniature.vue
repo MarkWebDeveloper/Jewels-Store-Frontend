@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import { useImagesStore } from '@/stores/imagesStore';
-import type { storeToRefs } from 'pinia';
-import { ref, watch, watchEffect } from 'vue';
+import { ref, watch } from 'vue';
 
 const imagesStore = useImagesStore()
 
 const props = defineProps<{
     file: File
-    arr: Array<File>
 }>()
 
 watch (() => imagesStore.images, (): void => {

@@ -3,7 +3,7 @@ import ImageService from '@/core/images/ImageService';
 import type { IProduct } from '@/core/products/IProduct';
 import ProductService from '@/core/products/ProductService';
 import { useProductsStore } from '@/stores/productsStore';
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 import ImageMiniature from './ImageMiniature.vue';
 import { useImagesStore } from '@/stores/imagesStore';
 
@@ -13,81 +13,37 @@ const imagesStore = useImagesStore()
 const imageService = new ImageService()
 const productService = new ProductService()
 
-const mainImageUrl = ref<string>("/images/placeholder-image.svg")
-let file = ref<File | null>()
-const files = ref<File[]>([]);
-
-const previewMainImage = (file: File): void => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = (e: ProgressEvent<FileReader>) => {
-    mainImageUrl.value = e.target?.result as string;
-    };
-};
-
-const handleFileUpload = (event: Event): void => {
-    const target = event.target as HTMLInputElement;
-    if (target && target.files) {
-        file.value = target.files[0];
-        previewMainImage(file.value)
-        console.log(file.value)
-    } else {
-        alert('File input event is undefined');
-    }
-};
-
 const handleFilesUpload = (event: Event) => {
     const target = event.target as HTMLInputElement;
     if (target && target.files) {
         const filesArray = Array.from(target.files)
 
         for (let index = 0; index < Array.from(target.files).length; index++) {
-            files.value.push(filesArray[index])
-
-                imagesStore.images.push(filesArray[index]);
-
+            imagesStore.images.push(filesArray[index]);
         }
 
-        console.log(files)
     } else {
         alert('File input event is undefined');
     }
 };
 
-const removeMainImage = (): void => {
-    mainImageUrl.value = "/images/placeholder-image.svg"
-    file.value = null
-}
-
-const product = ref<IProduct | undefined>({
-id: 0,
-productName: '',
-productDescription: '',
-images: [],
-price: 0,
-categories: []
-})
-
 async function handleSubmit(): Promise<void> {
 
-    product.value = productsStore.products.find((product) => product.id == productsStore.newProductId)
-    console.log(product.value)
-
-
     const formData = new FormData()
-    formData.append('file', file.value!)
+    formData.append('file', imagesStore.image!)
     imagesStore.images.forEach((image) => {
         formData.append(`files`, image);
     });
     console.log(formData.getAll)
     
     try {
-        await imageService.post(product.value!.id, formData)
-        productsStore.deleteProductFromArray(productsStore.products.findIndex((element) => element.id == product.value!.id))
-        const productWithImages = await productService.getOneById(product.value!.id)
+        await imageService.post(productsStore.newProductId, formData)
+        productsStore.deleteProductFromArray(productsStore.products.findIndex((element) => element.id == productsStore.newProductId))
+        const productWithImages = await productService.getOneById(productsStore.newProductId)
         setTimeout(() => {
             productsStore.addProductToArray(productWithImages)
         }, 1000);
+        productsStore.showImageUploadForm = false
     } catch (error) {
         throw new Error ("Unexpected error happened during images upload" + error)
     }
@@ -101,14 +57,14 @@ async function handleSubmit(): Promise<void> {
                 <v-btn class="close-button" density="comfortable" icon="mdi-close" variant="flat" @click="productsStore.openCloseAddPhotosForm()"></v-btn>
                     <h2 class="form-title">Add Product Photos</h2>
                     <h3 class="titles">Main Image</h3>
-                    <label for="main-image-upload" class="main-image-input-label" :title="file?.name">
-                        <img class="main-image" :class="{ smallmargin: mainImageUrl != '/images/placeholder-image.svg' }" :src="mainImageUrl" alt="placeholder-image">
-                        <input @change="handleFileUpload" class="main-image-input" type="file" name="file" id="main-image-upload">
+                    <label for="main-image-upload" class="main-image-input-label" :title="imagesStore.image?.name">
+                        <img class="main-image" :class="{ smallmargin: imagesStore.mainImageUrl != '/images/placeholder-image.svg' }" :src="imagesStore.mainImageUrl" alt="placeholder-image">
+                        <input @change="imagesStore.handleFileUpload" class="main-image-input" type="file" name="file" id="main-image-upload">
                     </label>
-                    <v-btn v-if="mainImageUrl != '/images/placeholder-image.svg'" class="main-image-remove-button" type="button" @click="removeMainImage" size="x-small">REMOVE</v-btn>
+                    <v-btn v-if="imagesStore.mainImageUrl != '/images/placeholder-image.svg'" class="main-image-remove-button" type="button" @click="imagesStore.removeMainImage" size="x-small">REMOVE</v-btn>
                     <h3 class="titles">Additional Images</h3>
                     <div class="other-images-container">
-                        <ImageMiniature v-for="image in imagesStore.images" v-if="imagesStore.images.length > 0" :file="image" :arr="files"/>
+                        <ImageMiniature v-for="image in imagesStore.images" v-if="imagesStore.images.length > 0" :file="image"/>
                         <label for="other-images-upload" class="other-images-label">
                             <div class="add-image-div">
                                 <img src="/images/logos/plus.svg" alt="plus" class="plus-image">
@@ -123,7 +79,7 @@ async function handleSubmit(): Promise<void> {
 
 <style lang="scss" scoped>
 .form-background {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     display: flex;

@@ -3,7 +3,6 @@ import ProductService from "@/core/products/ProductService";
 import type { IProduct } from "@/core/products/IProduct";
 import type { IProductDTO } from "@/core/products/IProductDTO";
 import type { IImage } from "@/core/images/IImage";
-import { ref } from "vue";
 
 export const useProductsStore = defineStore("products", {
   state: () => {
