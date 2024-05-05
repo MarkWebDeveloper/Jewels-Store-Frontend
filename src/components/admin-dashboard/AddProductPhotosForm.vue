@@ -108,7 +108,7 @@ async function handleSubmit(): Promise<void> {
                     <v-btn v-if="mainImageUrl != '/images/placeholder-image.svg'" class="main-image-remove-button" type="button" @click="removeMainImage" size="x-small">REMOVE</v-btn>
                     <h3 class="titles">Additional Images</h3>
                     <div class="other-images-container">
-                        <ImageMiniature v-for="image in files" v-if="files.length > 0" :file="image" :arr="files"/>
+                        <ImageMiniature v-for="image in imagesStore.images" v-if="imagesStore.images.length > 0" :file="image" :arr="files"/>
                         <label for="other-images-upload" class="other-images-label">
                             <div class="add-image-div">
                                 <img src="/images/logos/plus.svg" alt="plus" class="plus-image">
