@@ -13,7 +13,7 @@ export const useProductsStore = defineStore("products", {
       isLoaded: false as boolean,
       imageURL: import.meta.env.VITE_APP_API_IMGS as string,
       showImageEditForm: false as boolean,
-      showImageUploadForm: true as boolean,
+      showImageUploadForm: false as boolean,
       showCreateProductForm: false as boolean,
       alertsStore: useAlertsStore()
     };

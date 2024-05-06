@@ -80,18 +80,19 @@ async function handleSubmit(): Promise<void> {
     left: 0;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     width: 100%;
     height: 100vh;
     background-color: rgba($color: #000000, $alpha: 0.2);
     z-index: 99;
+    overflow-y: auto;
 }
 
 .form {
-    width: 40rem;
+    width: 80%;
+    margin: 5% 0 5% 0;
     background-color: white;
     border-radius: 1rem;
-    position: fixed;
 }
 
 .close-button {
@@ -102,7 +103,7 @@ async function handleSubmit(): Promise<void> {
 .form-title {
     display: block;
     text-align: center;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-family: "Aleo", serif;
     margin-bottom: 1rem;
     font-weight: bold;
@@ -111,7 +112,7 @@ async function handleSubmit(): Promise<void> {
 .titles {
     display: block;
     text-align: center;
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     font-family: "Aleo", serif;
     margin-bottom: 1rem;
 }
@@ -120,6 +121,9 @@ async function handleSubmit(): Promise<void> {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2%;
 }
 
 #main-image-input-label {
@@ -133,7 +137,7 @@ async function handleSubmit(): Promise<void> {
 
 .main-image {
     display: block;
-    width:15%;
+    width: 10rem;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 1rem;
@@ -156,14 +160,14 @@ async function handleSubmit(): Promise<void> {
 }
 
 .add-image-div {
-    width: 5rem;
-    margin: 0 0 0 1rem;
-    padding: 1.5rem;
+    width: 7rem;
+    padding: 35%;
     display: flex;
     justify-content: center;
     background-color: #ffffff;
     border-radius: 1rem;
     border: 1px solid black;
+    margin-bottom: 1rem
 }
 
 .plus-image {
@@ -172,7 +176,7 @@ async function handleSubmit(): Promise<void> {
 
 .send-button {
     display: block;
-    margin: 0 auto 2rem auto;
+    margin: 0 auto 1rem auto;
     background-color: #5d5d5d;
     color: white;
 }
@@ -180,4 +184,69 @@ async function handleSubmit(): Promise<void> {
 .smallmargin {
     margin-bottom: 0.5rem;
 }
+
+@media only screen and (min-width: 600px) {
+
+    .form {
+        width: 75%;
+    }
+
+    .close-button {
+        margin: 1rem 1rem 0 auto;
+        display: block;
+    }
+
+    .form-title {
+        font-size: 1.3rem;
+    }
+
+    .titles {
+        font-size: 1.2rem;
+    }
+
+    .main-image {
+        width: 9rem;
+    }
+
+    .add-image-div {
+        width: 8rem;
+    }
+
+    .plus-image {
+        width: 3rem;
+    }
+}
+
+@media only screen and (min-width: 960px) {
+
+    .form {
+        width: 70%;
+    }
+
+    .form-title {
+        font-size: 1.5rem;
+    }
+
+    .titles {
+        font-size: 1.3rem;
+    }
+
+    .send-button {
+        margin-bottom: 2rem;
+    }
+}
+
+
+@media only screen and (min-width: 1264px) {
+
+    .form {
+        width: 50%;
+    }
+
+    .send-button {
+        margin-bottom: 3rem;
+    }
+
+}
+
 </style>

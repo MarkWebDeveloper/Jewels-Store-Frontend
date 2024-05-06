@@ -41,20 +41,22 @@ const imageUrl = ref<string>("/images/placeholder-image.svg")
 .mini-image-background {
     background-color: rgb(213, 213, 213);
     border-radius: 0.5rem;
+    width: 100%;
 }
 
 .mini-image {
-    height: 5rem;
-    width: 5rem;
+    width: 100%;
+    padding: 50%;
     margin-bottom: 0.5rem;
     background-size: contain;
     background-position: center;
     border-radius: 0.5rem;
+
 }
 
 .image-remove-button {
     display: block;
-    margin: auto auto 2rem auto;
+    margin: auto auto 1rem auto;
     font-size: .8rem;
     border-radius: 0.5rem;
     background-color: #5d5d5d;
@@ -63,6 +65,40 @@ const imageUrl = ref<string>("/images/placeholder-image.svg")
 }
 
 .image-button-container {
-    margin-left: 1rem;
+    width: 7rem;
+}
+
+@media only screen and (min-width: 600px) {
+
+    .image-button-container {
+        width: 8rem;
+    }
+}
+
+@media only screen and (min-width: 960px) {
+
+    .mini-image {
+        width: 100%;
+        padding: 50%;
+        margin-bottom: 0.5rem;
+        background-size: contain;
+        background-position: center;
+        border-radius: 0.5rem;
+
+    }
+
+    .image-remove-button {
+        margin: auto auto 2rem auto;
+    }
+
+    .image-button-container {
+        width: 7rem;
+    }
+}
+
+@media only screen and (min-width: 1264px) {
+    .image-remove-button {
+        margin: auto auto 3rem auto;
+    }
 }
 </style>

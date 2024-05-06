@@ -60,24 +60,24 @@ const categoriesStore = useCategoriesStore()
     font-size: 2rem;
 }
 
-@media only screen and (min-width: 600px){
+@media only screen and (min-width: 600px) {
     .categories-title {
-    margin: 1.2rem;
-    font-size: 2.2em;
-}
+        margin: 1.2rem;
+        font-size: 2.2em;
+    }
 }
 
-@media only screen and (min-width: 960px){
+@media only screen and (min-width: 960px) {
     .categories-title {
-    margin: 1.2rem;
-    font-size: 2.5em;
-}
+        margin: 1.2rem;
+        font-size: 2.5em;
+    }
 }
 
-@media only screen and (min-width: 1264px){
+@media only screen and (min-width: 1264px) {
     .categories-title {
-    margin: 1.5rem;
-    font-size: 3em;
-}
+        margin: 1.5rem;
+        font-size: 3em;
+    }
 }
 </style>
