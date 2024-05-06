@@ -10,10 +10,10 @@ const props = defineProps<{
 
 watch (() => imagesStore.images, (): void => {
     const reader = new FileReader();
+    reader.readAsDataURL(props.file);
     reader.onload = (e: ProgressEvent<FileReader>) => {
         imageUrl.value = e.target?.result as string;
     };
-    reader.readAsDataURL(props.file);
 },
 { deep: true, immediate: true }
 )
