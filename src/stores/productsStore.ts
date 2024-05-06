@@ -10,6 +10,7 @@ export const useProductsStore = defineStore("products", {
     return {
       products: [] as IProduct[],
       newProductId: 0 as number,
+      editingProductId: 0 as number,
       isLoaded: false as boolean,
       imageURL: import.meta.env.VITE_APP_API_IMGS as string,
       showImageEditForm: false as boolean,

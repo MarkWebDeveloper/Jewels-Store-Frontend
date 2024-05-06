@@ -16,6 +16,8 @@ onMounted(() => {
 const categoriesStore = useCategoriesStore()
 const productsStore = useProductsStore()
 
+productsStore.editingProductId = props.product.id
+
 const gettingCategories = async () => { await categoriesStore.getAllCategories() }
 gettingCategories()
 
