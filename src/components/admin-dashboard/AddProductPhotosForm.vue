@@ -137,6 +137,7 @@ async function handleSubmit(): Promise<void> {
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 1rem;
+    border-radius: 0.5rem;
 }
 
 .main-image-remove-button {

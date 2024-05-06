@@ -30,15 +30,26 @@ const imageUrl = ref<string>("/images/placeholder-image.svg")
 
 <template>
     <div class="image-button-container">
-        <img class="mini-image" :src="imageUrl" alt="image">
+        <div class="mini-image-background">
+            <div class="mini-image" :style="{'background-image': 'url(' + imageUrl + ')'}" alt="image"></div>
+        </div>
         <v-btn v-if="imageUrl != '/images/placeholder-image.svg'" class="image-remove-button" type="button" @click="removeImage" size="x-small">REMOVE</v-btn>
     </div>
 </template>
 
 <style lang="scss" scoped>
+.mini-image-background {
+    background-color: rgb(213, 213, 213);
+    border-radius: 0.5rem;
+}
+
 .mini-image {
+    height: 5rem;
     width: 5rem;
     margin-bottom: 0.5rem;
+    background-size: contain;
+    background-position: center;
+    border-radius: 0.5rem;
 }
 
 .image-remove-button {
