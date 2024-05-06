@@ -78,7 +78,7 @@ function submitForm() {
 }
 
 .form {
-    width: 40rem;
+    width: 25rem;
     background-color: white;
     border-radius: 1rem;
     margin-top: 5%;
@@ -114,5 +114,23 @@ function submitForm() {
     display: block;
     margin: 0 auto 4rem auto;
     margin-bottom: 1rem;
+}
+
+@media only screen and (min-width: 600px) {
+    .form {
+        width: 30rem;
+    }
+}
+
+@media only screen and (min-width: 960px) {
+    .form {
+        width: 35rem;
+    }
+}
+
+@media only screen and (min-width: 1264px) {
+    .form {
+        width: 40rem;
+    }
 }
 </style>
