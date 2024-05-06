@@ -5,7 +5,10 @@ export const useImagesStore = defineStore("images", {
     return {
       image: null as File | null,
       images: [] as File[],
+      oldMainImageName: "" as string | undefined,
+      oldOtherImageNames: [] as string[] | undefined,
       mainImageUrl: "/images/placeholder-image.svg" as string,
+      oldMainImageUrl: "" as string
     };
   },
 

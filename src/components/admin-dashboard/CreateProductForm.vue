@@ -57,7 +57,7 @@ function submitForm() {
                 <v-text-field class="product-name-input" v-model="productName" hide-details="auto" label="Product Name" clearable density="comfortable" required></v-text-field>
                 <v-select class="categories-dropdown" v-model="categoryId" label="Category" :items="categoriesStore.categories" :item-props="itemProps" variant="outlined" density="comfortable" v-if="categoriesStore.isLoaded" item-value="id"></v-select>
                 <v-text-field class="description-input" v-model="productDescription" hide-details="auto" label="Description" clearable density="comfortable" required></v-text-field>
-                <v-text-field class="price-input" v-model="price" hide-details="auto" label="Price" prefix="€" clearable density="comfortable" required></v-text-field>
+                <v-text-field class="price-input" v-model="price" hide-details="auto" label="Price (in cents)" prefix="€" clearable density="comfortable" required></v-text-field>
                 <v-btn class="send-button rounded-lg" type="submit">SEND</v-btn>
         </form>
     </div>

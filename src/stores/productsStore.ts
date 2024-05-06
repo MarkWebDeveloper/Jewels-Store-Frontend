@@ -13,8 +13,8 @@ export const useProductsStore = defineStore("products", {
       editingProductId: 0 as number,
       isLoaded: false as boolean,
       imageURL: import.meta.env.VITE_APP_API_IMGS as string,
-      showImageEditForm: false as boolean,
       showImageUploadForm: false as boolean,
+      showImageUpdateForm: false as boolean,
       showCreateProductForm: false as boolean,
       alertsStore: useAlertsStore()
     };
@@ -50,7 +50,6 @@ export const useProductsStore = defineStore("products", {
         const response = await service.put(product, id);
         this.replaceProductInArray(this.products.findIndex((element) => element.id == response.id), response)
         this.alertsStore.createAlert("success", "The product is updated successfully")
-        this.openCloseEditPhotosForm()
       } catch (error) {
         this.alertsStore.createAlert("error", "Unexpected error occurred during the product update")
       }
@@ -130,11 +129,12 @@ export const useProductsStore = defineStore("products", {
 },
 
   openCloseEditPhotosForm(): void {
-    this.showImageEditForm = !this.showImageEditForm
+    this.showImageUpdateForm = !this.showImageUpdateForm
 },
 
   openCloseAddPhotosForm(): void {
   this.showImageUploadForm = !this.showImageUploadForm
-  }
   },
+
+  }
 });

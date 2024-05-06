@@ -5,6 +5,9 @@ import { useProductsStore } from '@/stores/productsStore';
 import ImageMiniature from './ImageMiniature.vue';
 import { useImagesStore } from '@/stores/imagesStore';
 import { useAlertsStore } from '@/stores/alertsStore';
+import { onMounted } from 'vue';
+import type { IImage } from '@/core/images/IImage';
+import type { IProduct } from '@/core/products/IProduct';
 
 const productsStore = useProductsStore()
 const imagesStore = useImagesStore()
@@ -12,6 +15,28 @@ const alertsStore = useAlertsStore()
 
 const imageService = new ImageService()
 const productService = new ProductService()
+
+const props = defineProps<{
+    product: IProduct
+}>()
+
+const uri: string = import.meta.env.VITE_APP_API_IMGS
+
+
+onMounted(() => {
+    refillPhotos()
+})
+
+const refillPhotos = (): void => {
+    imagesStore.oldMainImageName = props.product.images.find((image) => image.mainImage == true)?.imageName
+    // const oldOtherImages: IImage[] = props.product.images.filter((image) => image.mainImage == false)
+    // console.log(oldOtherImages)
+    // for (let index = 0; index < oldOtherImages.length; index++) {
+    //     imagesStore.oldOtherImageNames?.push(oldOtherImages[index].imageName)
+    // }
+    imagesStore.oldMainImageUrl = uri + `/${imagesStore.oldMainImageName}`
+    console.log(imagesStore.oldMainImageUrl)
+} 
 
 async function handleSubmit(): Promise<void> {
 
@@ -44,13 +69,13 @@ async function handleSubmit(): Promise<void> {
     <div class="form-background">
         <form class="form">
             <v-btn class="close-button" density="comfortable" icon="mdi-close" variant="flat"
-                @click="productsStore.openCloseAddPhotosForm()"></v-btn>
+                @click="productsStore.openCloseEditPhotosForm"></v-btn>
             <h2 class="form-title">Add Product Photos</h2>
             <h3 class="titles">Main Image</h3>
             <label for="main-image-upload" class="main-image-input-label" :title="imagesStore.image?.name">
                 <img class="main-image"
                     :class="{ smallmargin: imagesStore.mainImageUrl != '/images/placeholder-image.svg' }"
-                    :src="imagesStore.mainImageUrl" alt="placeholder-image">
+                    :src="imagesStore.oldMainImageUrl" alt="placeholder-image">
                 <input @change="imagesStore.handleFileUpload" class="main-image-input" type="file" name="file"
                     id="main-image-upload">
             </label>
