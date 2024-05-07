@@ -1,3 +1,4 @@
+import type { IImage } from "@/core/images/IImage";
 import { defineStore } from "pinia";
 
 export const useImagesStore = defineStore("images", {
@@ -5,6 +6,8 @@ export const useImagesStore = defineStore("images", {
     return {
       image: null as File | null,
       images: [] as File[],
+      oldMainImage: {} as IImage,
+      oldOtherImages: [] as IImage[],
       oldMainImageName: "" as string | undefined,
       oldOtherImageNames: [] as string[] | undefined,
       mainImageUrl: "/images/placeholder-image.svg" as string,

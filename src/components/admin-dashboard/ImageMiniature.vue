@@ -13,6 +13,7 @@ watch (() => imagesStore.images, (): void => {
     reader.readAsDataURL(props.file);
     reader.onload = (e: ProgressEvent<FileReader>) => {
         imageUrl.value = e.target?.result as string;
+        console.log(imageUrl.value)
     };
 },
 { deep: true, immediate: true }

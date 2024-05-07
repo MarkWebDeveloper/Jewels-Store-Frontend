@@ -22,18 +22,27 @@ const props = defineProps<{
 
 const uri: string = import.meta.env.VITE_APP_API_IMGS
 
-
-onMounted(() => {
+onMounted(async() => {
     refillPhotos()
+    for (let index = 0; index < props.product.images.length; index++) {
+        if (props.product.images[index].mainImage != true) {
+            let downloadedImageBlob: Blob = await imageService.getOneAsFile(props.product.images[index].imageName)
+            let file: File = new File([downloadedImageBlob], props.product.images[index].imageName)
+            console.log(file)
+            imagesStore.images.push(file)
+            console.log(imagesStore.images)
+        }
+        
+    }
 })
 
 const refillPhotos = (): void => {
     imagesStore.oldMainImageName = props.product.images.find((image) => image.mainImage == true)?.imageName
-    // const oldOtherImages: IImage[] = props.product.images.filter((image) => image.mainImage == false)
-    // console.log(oldOtherImages)
-    // for (let index = 0; index < oldOtherImages.length; index++) {
-    //     imagesStore.oldOtherImageNames?.push(oldOtherImages[index].imageName)
-    // }
+    const oldOtherImages: IImage[] = props.product.images.filter((image) => image.mainImage == false)
+    console.log(oldOtherImages)
+    for (let index = 0; index < oldOtherImages.length; index++) {
+        imagesStore.oldOtherImageNames?.push(oldOtherImages[index].imageName)
+    }
     imagesStore.oldMainImageUrl = uri + `/${imagesStore.oldMainImageName}`
     console.log(imagesStore.oldMainImageUrl)
 } 
@@ -69,13 +78,15 @@ async function handleSubmit(): Promise<void> {
     <div class="form-background">
         <form class="form">
             <v-btn class="close-button" density="comfortable" icon="mdi-close" variant="flat"
-                @click="$emit('openCloseImagesEditEvent')"></v-btn>
+                @click="$emit('openCloseImagesEditEvent'), imagesStore.resetImagesForm()"></v-btn>
             <h2 class="form-title">Add Product Photos</h2>
             <h3 class="titles">Main Image</h3>
             <label for="main-image-upload" class="main-image-input-label" :title="imagesStore.image?.name">
-                <img class="main-image"
-                    :class="{ smallmargin: imagesStore.mainImageUrl != '/images/placeholder-image.svg' }"
-                    :src="imagesStore.oldMainImageUrl" alt="placeholder-image">
+                <div class="main-image-background">
+                    <div class="main-image"
+                        :class="{ smallmargin: imagesStore.oldMainImageUrl != '/images/placeholder-image.svg' }"
+                        :style="{ 'background-image': 'url(' + imagesStore.oldMainImageUrl + ')' }" alt="image"></div>
+                </div>
                 <input @change="imagesStore.handleFileUpload" class="main-image-input" type="file" name="file"
                     id="main-image-upload">
             </label>
@@ -160,13 +171,22 @@ async function handleSubmit(): Promise<void> {
     display: none;
 }
 
-.main-image {
-    display: block;
+.main-image-background {
+    background-color: rgb(213, 213, 213);
+    border-radius: 0.5rem;
     width: 10rem;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 1rem;
     border-radius: 0.5rem;
+}
+
+.main-image {
+    display: block;
+    width: 100%;
+    padding: 50%;
+    background-size: contain;
+    background-position: center;
 }
 
 .main-image-remove-button {
@@ -229,7 +249,7 @@ async function handleSubmit(): Promise<void> {
         font-size: 1.2rem;
     }
 
-    .main-image {
+    .main-image-background {
         width: 9rem;
     }
 
@@ -281,5 +301,4 @@ async function handleSubmit(): Promise<void> {
     }
 
 }
-
 </style>

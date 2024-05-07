@@ -53,9 +53,6 @@ async function handleSubmit(): Promise<void> {
                         :class="{ smallmargin: imagesStore.mainImageUrl != '/images/placeholder-image.svg' }"
                         :style="{ 'background-image': 'url(' + imagesStore.mainImageUrl + ')' }" alt="image"></div>
                 </div>
-                <!-- <img class="main-image"
-                    :class="{ smallmargin: imagesStore.mainImageUrl != '/images/placeholder-image.svg' }"
-                    :src="imagesStore.mainImageUrl" alt="placeholder-image"> -->
                 <input @change="imagesStore.handleFileUpload" class="main-image-input" type="file" name="file"
                     id="main-image-upload">
             </label>
