@@ -48,9 +48,14 @@ async function handleSubmit(): Promise<void> {
             <h2 class="form-title">Add Product Photos</h2>
             <h3 class="titles">Main Image</h3>
             <label for="main-image-upload" class="main-image-input-label" :title="imagesStore.image?.name">
-                <img class="main-image"
+                <div class="main-image-background">
+                    <div class="main-image"
+                        :class="{ smallmargin: imagesStore.mainImageUrl != '/images/placeholder-image.svg' }"
+                        :style="{ 'background-image': 'url(' + imagesStore.mainImageUrl + ')' }" alt="image"></div>
+                </div>
+                <!-- <img class="main-image"
                     :class="{ smallmargin: imagesStore.mainImageUrl != '/images/placeholder-image.svg' }"
-                    :src="imagesStore.mainImageUrl" alt="placeholder-image">
+                    :src="imagesStore.mainImageUrl" alt="placeholder-image"> -->
                 <input @change="imagesStore.handleFileUpload" class="main-image-input" type="file" name="file"
                     id="main-image-upload">
             </label>
@@ -135,13 +140,22 @@ async function handleSubmit(): Promise<void> {
     display: none;
 }
 
-.main-image {
-    display: block;
+.main-image-background {
+    background-color: rgb(213, 213, 213);
+    border-radius: 0.5rem;
     width: 10rem;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 1rem;
     border-radius: 0.5rem;
+}
+
+.main-image {
+    display: block;
+    width: 100%;
+    padding: 50%;
+    background-size: contain;
+    background-position: center;
 }
 
 .main-image-remove-button {
@@ -204,7 +218,7 @@ async function handleSubmit(): Promise<void> {
         font-size: 1.2rem;
     }
 
-    .main-image {
+    .main-image-background {
         width: 9rem;
     }
 
@@ -256,5 +270,4 @@ async function handleSubmit(): Promise<void> {
     }
 
 }
-
 </style>
