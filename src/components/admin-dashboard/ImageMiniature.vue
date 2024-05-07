@@ -59,7 +59,6 @@ const imageUrl = ref<string>("/images/placeholder-image.svg")
     margin: auto auto 1rem auto;
     font-size: .8rem;
     border-radius: 0.5rem;
-    background-color: #5d5d5d;
     color: white;
     align-self: flex-end;
 }

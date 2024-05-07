@@ -69,7 +69,7 @@ async function handleSubmit(): Promise<void> {
     <div class="form-background">
         <form class="form">
             <v-btn class="close-button" density="comfortable" icon="mdi-close" variant="flat"
-                @click="productsStore.openCloseEditPhotosForm"></v-btn>
+                @click="$emit('openCloseImagesEditEvent')"></v-btn>
             <h2 class="form-title">Add Product Photos</h2>
             <h3 class="titles">Main Image</h3>
             <label for="main-image-upload" class="main-image-input-label" :title="imagesStore.image?.name">

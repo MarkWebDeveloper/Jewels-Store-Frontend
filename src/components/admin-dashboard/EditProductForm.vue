@@ -66,7 +66,7 @@ function submitForm() {
 
 <template>
     <div class="form-background">
-        <form @submit.prevent="submitForm(), $emit('openCloseEditEvent')" class="form">
+        <form @submit.prevent="submitForm(), $emit('openCloseEditEvent'), $emit('openCloseImagesEditEvent')" class="form">
             <v-btn class="close-button" density="comfortable" icon="mdi-close" variant="flat"
                 @click="$emit('openCloseEditEvent')"></v-btn>
                 <h2 class="form-title">Edit Product</h2>
