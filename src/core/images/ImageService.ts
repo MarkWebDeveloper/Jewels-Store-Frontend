@@ -47,7 +47,7 @@ export default class ImageService {
         }
 
         try {
-            const response = await axios.post(this.uri + + filename, config)
+            const response = await axios.delete(this.uri + "/" + filename, config)
             const status = response.status
             console.log(status);
             return response.data            

@@ -55,13 +55,11 @@ const findImagesToUpload = () => {
             uploadArray.push(searchedImage)
         }
     }
-    if (checkForNewMainImage() === true) {
-        uploadArray.push(imagesStore.image!)
-    }
     return uploadArray
 }
 
 const deleteOldImages = async () => {
+    console.log(findImagesToDelete())
     for (let index = 0; index < findImagesToDelete().length; index++) {
         imageService.deleteOne(findImagesToDelete()[index])
     }
@@ -70,24 +68,32 @@ const deleteOldImages = async () => {
 async function handleSubmit(): Promise<void> {
 
     const formData = new FormData()
-    formData.append('file', imagesStore.image!)
-    imagesStore.images.forEach((image) => {
+    if (checkForNewMainImage() == true) {
+        formData.append('file', imagesStore.image!) 
+    }
+    if (findImagesToUpload().length > 0)
+        findImagesToUpload().forEach((image) => {
         formData.append(`files`, image);
     });
     console.log(formData.getAll)
     
     try {
-        await imageService.post(productsStore.newProductId, formData)
+        if (findImagesToDelete().length > 0) {
+            await deleteOldImages()
+        }
+        if (findImagesToUpload().length > 0 || checkForNewMainImage() == true) {
+            await imageService.post(props.product.id, formData)
+        }
         productsStore.deleteProductFromArray(productsStore.products.findIndex((element) => element.id == productsStore.newProductId))
-        const productWithImages = await productService.getOneById(productsStore.newProductId)
+        const productWithImages = await productService.getOneById(props.product.id)
         setTimeout(() => {
             productsStore.addProductToArray(productWithImages)
         }, 1000);
         productsStore.showImageUploadForm = false
         imagesStore.resetImagesForm()
-        alertsStore.createAlert("success", "Images are uploaded successfully")
+        alertsStore.createAlert("success", "Images are updated successfully")
     } catch (error) {
-        alertsStore.createAlert("error", "Unexpected error occurred during the images upload")
+        alertsStore.createAlert("error", "Unexpected error occurred during the images update")
         throw new Error ("Unexpected error happened during images upload" + error)
     }
     
@@ -124,7 +130,7 @@ async function handleSubmit(): Promise<void> {
                         id="other-images-upload" multiple>
                 </label>
             </div>
-            <v-btn class="send-button rounded-lg" type="button" @click.prevent="console.log(findImagesToDelete()), console.log(findImagesToUpload())">SEND</v-btn>
+            <v-btn class="send-button rounded-lg" type="button" @click.prevent="handleSubmit()">SEND</v-btn>
         </form>
     </div>
 </template>
