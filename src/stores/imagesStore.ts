@@ -28,11 +28,7 @@ export const useImagesStore = defineStore("images", {
     },
 
     previewMainImage(file: File): void {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = (e: ProgressEvent<FileReader>) => {
-        this.mainImageUrl = e.target?.result as string;
-      };
+      this.mainImageUrl = URL.createObjectURL(file)
     },
 
     handleFilesUpload(event: Event) {

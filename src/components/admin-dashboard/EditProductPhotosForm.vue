@@ -18,13 +18,25 @@ const props = defineProps<{
     product: IProduct
 }>()
 
+const checkForNewMainImage = (): boolean => {
+    if (imagesStore.image?.name !== undefined && imagesStore.image?.name !== imagesStore.oldMainImageName) {
+        return true
+    } else {
+        return false
+    }
+
+}
+
 const findImagesToDelete = () => {
     let newOtherImageNames: string[] = []
     for (let index = 0; index < imagesStore.images.length; index++) {
         newOtherImageNames.push(imagesStore.images[index].name)
     }
     let newOtherImagesSet = new Set(newOtherImageNames);
-    let difference = [...new Set(imagesStore.oldOtherImageNames?.filter(image => !newOtherImagesSet.has(image)))];
+    let difference: string[] = [...new Set(imagesStore.oldOtherImageNames?.filter(image => !newOtherImagesSet.has(image)))];
+    if (checkForNewMainImage() === true) {
+        difference.push(imagesStore.oldMainImageName!)
+    }
     return difference
 }
 
@@ -34,7 +46,10 @@ const findImagesToUpload = () => {
         newOtherImageNames.push(imagesStore.images[index].name)
     }
     let oldOtherImagesSet = new Set(imagesStore.oldOtherImageNames);
-    let difference = [...new Set(newOtherImageNames?.filter(image => !oldOtherImagesSet.has(image)))];
+    let difference: string[] = [...new Set(newOtherImageNames?.filter(image => !oldOtherImagesSet.has(image)))];
+    if (checkForNewMainImage() === true) {
+        difference.push(imagesStore.image?.name!)
+    }
     return difference
 }
 
@@ -82,7 +97,7 @@ async function handleSubmit(): Promise<void> {
                 <div class="main-image-background">
                     <div class="main-image"
                         :class="{ smallmargin: imagesStore.mainImageUrl != '/images/placeholder-image.svg' }"
-                        :style="{ 'background-image': 'url(' + imagesStore.oldMainImageUrl + ')' }" alt="image"></div>
+                        :style="{ 'background-image': 'url(' + imagesStore.mainImageUrl + ')' }" alt="image"></div>
                 </div>
                 <input @change="imagesStore.handleFileUpload" class="main-image-input" type="file" name="file"
                     id="main-image-upload">
