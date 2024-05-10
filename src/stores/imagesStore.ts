@@ -6,7 +6,7 @@ export const useImagesStore = defineStore("images", {
     return {
       image: null as File | null,
       images: [] as File[],
-      oldMainImage: {} as IImage,
+      oldMainImage: {} as IImage | null,
       oldOtherImages: [] as IImage[],
       oldMainImageName: "" as string | undefined,
       oldOtherImageNames: [] as string[] | undefined,
@@ -55,7 +55,11 @@ export const useImagesStore = defineStore("images", {
 
     resetImagesForm(): void {
       this.image = null
+      this.oldMainImage = null
       this.images = []
+      this.oldOtherImages = []
+      this.oldMainImageUrl = ""
+      this.oldOtherImageNames = []
       this.mainImageUrl = "/images/placeholder-image.svg"
     }
   },

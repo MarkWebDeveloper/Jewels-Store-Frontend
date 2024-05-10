@@ -102,7 +102,7 @@ function submitForm() {
     <div class="form-background">
         <form @submit.prevent="submitForm(), $emit('openCloseEditEvent'), $emit('openCloseImagesEditEvent')" class="form">
             <v-btn class="close-button" density="comfortable" icon="mdi-close" variant="flat"
-                @click="$emit('openCloseEditEvent')"></v-btn>
+                @click="$emit('openCloseEditEvent'), imagesStore.resetImagesForm()"></v-btn>
                 <h2 class="form-title">Edit Product</h2>
                 <v-text-field class="product-name-input" v-model="productName" hide-details="auto" label="Product Name" clearable density="comfortable" required></v-text-field>
                 <v-select class="categories-dropdown" v-model="categoryId" label="Category" :items="categoriesStore.categories" :item-props="itemProps" variant="outlined" density="comfortable" v-if="categoriesStore.isLoaded" item-value="id"></v-select>

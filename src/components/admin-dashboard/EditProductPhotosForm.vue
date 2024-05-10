@@ -28,8 +28,20 @@ const findImagesToDelete = () => {
     return difference
 }
 
+const findImagesToUpload = () => {
+    let newOtherImageNames: string[] = []
+    for (let index = 0; index < imagesStore.images.length; index++) {
+        newOtherImageNames.push(imagesStore.images[index].name)
+    }
+    let oldOtherImagesSet = new Set(imagesStore.oldOtherImageNames);
+    let difference = [...new Set(newOtherImageNames?.filter(image => !oldOtherImagesSet.has(image)))];
+    return difference
+}
+
 const deleteOldImages = async () => {
-    imageService.deleteOne
+    for (let index = 0; index < findImagesToDelete().length; index++) {
+        imageService.deleteOne(findImagesToDelete()[index])
+    }
 }
 
 async function handleSubmit(): Promise<void> {
@@ -89,7 +101,7 @@ async function handleSubmit(): Promise<void> {
                         id="other-images-upload" multiple>
                 </label>
             </div>
-            <v-btn class="send-button rounded-lg" type="button" @click.prevent="console.log(findImagesToDelete())">SEND</v-btn>
+            <v-btn class="send-button rounded-lg" type="button" @click.prevent="console.log(findImagesToDelete()), console.log(findImagesToUpload())">SEND</v-btn>
         </form>
     </div>
 </template>
