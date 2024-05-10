@@ -1,16 +1,49 @@
 <script setup lang="ts">
+import type { IImage } from '@/core/images/IImage';
+import ImageService from '@/core/images/ImageService';
 import type { IProduct } from '@/core/products/IProduct';
 import type { IProductDTO } from '@/core/products/IProductDTO';
 import { useCategoriesStore } from '@/stores/categoriesStore';
+import { useImagesStore } from '@/stores/imagesStore';
 import { useProductsStore } from '@/stores/productsStore';
 import { onMounted, ref } from 'vue';
+
+const imagesStore = useImagesStore()
+const imageService = new ImageService
 
 const props = defineProps<{
     product: IProduct
 }>()
 
-onMounted(() => {
+const uri: string = import.meta.env.VITE_APP_API_IMGS
+let downloadedImageBlob: Blob
+
+const refillPhotos = (): void => {
+    imagesStore.oldMainImageName = props.product.images.find((image) => image.mainImage == true)?.imageName
+    const oldOtherImages: IImage[] = props.product.images.filter((image) => image.mainImage == false)
+    console.log(oldOtherImages)
+    for (let index = 0; index < oldOtherImages.length; index++) {
+        imagesStore.oldOtherImageNames?.push(oldOtherImages[index].imageName)
+    }
+    imagesStore.oldMainImageUrl = uri + `/${imagesStore.oldMainImageName}`
+    console.log(imagesStore.oldMainImageUrl)
+} 
+
+onMounted(async() => {
     refillInputs(props.product)
+    refillPhotos()
+    for (let index = 0; index < props.product.images.length; index++) {
+        if (props.product.images[index].mainImage != true) {
+            downloadedImageBlob = await imageService.getOneAsFile(props.product.images[index].imageName)
+            let file: File = new File([downloadedImageBlob], props.product.images[index].imageName, {
+                type: "image/png"
+            })
+            console.log(file)
+            imagesStore.images.push(file)
+            console.log(imagesStore.images)
+        }
+        
+    }
 })
 
 const categoriesStore = useCategoriesStore()

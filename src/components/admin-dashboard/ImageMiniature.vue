@@ -8,13 +8,11 @@ const props = defineProps<{
     file: File
 }>()
 
+const imageUrl = ref<string>("/images/placeholder-image.svg")
+
 watch (() => imagesStore.images, (): void => {
-    const reader = new FileReader();
-    reader.readAsDataURL(props.file);
-    reader.onload = (e: ProgressEvent<FileReader>) => {
-        imageUrl.value = e.target?.result as string;
-        console.log(imageUrl.value)
-    };
+    imageUrl.value = URL.createObjectURL(props.file)
+    console.log(imageUrl.value)
 },
 { deep: true, immediate: true }
 )
@@ -26,7 +24,6 @@ const removeImage = (): void => {
     console.log(imagesStore.images)
 }
 
-const imageUrl = ref<string>("/images/placeholder-image.svg")
 </script>
 
 <template>

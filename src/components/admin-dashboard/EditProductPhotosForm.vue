@@ -20,33 +20,6 @@ const props = defineProps<{
     product: IProduct
 }>()
 
-const uri: string = import.meta.env.VITE_APP_API_IMGS
-
-onMounted(async() => {
-    refillPhotos()
-    for (let index = 0; index < props.product.images.length; index++) {
-        if (props.product.images[index].mainImage != true) {
-            let downloadedImageBlob: Blob = await imageService.getOneAsFile(props.product.images[index].imageName)
-            let file: File = new File([downloadedImageBlob], props.product.images[index].imageName)
-            console.log(file)
-            imagesStore.images.push(file)
-            console.log(imagesStore.images)
-        }
-        
-    }
-})
-
-const refillPhotos = (): void => {
-    imagesStore.oldMainImageName = props.product.images.find((image) => image.mainImage == true)?.imageName
-    const oldOtherImages: IImage[] = props.product.images.filter((image) => image.mainImage == false)
-    console.log(oldOtherImages)
-    for (let index = 0; index < oldOtherImages.length; index++) {
-        imagesStore.oldOtherImageNames?.push(oldOtherImages[index].imageName)
-    }
-    imagesStore.oldMainImageUrl = uri + `/${imagesStore.oldMainImageName}`
-    console.log(imagesStore.oldMainImageUrl)
-} 
-
 async function handleSubmit(): Promise<void> {
 
     const formData = new FormData()

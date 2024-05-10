@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { type AxiosRequestConfig } from "axios";
 
 export default class ImageService {
 
@@ -6,8 +6,10 @@ export default class ImageService {
 
     async getOneAsFile(filename: string): Promise<Blob> {
 
-        let config = {
-            withCredentials: true
+        let config: AxiosRequestConfig = {
+            withCredentials: true,
+            maxBodyLength: Infinity,
+            responseType: 'blob'
         }
 
         try {
