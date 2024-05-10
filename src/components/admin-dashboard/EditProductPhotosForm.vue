@@ -5,8 +5,6 @@ import { useProductsStore } from '@/stores/productsStore';
 import ImageMiniature from './ImageMiniature.vue';
 import { useImagesStore } from '@/stores/imagesStore';
 import { useAlertsStore } from '@/stores/alertsStore';
-import { onMounted } from 'vue';
-import type { IImage } from '@/core/images/IImage';
 import type { IProduct } from '@/core/products/IProduct';
 
 const productsStore = useProductsStore()
@@ -19,6 +17,20 @@ const productService = new ProductService()
 const props = defineProps<{
     product: IProduct
 }>()
+
+const findImagesToDelete = () => {
+    let newOtherImageNames: string[] = []
+    for (let index = 0; index < imagesStore.images.length; index++) {
+        newOtherImageNames.push(imagesStore.images[index].name)
+    }
+    let newOtherImagesSet = new Set(newOtherImageNames);
+    let difference = [...new Set(imagesStore.oldOtherImageNames?.filter(image => !newOtherImagesSet.has(image)))];
+    return difference
+}
+
+const deleteOldImages = async () => {
+    imageService.deleteOne
+}
 
 async function handleSubmit(): Promise<void> {
 
@@ -57,7 +69,7 @@ async function handleSubmit(): Promise<void> {
             <label for="main-image-upload" class="main-image-input-label" :title="imagesStore.image?.name">
                 <div class="main-image-background">
                     <div class="main-image"
-                        :class="{ smallmargin: imagesStore.oldMainImageUrl != '/images/placeholder-image.svg' }"
+                        :class="{ smallmargin: imagesStore.mainImageUrl != '/images/placeholder-image.svg' }"
                         :style="{ 'background-image': 'url(' + imagesStore.oldMainImageUrl + ')' }" alt="image"></div>
                 </div>
                 <input @change="imagesStore.handleFileUpload" class="main-image-input" type="file" name="file"
@@ -77,7 +89,7 @@ async function handleSubmit(): Promise<void> {
                         id="other-images-upload" multiple>
                 </label>
             </div>
-            <v-btn class="send-button rounded-lg" type="button" @click.prevent="handleSubmit">SEND</v-btn>
+            <v-btn class="send-button rounded-lg" type="button" @click.prevent="console.log(findImagesToDelete())">SEND</v-btn>
         </form>
     </div>
 </template>

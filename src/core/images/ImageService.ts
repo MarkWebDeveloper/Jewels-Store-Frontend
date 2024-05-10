@@ -24,12 +24,30 @@ export default class ImageService {
 
     async post(productId: number, formData: FormData): Promise<String> {
 
-        let config = {
-            withCredentials: true
+        let config: AxiosRequestConfig = {
+            withCredentials: true,
+            maxBodyLength: Infinity
         }
 
         try {
             const response = await axios.post(this.uri + "/uploadImages/" + productId, formData, config)
+            const status = response.status
+            console.log(status);
+            return response.data            
+        } catch (error) {
+            throw new Error('Error with API calling: ' + error)
+        }
+    }
+
+    async deleteOne(filename: string): Promise<String> {
+
+        let config: AxiosRequestConfig = {
+            withCredentials: true,
+            maxBodyLength: Infinity
+        }
+
+        try {
+            const response = await axios.post(this.uri + + filename, config)
             const status = response.status
             console.log(status);
             return response.data            

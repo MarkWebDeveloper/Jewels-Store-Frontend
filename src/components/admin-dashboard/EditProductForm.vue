@@ -8,6 +8,8 @@ import { useImagesStore } from '@/stores/imagesStore';
 import { useProductsStore } from '@/stores/productsStore';
 import { onMounted, ref } from 'vue';
 
+const categoriesStore = useCategoriesStore()
+const productsStore = useProductsStore()
 const imagesStore = useImagesStore()
 const imageService = new ImageService
 
@@ -15,8 +17,17 @@ const props = defineProps<{
     product: IProduct
 }>()
 
+productsStore.editingProductId = props.product.id
+
 const uri: string = import.meta.env.VITE_APP_API_IMGS
 let downloadedImageBlob: Blob
+
+function refillInputs(product: IProduct): void {
+    productName.value = product.productName
+    categoryId.value = product.categories[0].id
+    productDescription.value = product.productDescription
+    price.value = product.price
+}
 
 const refillPhotos = (): void => {
     imagesStore.oldMainImageName = props.product.images.find((image) => image.mainImage == true)?.imageName
@@ -26,6 +37,7 @@ const refillPhotos = (): void => {
         imagesStore.oldOtherImageNames?.push(oldOtherImages[index].imageName)
     }
     imagesStore.oldMainImageUrl = uri + `/${imagesStore.oldMainImageName}`
+    imagesStore.mainImageUrl = imagesStore.oldMainImageUrl
     console.log(imagesStore.oldMainImageUrl)
 } 
 
@@ -46,20 +58,9 @@ onMounted(async() => {
     }
 })
 
-const categoriesStore = useCategoriesStore()
-const productsStore = useProductsStore()
-
-productsStore.editingProductId = props.product.id
-
 const gettingCategories = async () => { await categoriesStore.getAllCategories() }
 gettingCategories()
 
-function refillInputs(product: IProduct): void {
-    productName.value = product.productName
-    categoryId.value = product.categories[0].id
-    productDescription.value = product.productDescription
-    price.value = product.price
-}
 
 function itemProps(item:any): any {
         return {
