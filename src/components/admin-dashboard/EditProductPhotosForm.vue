@@ -45,12 +45,20 @@ const findImagesToUpload = () => {
     for (let index = 0; index < imagesStore.images.length; index++) {
         newOtherImageNames.push(imagesStore.images[index].name)
     }
-    let oldOtherImagesSet = new Set(imagesStore.oldOtherImageNames);
-    let difference: string[] = [...new Set(newOtherImageNames?.filter(image => !oldOtherImagesSet.has(image)))];
-    if (checkForNewMainImage() === true) {
-        difference.push(imagesStore.image?.name!)
+    let oldOtherImageNamesSet = new Set(imagesStore.oldOtherImageNames);
+    let difference: string[] = [...new Set(newOtherImageNames?.filter(image => !oldOtherImageNamesSet.has(image)))];
+    let uploadArray: File[] = []
+    let searchedImage: File
+    for (let index = 0; index < difference.length; index++) {
+        if (imagesStore.images.find(image => image.name === difference[index]) != undefined) {
+            searchedImage = imagesStore.images.find(image => image.name === difference[index])!
+            uploadArray.push(searchedImage)
+        }
     }
-    return difference
+    if (checkForNewMainImage() === true) {
+        uploadArray.push(imagesStore.image!)
+    }
+    return uploadArray
 }
 
 const deleteOldImages = async () => {
