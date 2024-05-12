@@ -18,75 +18,26 @@ const props = defineProps<{
     product: IProduct
 }>()
 
-const checkForNewMainImage = (): boolean => {
-    if (imagesStore.image?.name !== undefined && imagesStore.image?.name !== imagesStore.oldMainImageName) {
-        return true
-    } else {
-        return false
-    }
-
-}
-
-const findImagesToDelete = () => {
-    let newOtherImageNames: string[] = []
-    for (let index = 0; index < imagesStore.images.length; index++) {
-        newOtherImageNames.push(imagesStore.images[index].name)
-    }
-    let newOtherImagesSet = new Set(newOtherImageNames);
-    let difference: string[] = [...new Set(imagesStore.oldOtherImageNames?.filter(image => !newOtherImagesSet.has(image)))];
-    if (checkForNewMainImage() === true) {
-        difference.push(imagesStore.oldMainImageName!)
-    }
-    return difference
-}
-
-const findImagesToUpload = () => {
-    let newOtherImageNames: string[] = []
-    for (let index = 0; index < imagesStore.images.length; index++) {
-        newOtherImageNames.push(imagesStore.images[index].name)
-    }
-    let oldOtherImageNamesSet = new Set(imagesStore.oldOtherImageNames);
-    let difference: string[] = [...new Set(newOtherImageNames?.filter(image => !oldOtherImageNamesSet.has(image)))];
-    let uploadArray: File[] = []
-    let searchedImage: File
-    for (let index = 0; index < difference.length; index++) {
-        if (imagesStore.images.find(image => image.name === difference[index]) != undefined) {
-            searchedImage = imagesStore.images.find(image => image.name === difference[index])!
-            uploadArray.push(searchedImage)
-        }
-    }
-    return uploadArray
-}
-
-const deleteOldImages = async () => {
-    console.log(findImagesToDelete())
-    for (let index = 0; index < findImagesToDelete().length; index++) {
-        await imageService.deleteOne(findImagesToDelete()[index])
-    }
-}
-
 async function handleSubmit(): Promise<void> {
 
     const formData = new FormData()
-    if (checkForNewMainImage() == true) {
+    if (imagesStore.checkForNewMainImage() == true) {
         formData.append('file', imagesStore.image!) 
     }
-    if (findImagesToUpload().length > 0)
-        findImagesToUpload().forEach((image) => {
+    if (imagesStore.findImagesToUpload().length > 0)
+        imagesStore.findImagesToUpload().forEach((image) => {
         formData.append(`files`, image);
     });
-    console.log(formData.getAll)
     
     try {
-        if (findImagesToDelete().length > 0) {
-            await deleteOldImages()
+        if (imagesStore.findImagesToDelete().length > 0) {
+            await imagesStore.deleteOldImages()
         }
-        if (findImagesToUpload().length > 0 || checkForNewMainImage() == true) {
+        if (imagesStore.findImagesToUpload().length > 0 || imagesStore.checkForNewMainImage() == true) {
             await imageService.post(props.product.id, formData)
         }
         productsStore.deleteProductFromArray(productsStore.products.findIndex((element) => element.id == props.product.id))
         const productWithImages = await productService.getOneById(props.product.id)
-        console.log(productWithImages)
         setTimeout(() => {
             productsStore.addProductToArray(productWithImages)
         }, 1000);

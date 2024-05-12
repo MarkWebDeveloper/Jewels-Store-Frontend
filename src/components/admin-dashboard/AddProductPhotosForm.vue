@@ -20,13 +20,11 @@ async function handleSubmit(): Promise<void> {
     imagesStore.images.forEach((image) => {
         formData.append(`files`, image);
     });
-    console.log(formData.getAll)
     
     try {
         await imageService.post(productsStore.newProductId, formData)
         productsStore.deleteProductFromArray(productsStore.products.findIndex((element) => element.id == productsStore.newProductId))
         const productWithImages = await productService.getOneById(productsStore.newProductId)
-        console.log(productWithImages)
         setTimeout(() => {
             productsStore.addProductToArray(productWithImages)
         }, 1000);

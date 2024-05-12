@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { IImage } from '@/core/images/IImage';
 import ImageService from '@/core/images/ImageService';
 import type { IProduct } from '@/core/products/IProduct';
 import type { IProductDTO } from '@/core/products/IProductDTO';
@@ -17,10 +16,21 @@ const props = defineProps<{
     product: IProduct
 }>()
 
-productsStore.editingProductId = props.product.id
+const productName = ref<string>("")
+const categoryId = ref<number>(0)
+const productDescription = ref<string>("")
+const price = ref<number>(0)
 
-const uri: string = import.meta.env.VITE_APP_API_IMGS
+let editedProduct: IProductDTO = {
+    productName: "",
+    productDescription: "",
+    categoryId: 1,
+    price: 0
+}
+
 let downloadedImageBlob: Blob
+
+productsStore.editingProductId = props.product.id
 
 function refillInputs(product: IProduct): void {
     productName.value = product.productName
@@ -29,30 +39,16 @@ function refillInputs(product: IProduct): void {
     price.value = product.price
 }
 
-const refillPhotos = (): void => {
-    imagesStore.oldMainImageName = props.product.images.find((image) => image.mainImage == true)?.imageName
-    const oldOtherImages: IImage[] = props.product.images.filter((image) => image.mainImage == false)
-    console.log(oldOtherImages)
-    for (let index = 0; index < oldOtherImages.length; index++) {
-        imagesStore.oldOtherImageNames?.push(oldOtherImages[index].imageName)
-    }
-    imagesStore.oldMainImageUrl = uri + `/${imagesStore.oldMainImageName}`
-    imagesStore.mainImageUrl = imagesStore.oldMainImageUrl
-    console.log(imagesStore.oldMainImageUrl)
-} 
-
 onMounted(async() => {
     refillInputs(props.product)
-    refillPhotos()
+    imagesStore.refillPhotos(props.product)
     for (let index = 0; index < props.product.images.length; index++) {
         if (props.product.images[index].mainImage != true) {
             downloadedImageBlob = await imageService.getOneAsFile(props.product.images[index].imageName)
             let file: File = new File([downloadedImageBlob], props.product.images[index].imageName, {
                 type: "image/png"
             })
-            console.log(file)
             imagesStore.images.push(file)
-            console.log(imagesStore.images)
         }
         
     }
@@ -67,18 +63,6 @@ function itemProps(item:any): any {
           title: item.categoryName
         }
     }
-
-const productName = ref<string>("")
-const categoryId = ref<number>(0)
-const productDescription = ref<string>("")
-const price = ref<number>(0)
-
-let editedProduct: IProductDTO = {
-    productName: "",
-    productDescription: "",
-    categoryId: 1,
-    price: 0
-}
 
 function submitForm() {
     editedProduct.productName = productName.value

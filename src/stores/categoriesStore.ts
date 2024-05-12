@@ -18,7 +18,6 @@ export const useCategoriesStore = defineStore("categories", {
       }
       this.categories = await service.get();
       this.isLoaded = true;
-      console.log(this.categories);
       return this.categories;
     },
   },

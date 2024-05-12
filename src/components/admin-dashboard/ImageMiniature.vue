@@ -12,7 +12,6 @@ const imageUrl = ref<string>("/images/placeholder-image.svg")
 
 watch (() => imagesStore.images, (): void => {
     imageUrl.value = URL.createObjectURL(props.file)
-    console.log(imageUrl.value)
 },
 { deep: true, immediate: true }
 )
@@ -21,7 +20,6 @@ const removeImage = (): void => {
     imageUrl.value = "/images/placeholder-image.svg"
     const imageIndex = imagesStore.images.indexOf(props.file)
     imagesStore.images.splice(imageIndex, 1)
-    console.log(imagesStore.images)
 }
 
 </script>

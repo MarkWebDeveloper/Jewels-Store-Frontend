@@ -28,7 +28,6 @@ export const useProductsStore = defineStore("products", {
       }
       this.products = await service.get();
       this.isLoaded = true;
-      console.log(this.products);
       return this.products;
     },
 
@@ -92,7 +91,7 @@ export const useProductsStore = defineStore("products", {
       }
       
       return imageDirectory
-  },
+    },
 
     convertToDecimal(number: number): string {
       if (typeof number !== 'number' || number % 1 !== 0) {
@@ -122,19 +121,19 @@ export const useProductsStore = defineStore("products", {
       }
 
       return decimalNumber;
-  },
+    },
 
-  openCloseCreateProductForm(): void {
-    this.showCreateProductForm = !this.showCreateProductForm
-},
+    openCloseCreateProductForm(): void {
+      this.showCreateProductForm = !this.showCreateProductForm
+    },
 
-  openCloseEditPhotosForm(): void {
-    this.showImageUpdateForm = !this.showImageUpdateForm
-},
+    openCloseEditPhotosForm(): void {
+      this.showImageUpdateForm = !this.showImageUpdateForm
+    },
 
-  openCloseAddPhotosForm(): void {
-  this.showImageUploadForm = !this.showImageUploadForm
-  },
+    openCloseAddPhotosForm(): void {
+    this.showImageUploadForm = !this.showImageUploadForm
+    },
 
   }
 });
