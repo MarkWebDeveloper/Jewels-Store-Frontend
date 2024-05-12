@@ -61,7 +61,7 @@ const findImagesToUpload = () => {
 const deleteOldImages = async () => {
     console.log(findImagesToDelete())
     for (let index = 0; index < findImagesToDelete().length; index++) {
-        imageService.deleteOne(findImagesToDelete()[index])
+        await imageService.deleteOne(findImagesToDelete()[index])
     }
 }
 
@@ -84,8 +84,9 @@ async function handleSubmit(): Promise<void> {
         if (findImagesToUpload().length > 0 || checkForNewMainImage() == true) {
             await imageService.post(props.product.id, formData)
         }
-        productsStore.deleteProductFromArray(productsStore.products.findIndex((element) => element.id == productsStore.newProductId))
+        productsStore.deleteProductFromArray(productsStore.products.findIndex((element) => element.id == props.product.id))
         const productWithImages = await productService.getOneById(props.product.id)
+        console.log(productWithImages)
         setTimeout(() => {
             productsStore.addProductToArray(productWithImages)
         }, 1000);
