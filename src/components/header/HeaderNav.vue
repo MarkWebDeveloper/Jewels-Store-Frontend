@@ -107,11 +107,7 @@ import { ref } from 'vue';
     width: clamp(200px, 40dvw, 500px);
 }
 
-@media only screen and (min-width: 600px) {
-   
-}
-
-@media only screen and (min-width: 960px) {
+@media only screen and (min-width: 992px) {
     .second-row-container {
         display: none;
     }
