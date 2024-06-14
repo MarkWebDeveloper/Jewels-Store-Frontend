@@ -169,6 +169,10 @@ const searchInput = ref()
         width: 1.7rem;
     }
 
+    .button-with-margin {
+        margin-right: 1.3rem;
+    }
+
     .categories-title {
         font-size: 0.8rem;
     }
