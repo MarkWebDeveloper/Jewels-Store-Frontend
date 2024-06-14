@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import HeaderNav from '@/components/header/HeaderNav.vue';
-import HeaderStandart from '@/components/header/HeaderStandart.vue';
 import CategoriesSection from '@/components/home/CategoriesSection.vue';
 import HomeBanner from '@/components/home/HomeBanner.vue';
 import OffersSection from '@/components/home/OffersSection.vue';
@@ -8,7 +7,7 @@ import OffersSection from '@/components/home/OffersSection.vue';
 </script>
 
 <template>
-    <HeaderStandart />
+    <HeaderNav />
     <main>
       <HomeBanner />
       <!-- <OffersSection /> -->
