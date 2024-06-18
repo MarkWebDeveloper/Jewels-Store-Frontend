@@ -55,7 +55,10 @@ const headerStore = useHeaderStore();
 .dropdown-header-container {
     display: grid;
     grid-template-columns: 30% 70%;
-    grid-template-rows: repeat(2, 30px);
+    grid-template-rows: repeat(2, 1.8rem);
+    grid-template-areas: 
+    "a b"
+    "a c";
     justify-content: center;
     align-items: center;
     padding: 0.5rem;
@@ -64,18 +67,18 @@ const headerStore = useHeaderStore();
 .user-image {
     width: 3rem;
     border-radius: 50%;
-    grid-area: 1 / 1 / 3 / 2;
+    grid-area: a;
     margin: auto;
 }
 
 .username {
-    grid-area: 1 / 2 / 2 / 2;
+    grid-area: b;
     padding-left: 1rem;
 }
 
 .user-email {
     width: 100%;
-    grid-area: 2 / 2 / 2 / 2;
+    grid-area: c;
     padding-left: 1rem;
     white-space: nowrap;
     overflow: hidden;
