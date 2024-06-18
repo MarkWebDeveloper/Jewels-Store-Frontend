@@ -1,6 +1,7 @@
 <script setup lang="ts">
 
 import { ref } from 'vue';
+import ProfileDropdown from './ProfileDropdown.vue';
 const searchInput = ref()
 
 </script>
@@ -34,10 +35,12 @@ const searchInput = ref()
                         <img src="/images/logos/cart-outline.svg" alt="">
                     </button>
 
-                <div id="avatar-container" title="Profile">
+                <!-- <button id="avatar-container" title="Profile">
                     <v-avatar image="/images/pictures/ai-generated-8501940_1920.jpg" size="28"></v-avatar>
                     <img class="avatar-arrow" id="avatar-arrow" src="/images/logos/triangle-arrow.png" alt="">
-                </div>
+                </button> -->
+
+                <ProfileDropdown />
 
             </div>
         </div>
