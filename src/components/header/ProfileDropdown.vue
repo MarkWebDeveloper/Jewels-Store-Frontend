@@ -16,6 +16,22 @@ const headerStore = useHeaderStore();
                 <h2 class="username">Username</h2>
                 <h3 class="user-email">user@useremail.com</h3>
             </div>
+            <a class="link" href="#">
+                <img class="link-icon" src="/images/logos/purchases.png" alt="purchases">
+                <p class="link-text">Purchases</p>
+            </a>
+            <a class="link" href="#">
+                <img class="link-icon" src="/images/logos/ratings.png" alt="">
+                <p class="link-text">Reviews</p>
+            </a>
+            <a class="link" href="#">
+                <img class="link-icon" src="/images/logos/settings.png" alt="">
+                <p class="link-text">Settings</p>
+            </a>
+            <a class="link" href="#">
+                <img class="link-icon" src="/images/logos/logout.png" alt="">
+                <p class="link-text">Logout</p>
+            </a>
         </div>
     </div>
 </template>
@@ -39,8 +55,8 @@ const headerStore = useHeaderStore();
 
 .dropdown {
     position: absolute;
-    margin: 10rem 0 0 0;
-    padding: 20px 0;
+    margin: 22rem 0 0 0;
+    padding: 10px 0;
     width: $profile-dropdown-width;
     left: 50%;
     margin-left: calc(($profile-dropdown-width / 1.15) * -1);
@@ -49,19 +65,21 @@ const headerStore = useHeaderStore();
 
     background: white;
     border-radius: 6px;
+    border: 1px solid black;
     list-style: none;
 }
 
 .dropdown-header-container {
+    width: 90%;
     display: grid;
-    grid-template-columns: 30% 70%;
+    grid-template-columns: 4rem 8rem;
     grid-template-rows: repeat(2, 1.8rem);
     grid-template-areas: 
     "a b"
     "a c";
     justify-content: center;
     align-items: center;
-    padding: 0.5rem;
+    margin-bottom: 1.5rem;
 }
 
 .user-image {
@@ -74,6 +92,7 @@ const headerStore = useHeaderStore();
 .username {
     grid-area: b;
     padding-left: 1rem;
+    font-family: "Aleo", serif;
 }
 
 .user-email {
@@ -83,5 +102,25 @@ const headerStore = useHeaderStore();
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-family: "Aleo", serif;
+}
+
+.link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+    margin-bottom: 1rem;
+}
+
+.link-icon {
+    width: 2rem;
+    margin-left: 1.5rem;
+}
+
+.link-text {
+    margin-left: 1rem;
+    font-family: "Aleo", serif;
+    font-size: 1.2rem;
 }
 </style>
