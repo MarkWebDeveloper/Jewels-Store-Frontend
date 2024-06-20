@@ -2,7 +2,11 @@
 
 import { ref } from 'vue';
 import ProfileDropdown from './ProfileDropdown.vue';
+import { useLoginStore } from '@/stores/loginStore';
+import LoginDropdown from './LoginDropdown.vue';
 const searchInput = ref()
+
+const loginStore = useLoginStore()
 
 </script>
 
@@ -27,7 +31,7 @@ const searchInput = ref()
             </div>
 
             <div class="icons-container" id="icons-container">
-                <button class="button button-with-margin">
+                    <button class="button button-with-margin">
                         <img src="/images/logos/heart-outline.svg" alt="">
                     </button>
 
@@ -35,12 +39,8 @@ const searchInput = ref()
                         <img src="/images/logos/cart-outline.svg" alt="">
                     </button>
 
-                <!-- <button id="avatar-container" title="Profile">
-                    <v-avatar image="/images/pictures/ai-generated-8501940_1920.jpg" size="28"></v-avatar>
-                    <img class="avatar-arrow" id="avatar-arrow" src="/images/logos/triangle-arrow.png" alt="">
-                </button> -->
-
-                <ProfileDropdown />
+                <LoginDropdown v-if="!loginStore.isLoggedIn" />
+                <ProfileDropdown v-if="loginStore.isLoggedIn"/>
 
             </div>
         </div>

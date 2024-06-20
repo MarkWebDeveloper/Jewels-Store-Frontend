@@ -4,11 +4,15 @@ import { useProductsStore } from './stores/productsStore';
 import { useCategoriesStore } from './stores/categoriesStore';
 import { useAlertsStore } from './stores/alertsStore';
 import { useImagesStore } from './stores/imagesStore';
+import { useHeaderStore } from './stores/headerStore';
+import { useLoginStore } from './stores/loginStore';
 
 const productsStore = useProductsStore()
 const categoriesStore = useCategoriesStore()
 useAlertsStore()
 useImagesStore()
+useHeaderStore()
+useLoginStore()
 
 productsStore.getAllProducts()
 categoriesStore.getAllCategories()
