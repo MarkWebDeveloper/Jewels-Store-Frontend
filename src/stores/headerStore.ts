@@ -4,13 +4,17 @@ export const useHeaderStore = defineStore("header", {
     state: () => {
         return {
             profileDropdownIsOpened: false as boolean,
+            loginDropdownIsOpened: false as boolean
           };
     },
   
     actions: {
-      switchProfileDropdown() {
-        this.profileDropdownIsOpened = !this.profileDropdownIsOpened
-        console.log(this.profileDropdownIsOpened)
+      switchDropdown(stateKey: string) {
+        if (stateKey === 'profile') {
+          this.profileDropdownIsOpened =!this.profileDropdownIsOpened;
+        } else if (stateKey === 'login') {
+          this.loginDropdownIsOpened =!this.loginDropdownIsOpened;
+        }
       }
     },
   });

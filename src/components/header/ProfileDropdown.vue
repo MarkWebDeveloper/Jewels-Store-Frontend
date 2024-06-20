@@ -6,7 +6,7 @@ const headerStore = useHeaderStore();
 
 <template>
     <div class="dropdown-container">
-        <div class="button" id="avatar-container" title="Profile" @click="headerStore.switchProfileDropdown">
+        <div class="button" id="avatar-container" title="Profile" @click="headerStore.switchDropdown('profile')">
             <v-avatar image="/images/pictures/ai-generated-8501940_1920.jpg" size="28"></v-avatar>
             <img class="avatar-arrow" id="avatar-arrow" src="/images/logos/triangle-arrow.png" alt="">
         </div>

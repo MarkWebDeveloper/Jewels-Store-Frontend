@@ -4,12 +4,13 @@ export const useLoginStore = defineStore("login", {
     state: () => {
         return {
             isLoggedIn: false as boolean,
+            loginFormIsOpened: false as boolean
           };
     },
   
     actions: {
-      switchLogin() {
-        this.isLoggedIn = !this.isLoggedIn
+      switchLoginForm() {
+        this.loginFormIsOpened = !this.loginFormIsOpened
       }
     },
   });

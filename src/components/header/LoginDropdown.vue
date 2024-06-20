@@ -1,24 +1,26 @@
 <script setup lang="ts">
 import { useHeaderStore } from '@/stores/headerStore';
+import { useLoginStore } from '@/stores/loginStore';
 
-const headerStore = useHeaderStore();
+const headerStore = useHeaderStore()
+const loginStore = useLoginStore()
 </script>
 
 <template>
     <div class="dropdown-container">
-        <div class="button" id="avatar-container" title="Profile" @click="headerStore.switchProfileDropdown">
-            <img class="avatar-image" id="avatar-image" src="/images/logos/account-circle-outline.svg"></img>
-            <img class="avatar-arrow" id="avatar-arrow" src="/images/logos/triangle-arrow.png" alt="">
+        <div class="button" id="avatar-container" title="Guest" @click.prevent="headerStore.switchDropdown('login')">
+            <img class="avatar-image" id="avatar-image" src="/images/logos/account-circle-outline.svg">
+            <img class="avatar-arrow" id="avatar-arrow" src="/images/logos/triangle-arrow.png" alt="avatar-arrow">
         </div>
-        <div class="dropdown" v-if="headerStore.profileDropdownIsOpened">
+        <div class="dropdown" v-if="headerStore.loginDropdownIsOpened">
             <div class="dropdown-header-container">
                 <img class="user-image" src="/images/logos/account-circle-outline.svg"></img>
                 <h2 class="username">Guest</h2>
             </div>
-            <a class="link" href="#">
+            <div class="link" @click="loginStore.switchLoginForm()">
                 <img class="link-icon" src="/images/logos/login.svg" alt="">
                 <p class="link-text">Login</p>
-            </a>
+            </div>
         </div>
     </div>
 </template>
