@@ -5,6 +5,7 @@ const headerStore = useHeaderStore();
 </script>
 
 <template>
+    <div class="dropdown-background" v-if="headerStore.loginDropdownIsOpened" @click="headerStore.switchDropdown('login')"></div>
     <div class="dropdown-container">
         <div class="button" id="avatar-container" title="Profile" @click="headerStore.switchDropdown('profile')">
             <v-avatar image="/images/pictures/ai-generated-8501940_1920.jpg" size="28"></v-avatar>
@@ -37,6 +38,15 @@ const headerStore = useHeaderStore();
 </template>
 
 <style lang="scss" scoped>
+.dropdown-background {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    z-index: 98;
+    top: 0;
+    left: 0;
+}
+
 .dropdown-container {
     position: relative;
     display: flex;

@@ -1,31 +1,57 @@
 <script setup lang="ts">
 import { useHeaderStore } from '@/stores/headerStore';
 import { useLoginStore } from '@/stores/loginStore';
+import { onMounted, onUnmounted } from 'vue';
 
 const headerStore = useHeaderStore()
 const loginStore = useLoginStore()
+
+const popups = [...document.getElementsByClassName('popup')];
+
+// onMounted(() => {
+//     window.addEventListener('click', ({ target }) => {
+//       const popup = (target as HTMLElement).closest('.dropdown');
+//     //   const clickedOnClosedPopup = popup && !popup.classList.contains('show');
+      
+//     //   popups.forEach(p => p.classList.remove('show'));
+      
+//       if (headerStore.loginDropdownIsOpened) headerStore.loginDropdownIsOpened = false;  
+//     });
+// })
 </script>
 
 <template>
+
+    <div class="dropdown-background" v-if="headerStore.loginDropdownIsOpened" @click="headerStore.switchDropdown('login')"></div>
     <div class="dropdown-container">
-        <div class="button" id="avatar-container" title="Guest" @click.prevent="headerStore.switchDropdown('login')">
+        <div class="button" id="avatar-container" title="Guest" @click="headerStore.switchDropdown('login')">
             <img class="avatar-image" id="avatar-image" src="/images/logos/account-circle-outline.svg">
             <img class="avatar-arrow" id="avatar-arrow" src="/images/logos/triangle-arrow.png" alt="avatar-arrow">
         </div>
-        <div class="dropdown" v-if="headerStore.loginDropdownIsOpened">
-            <div class="dropdown-header-container">
-                <img class="user-image" src="/images/logos/account-circle-outline.svg"></img>
-                <h2 class="username">Guest</h2>
+            <div class="dropdown" v-if="headerStore.loginDropdownIsOpened">
+                <div class="dropdown-header-container">
+                    <img class="user-image" src="/images/logos/account-circle-outline.svg"></img>
+                    <h2 class="username">Guest</h2>
+                </div>
+                <div class="link" @click="loginStore.switchLoginForm()">
+                    <img class="link-icon" src="/images/logos/login.svg" alt="">
+                    <p class="link-text">Login</p>
+                </div>
             </div>
-            <div class="link" @click="loginStore.switchLoginForm()">
-                <img class="link-icon" src="/images/logos/login.svg" alt="">
-                <p class="link-text">Login</p>
-            </div>
-        </div>
     </div>
+
 </template>
 
 <style lang="scss" scoped>
+.dropdown-background {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    z-index: 98;
+    top: 0;
+    left: 0;
+}
+
 .dropdown-container {
     position: relative;
     display: flex;
@@ -40,7 +66,7 @@ const loginStore = useLoginStore()
 
 #avatar-image {
     width: 2rem;
-    
+
 }
 
 #avatar-arrow {
@@ -55,7 +81,7 @@ const loginStore = useLoginStore()
     left: 50%;
     margin-left: calc(($profile-dropdown-width / 1.15) * -1);
     box-sizing: border-box;
-    z-index: 2;
+    z-index: 99;
 
     background: white;
     border-radius: 6px;
@@ -68,9 +94,9 @@ const loginStore = useLoginStore()
     display: grid;
     grid-template-columns: 4rem 8rem;
     grid-template-rows: repeat(2, 1.8rem);
-    grid-template-areas: 
-    "a b"
-    "a b";
+    grid-template-areas:
+        "a b"
+        "a b";
     justify-content: center;
     align-items: center;
     margin-bottom: 1.5rem;
