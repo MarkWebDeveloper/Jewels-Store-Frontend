@@ -4,6 +4,7 @@ import { ref } from 'vue';
 import ProfileDropdown from './ProfileDropdown.vue';
 import { useLoginStore } from '@/stores/loginStore';
 import LoginDropdown from './LoginDropdown.vue';
+import LoginForm from '../global/LoginForm.vue';
 const searchInput = ref()
 
 const loginStore = useLoginStore()
@@ -41,6 +42,7 @@ const loginStore = useLoginStore()
 
                 <LoginDropdown v-if="!loginStore.isLoggedIn" />
                 <ProfileDropdown v-if="loginStore.isLoggedIn"/>
+                <LoginForm />
 
             </div>
         </div>
