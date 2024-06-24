@@ -5,7 +5,10 @@
 <template>
     <div class="login-background">
         <div class="login-form-container">
-            <img class="login-flowers-frame" src="/images/pictures/frame-6790657_1920.png" alt="">
+            <img class="login-flowers-frame" src="/images/pictures/frame-6790657_1920.png" alt="flower-frame">
+            <button class="close-button">
+                <img class="close-button-image" src="./../../../public/images/logos/close.svg" alt="close-image">
+            </button>
             <h2>Login</h2>
             <label for="email-input">Email</label>
             <input class="email-input" type="email" name="email-input" id="email-input">
@@ -15,7 +18,7 @@
             <h3>or</h3>
             <button class="login-button" id="google-login-button">
                 <p class="login-text">Login with</p>
-                <img class="google-icon" id="google-icon" src="/images/logos/icons8-google.svg" alt="">
+                <img class="google-icon" id="google-icon" src="/images/logos/icons8-google.svg" alt="google-icon">
             </button>
             <p class="small-text">Don't have an account?</p>
             <a href="#"><p class="register-text">Register now</p></a>
@@ -35,21 +38,34 @@
     align-items: center;
     justify-content: center;
 }
+
 .login-form-container {
-    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 17rem;
     background-color: white;
     z-index: 99;
     border-radius: 1rem;
     border: black solid 1px;
-    padding: 1.5rem 3rem 1.5rem 3rem;
-    text-align: center;
+    padding: 0.5rem 0.5rem 1rem 0.5rem;
 }
+
+.close-button {
+    margin-left: auto;
+}
+
+.close-button-image {
+    width: 2rem;
+}
+
 h2 {
     font-family: "Alex Brush", cursive;
     font-size: 2rem;
     text-align: center;
     margin-bottom: 1rem;
 }
+
 label {
     display: block;
     font-family: "Alex Brush", cursive;
@@ -57,29 +73,35 @@ label {
     margin-bottom: 0.3rem;
     text-align: left;
 }
+
 input {
-    width: 100%;
+    width: 10rem;
     background-color: $login-input-color;
     border-radius: 5px;
     border: black solid 1px;
     margin-bottom: 0.7rem;
     font-family: "Aleo", serif;
+    z-index: 98;
 }
+
 .login-flowers-frame {
     position: absolute;
-    top: 19%;
+    top: 20%;
     left: 0%;
     right: 0%;
     margin-left: auto;
     margin-right: auto;
-    width: 90%;
+    width: 22rem;
+    pointer-events: none;
 }
+
 h3 {
     margin: 0.3rem auto 0.3rem auto;
     font-family: "Alex Brush", cursive;
     font-size: 1.5rem;
 }
-button {
+
+.login-button {
     border-radius: 5px;
     border: black solid 1px;
     padding: 0.3rem 1rem 0.3rem 1rem;
@@ -88,26 +110,45 @@ button {
     min-height: 2.5rem;
     font-family: "Aleo", serif;
 }
+
 #default-login-button {
     margin-top: 3rem;
 }
+
 .login-text {
     font-family: "Aleo", serif;
     display: inline-block;
     margin-right: 0.5rem;
 }
+
 .google-icon {
     width: 2rem;
     display: inline;
 }
+
 .small-text {
     font-size: 0.8rem;
     margin: 1rem 0 0.5rem 0;
 }
+
 .register-text {
     font-family: "Aleo", serif;
     color: black;
     text-decoration: underline;
     cursor: pointer;
+}
+
+@media only screen and (min-width: 992px) {
+    .login-flowers-frame {
+        top: 31.5%;
+        width: 22rem;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .login-flowers-frame {
+        top: 26%;
+        width: 22rem;
+    }
 }
 </style>
