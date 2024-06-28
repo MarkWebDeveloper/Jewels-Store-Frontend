@@ -19,7 +19,7 @@ const loginStore = useLoginStore()
             <div class="first-row-search-container">
                 <div class="categories-container">
                     <button class="button button-with-margin">
-                        <img src="/images/logos/menu.svg" alt="">
+                        <img src="/images/logos/menu.svg" alt="categories-button-image">
                     </button>
                     <p class="categories-title">Categories</p>
                 </div>
@@ -42,14 +42,16 @@ const loginStore = useLoginStore()
 
                 <LoginDropdown v-if="!loginStore.isLoggedIn" />
                 <ProfileDropdown v-if="loginStore.isLoggedIn"/>
-                <LoginForm />
+                <LoginForm v-if="loginStore.loginFormIsOpened"/>
 
             </div>
         </div>
 
         <div class="second-row-container">
             <div class="categories-container">
-                <v-app-bar-nav-icon class="button" density="compact" title="Categories"></v-app-bar-nav-icon>
+                <button class="button button-with-margin">
+                        <img src="/images/logos/menu.svg" alt="categories-button-image">
+                </button>
                 <p class="categories-title">Categories</p>
             </div>
             <div class="search-bar-container">

@@ -1,13 +1,15 @@
 <script setup lang="ts">
+import { useLoginStore } from '@/stores/loginStore';
 
+const loginStore = useLoginStore()
 </script>
 
 <template>
     <div class="login-background">
         <div class="login-form-container">
             <img class="login-flowers-frame" src="/images/pictures/frame-6790657_1920.png" alt="flower-frame">
-            <button class="close-button">
-                <img class="close-button-image" src="./../../../public/images/logos/close.svg" alt="close-image">
+            <button class="close-button" @click="loginStore.switchLoginForm()">
+                <img class="close-button-image" src="/images/logos/close.svg" alt="close-image">
             </button>
             <h2>Login</h2>
             <label for="email-input">Email</label>
@@ -33,10 +35,7 @@
     height: 100%;
     top: 0%;
     left: 0%;
-    z-index: 98;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    backdrop-filter: blur(3px);
 }
 
 .login-form-container {
@@ -49,6 +48,8 @@
     border-radius: 1rem;
     border: black solid 1px;
     padding: 0.5rem 0.5rem 1rem 0.5rem;
+    margin: auto;
+    margin-top: 10rem;
 }
 
 .close-button {
@@ -86,7 +87,6 @@ input {
 
 .login-flowers-frame {
     position: absolute;
-    top: 20%;
     left: 0%;
     right: 0%;
     margin-left: auto;
@@ -139,15 +139,18 @@ h3 {
 }
 
 @media only screen and (min-width: 992px) {
+
+    .login-form-container {
+        margin-top: 15rem;
+    }
+
     .login-flowers-frame {
-        top: 31.5%;
         width: 22rem;
     }
 }
 
 @media only screen and (min-width: 1200px) {
     .login-flowers-frame {
-        top: 26%;
         width: 22rem;
     }
 }

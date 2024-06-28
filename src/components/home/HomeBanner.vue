@@ -48,15 +48,15 @@
     }
 }
 
-@media only screen and (min-width: 960px) {
+@media only screen and (min-width: 992px) {
     .banner {
-        padding: 11em;
+        padding: 9em;
     }
 }
 
 @media only screen and (min-width: 1400px) {
     .banner {
-        padding: 14em;
+        padding: 10em;
     }
 }
 </style>

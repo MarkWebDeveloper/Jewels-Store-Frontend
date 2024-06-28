@@ -33,7 +33,7 @@ const popups = [...document.getElementsByClassName('popup')];
                     <img class="user-image" src="/images/logos/account-circle-outline.svg"></img>
                     <h2 class="username">Guest</h2>
                 </div>
-                <div class="link" @click="loginStore.switchLoginForm()">
+                <div class="link" @click="loginStore.switchLoginForm(), headerStore.switchDropdown('login')">
                     <img class="link-icon" src="/images/logos/login.svg" alt="">
                     <p class="link-text">Login</p>
                 </div>
@@ -121,6 +121,7 @@ const popups = [...document.getElementsByClassName('popup')];
     text-decoration: none;
     color: black;
     margin-bottom: 1rem;
+    cursor: pointer;
 }
 
 .link-icon {
