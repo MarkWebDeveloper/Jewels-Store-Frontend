@@ -1,22 +1,44 @@
 <script setup lang="ts">
+import type { ILoginDTO } from '@/core/auth/ILoginDTO';
 import { useLoginStore } from '@/stores/loginStore';
+import { ref } from 'vue';
 
 const loginStore = useLoginStore()
+
+const username = ref<string>("")
+const password = ref<string>("")
+
+const loginDTO: ILoginDTO = {
+    username: "",
+    password: ""
+}
+
+const createLoginDTO = (): void => {
+    loginDTO.username = username.value
+    loginDTO.password = password.value
+    console.log(loginDTO)
+}
+
+function submitForm() {
+    createLoginDTO()
+    loginStore.login(loginDTO)
+}
+
 </script>
 
 <template>
     <div class="login-background">
-        <div class="login-form-container">
+        <form class="login-form-container" @submit.prevent="submitForm">
             <img class="login-flowers-frame" src="/images/pictures/frame-6790657_1920.png" alt="flower-frame">
             <button class="close-button" @click="loginStore.switchLoginForm()">
                 <img class="close-button-image" src="/images/logos/close.svg" alt="close-image">
             </button>
             <h2>Login</h2>
             <label for="email-input">Email</label>
-            <input class="email-input" type="email" name="email-input" id="email-input">
+            <input class="email-input" type="email" name="email-input" id="email-input" v-model="username" required>
             <label for="password-input">Password</label>
-            <input class="password-input" type="password" name="password-input" id="password-input">
-            <button class="login-button" id="default-login-button">Login</button>
+            <input class="password-input" type="password" name="password-input" id="password-input" v-model="password" required>
+            <button class="login-button" id="default-login-button" type="submit">Login</button>
             <h3>or</h3>
             <button class="login-button" id="google-login-button">
                 <p class="login-text">Login with</p>
@@ -24,7 +46,7 @@ const loginStore = useLoginStore()
             </button>
             <p class="small-text">Don't have an account?</p>
             <a href="#"><p class="register-text">Register now</p></a>
-        </div>
+        </form>
     </div>
 </template>
 
