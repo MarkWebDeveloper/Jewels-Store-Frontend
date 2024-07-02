@@ -16,7 +16,6 @@ const loginDTO: ILoginDTO = {
 const createLoginDTO = (): void => {
     loginDTO.username = username.value
     loginDTO.password = password.value
-    console.log(loginDTO)
 }
 
 function submitForm() {
