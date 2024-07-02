@@ -4,7 +4,8 @@ import type { IProductDTO } from "./IProductDTO";
 
 export default class ProductService {
 
-    private uri: string = import.meta.env.VITE_APP_API_PRODUCTS
+    private userUri: string = import.meta.env.VITE_APP_API_USER_PRODUCTS
+    private adminUri: string = import.meta.env.VITE_APP_API_ADMIN_PRODUCTS
 
     async get(): Promise<IProduct[]> {
         let config: AxiosRequestConfig = {
@@ -13,7 +14,7 @@ export default class ProductService {
         }
 
         try {
-            const response = await axios.get(this.uri, config)
+            const response = await axios.get(this.userUri, config)
             const data: IProduct[] = await response.data
             return data
         } catch (error) {
@@ -28,7 +29,7 @@ export default class ProductService {
         }
 
         try {
-            const response = await axios.get(`${this.uri}/${id}`, config)
+            const response = await axios.get(`${this.userUri}/${id}`, config)
             const data: IProduct = await response.data
             return data
         } catch (error) {
@@ -42,12 +43,13 @@ export default class ProductService {
             withCredentials: true,
             maxBodyLength: Infinity,
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
             }
         }
 
         try {
-            const response = await axios.post(this.uri, newProduct, config)
+            const response = await axios.post(this.adminUri, newProduct, config)
             const status = response.status
             console.log(status);
             return response.data            
@@ -60,11 +62,15 @@ export default class ProductService {
 
         let config: AxiosRequestConfig = {
             withCredentials: true,
-            maxBodyLength: Infinity
+            maxBodyLength: Infinity,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+            }
         }
         
         try {
-            const response = await axios.delete(`${this.uri}/${id}`, config)
+            const response = await axios.delete(`${this.adminUri}/${id}`, config)
             const status = response.status
             console.log(status);
         } catch (error) {
@@ -83,7 +89,7 @@ export default class ProductService {
         }
 
         try {
-            const response = await axios.put(`${this.uri}/${id}`, product, config)
+            const response = await axios.put(`${this.adminUri}/${id}`, product, config)
             const status = response.status
             console.log(status);
             return response.data

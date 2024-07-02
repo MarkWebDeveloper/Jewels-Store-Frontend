@@ -25,7 +25,8 @@ export const useLoginStore = defineStore("login", {
         try {
           const response = await service.post(loginDTO);
           this.JWTToken = response
-          localStorage.clear()
+          localStorage.setItem("userId", String(response.userId))
+          localStorage.setItem("accessToken", response.accessToken)
           localStorage.setItem("refreshToken", response.refreshToken)
           this.loggedUserId = response.userId
         } catch (error) {
