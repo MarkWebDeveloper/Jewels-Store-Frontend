@@ -6,7 +6,7 @@ import { useAlertsStore } from './stores/alertsStore';
 import { useImagesStore } from './stores/imagesStore';
 import { useHeaderStore } from './stores/headerStore';
 import { useLoginStore } from './stores/loginStore';
-import axios, { type AxiosRequestConfig } from 'axios';
+import axios, { type AxiosRequestConfig, type AxiosResponse } from 'axios';
 import type { IRefreshTokenDTO } from './core/auth/IRefreshTokenDTO';
 
 const productsStore = useProductsStore()
@@ -25,6 +25,7 @@ axios.interceptors.response.use(
   response => response,
   async error => {
     const originalRequest = error.config;
+    console.log(originalRequest)
     // Check if the error is unauthorized
     if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
@@ -41,8 +42,9 @@ axios.interceptors.response.use(
             }
         }
       try {
-        const response = await axios.post('http://localhost:8080/api/v1/all/token', refreshTokenDTO, config);
-        const { accessToken } = response.data;
+        const response: AxiosResponse = await axios.post('http://localhost:8080/api/v1/all/token', refreshTokenDTO, config);
+        const accessToken: string = response.data;
+        console.log(accessToken)
         // Set the new access token in your state
         localStorage.setItem("userId", String(response.data.userId))
         localStorage.setItem("accessToken", response.data.accessToken)
