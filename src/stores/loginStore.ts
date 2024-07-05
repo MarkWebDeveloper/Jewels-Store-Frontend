@@ -29,6 +29,7 @@ export const useLoginStore = defineStore("login", {
           localStorage.setItem("accessToken", response.accessToken)
           localStorage.setItem("refreshToken", response.refreshToken)
           this.loggedUserId = response.userId
+          this.loginFormIsOpened = false
         } catch (error) {
           this.alertsStore.createAlert("error", "Unexpected error occurred during the login process")
         }
