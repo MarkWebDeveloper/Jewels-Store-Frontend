@@ -25,7 +25,6 @@ axios.interceptors.response.use(
   response => response,
   async error => {
     const originalRequest = error.config;
-    console.log(originalRequest)
     // Check if the error is unauthorized
     if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
@@ -44,7 +43,6 @@ axios.interceptors.response.use(
       try {
         const response: AxiosResponse = await axios.post('http://localhost:8080/api/v1/all/token', refreshTokenDTO, config);
         const accessToken: string = response.data;
-        console.log(accessToken)
         // Set the new access token in your state
         localStorage.setItem("userId", String(response.data.userId))
         localStorage.setItem("accessToken", response.data.accessToken)
@@ -61,6 +59,7 @@ axios.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
 </script>
 
 <template>
