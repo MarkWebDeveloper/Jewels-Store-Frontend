@@ -9,7 +9,10 @@ export default class ImageService {
         let config: AxiosRequestConfig = {
             withCredentials: true,
             maxBodyLength: Infinity,
-            responseType: 'blob'
+            responseType: 'blob',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+            }
         }
 
         try {
@@ -26,7 +29,10 @@ export default class ImageService {
 
         let config: AxiosRequestConfig = {
             withCredentials: true,
-            maxBodyLength: Infinity
+            maxBodyLength: Infinity,
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+            }
         }
 
         try {
@@ -43,7 +49,10 @@ export default class ImageService {
 
         let config: AxiosRequestConfig = {
             withCredentials: true,
-            maxBodyLength: Infinity
+            maxBodyLength: Infinity,
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+            }
         }
 
         try {
