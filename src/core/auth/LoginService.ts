@@ -9,7 +9,6 @@ export default class LoginService {
     async post(loginDTO: ILoginDTO): Promise<ITokenDTO> {
 
         let config: AxiosRequestConfig = {
-            maxBodyLength: Infinity,
             headers: {
                 'Content-Type': 'application/json'
             }

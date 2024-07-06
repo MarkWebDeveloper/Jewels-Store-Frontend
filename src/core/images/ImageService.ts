@@ -7,8 +7,6 @@ export default class ImageService {
     async getOneAsFile(filename: string): Promise<Blob> {
 
         let config: AxiosRequestConfig = {
-            withCredentials: true,
-            maxBodyLength: Infinity,
             responseType: 'blob',
             headers: {
                 'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
@@ -28,8 +26,6 @@ export default class ImageService {
     async post(productId: number, formData: FormData): Promise<String> {
 
         let config: AxiosRequestConfig = {
-            withCredentials: true,
-            maxBodyLength: Infinity,
             headers: {
                 'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
             }
@@ -48,8 +44,6 @@ export default class ImageService {
     async deleteOne(filename: string): Promise<String> {
 
         let config: AxiosRequestConfig = {
-            withCredentials: true,
-            maxBodyLength: Infinity,
             headers: {
                 'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
             }

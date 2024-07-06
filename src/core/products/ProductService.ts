@@ -8,13 +8,9 @@ export default class ProductService {
     private adminUri: string = import.meta.env.VITE_APP_API_ADMIN_PRODUCTS
 
     async get(): Promise<IProduct[]> {
-        let config: AxiosRequestConfig = {
-            withCredentials: true,
-            maxBodyLength: Infinity
-        }
 
         try {
-            const response = await axios.get(this.userUri, config)
+            const response = await axios.get(this.userUri)
             const data: IProduct[] = await response.data
             return data
         } catch (error) {
@@ -24,8 +20,6 @@ export default class ProductService {
 
     async getOneById(id: number): Promise<IProduct> {
         let config: AxiosRequestConfig = {
-            withCredentials: true,
-            maxBodyLength: Infinity
         }
 
         try {
@@ -40,8 +34,6 @@ export default class ProductService {
     async post(newProduct: IProductDTO): Promise<IProduct> {
 
         let config: AxiosRequestConfig = {
-            withCredentials: true,
-            maxBodyLength: Infinity,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
@@ -61,8 +53,6 @@ export default class ProductService {
     async delete(id: number): Promise<void> {
 
         let config: AxiosRequestConfig = {
-            withCredentials: true,
-            maxBodyLength: Infinity,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
@@ -81,8 +71,6 @@ export default class ProductService {
     async put(product: IProductDTO, id: number): Promise<IProduct> {
 
         let config: AxiosRequestConfig = {
-            withCredentials: true,
-            maxBodyLength: Infinity,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")

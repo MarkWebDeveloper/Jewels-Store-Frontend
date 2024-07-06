@@ -9,7 +9,6 @@ export default class StripeService {
     async post(paymentRequest: IPaymentRequest): Promise<IStripeResponse> {
 
         let config: RawAxiosRequestConfig = {
-            maxBodyLength: Infinity,
             headers: { 
               'Content-Type': 'application/json',
               'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
