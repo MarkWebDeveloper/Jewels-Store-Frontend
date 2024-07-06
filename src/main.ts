@@ -1,4 +1,5 @@
 import './assets/scss/main.scss'
+import './core/auth/TokenRefresher'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
