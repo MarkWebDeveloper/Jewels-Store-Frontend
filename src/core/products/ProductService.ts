@@ -44,7 +44,7 @@ export default class ProductService {
             maxBodyLength: Infinity,
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
             }
         }
 
@@ -65,7 +65,7 @@ export default class ProductService {
             maxBodyLength: Infinity,
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
             }
         }
         
@@ -85,7 +85,7 @@ export default class ProductService {
             maxBodyLength: Infinity,
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
             }
         }
 

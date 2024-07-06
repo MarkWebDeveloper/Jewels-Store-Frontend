@@ -29,7 +29,7 @@ axios.interceptors.response.use(
     if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
       // Create refresh token DTO
-      let refreshToken: string = localStorage.getItem("refreshToken")!
+      let refreshToken: string = sessionStorage.getItem("refreshToken")!
       let refreshTokenDTO: IRefreshTokenDTO = {
         refreshToken: ""
       }
@@ -44,9 +44,9 @@ axios.interceptors.response.use(
         const response: AxiosResponse = await axios.post('http://localhost:8080/api/v1/all/token', refreshTokenDTO, config);
         const accessToken: string = response.data;
         // Set the new access token in your state
-        localStorage.setItem("userId", String(response.data.userId))
-        localStorage.setItem("accessToken", response.data.accessToken)
-        localStorage.setItem("refreshToken", response.data.refreshToken)
+        sessionStorage.setItem("userId", String(response.data.userId))
+        sessionStorage.setItem("accessToken", response.data.accessToken)
+        sessionStorage.setItem("refreshToken", response.data.refreshToken)
         // Then retry the original request
         originalRequest.headers['Authorization'] = `Bearer ${accessToken}`;
         return axios(originalRequest);

@@ -11,7 +11,8 @@ export default class StripeService {
         let config: RawAxiosRequestConfig = {
             maxBodyLength: Infinity,
             headers: { 
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
             },
           };
 

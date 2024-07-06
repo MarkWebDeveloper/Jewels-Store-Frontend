@@ -11,7 +11,7 @@ export default class ImageService {
             maxBodyLength: Infinity,
             responseType: 'blob',
             headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
             }
         }
 
@@ -31,7 +31,7 @@ export default class ImageService {
             withCredentials: true,
             maxBodyLength: Infinity,
             headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
             }
         }
 
@@ -51,7 +51,7 @@ export default class ImageService {
             withCredentials: true,
             maxBodyLength: Infinity,
             headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem("accessToken")
+                'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
             }
         }
 

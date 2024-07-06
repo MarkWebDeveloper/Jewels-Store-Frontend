@@ -30,7 +30,7 @@ const cart = reactive({
 
 onMounted(async () => {
 
-  const publishableKey: string = import.meta.env.VITE_APP_STRIPE_PK
+  const publishableKey: string = import.meta.env.VITE_APP_API_STRIPE_PK
   stripe = (await loadStripe(publishableKey))!
 
   const clientSecret: string = (await service.post(cart)).clientSecret
