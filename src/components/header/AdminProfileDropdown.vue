@@ -1,36 +1,35 @@
 <script setup lang="ts">
 import { useHeaderStore } from '@/stores/headerStore';
+import { useLoginStore } from '@/stores/loginStore';
+import { RouterLink } from 'vue-router';
 
 const headerStore = useHeaderStore();
+const loginStore = useLoginStore();
 </script>
 
 <template>
-    <div class="dropdown-background" v-if="headerStore.loginDropdownIsOpened" @click="headerStore.switchDropdown('login')"></div>
+    <div class="dropdown-background" v-if="headerStore.adminProfileDropdownIsOpened" @click="headerStore.switchDropdown('admin-profile')"></div>
     <div class="dropdown-container">
-        <div class="button" id="avatar-container" title="Profile" @click="headerStore.switchDropdown('profile')">
+        <div class="button" id="avatar-container" title="Profile" @click="headerStore.switchDropdown('admin-profile')">
             <v-avatar image="/images/pictures/ai-generated-8501940_1920.jpg" size="28"></v-avatar>
             <img class="avatar-arrow" id="avatar-arrow" src="/images/logos/triangle-arrow.png" alt="">
         </div>
-        <div class="dropdown" v-if="headerStore.profileDropdownIsOpened">
+        <div class="dropdown" v-if="headerStore.adminProfileDropdownIsOpened">
             <div class="dropdown-header-container">
                 <img class="user-image" src="/images/pictures/ai-generated-8501940_1920.jpg"></img>
-                <h2 class="username">Username</h2>
-                <h3 class="user-email">user@useremail.com</h3>
+                <h2 class="username">Admin</h2>
+                <h3 class="user-email">admin@adminemail.com</h3>
             </div>
+            <RouterLink class="link" to="/admin-dashboard" @click="headerStore.switchDropdown('admin-profile')">
+                <img class="link-icon" src="/images/logos/monitor-dashboard.svg" alt="Settings">
+                <p class="link-text">Dashboard</p>
+            </RouterLink>
             <a class="link" href="#">
-                <img class="link-icon" src="/images/logos/purchases.png" alt="purchases">
-                <p class="link-text">Purchases</p>
-            </a>
-            <a class="link" href="#">
-                <img class="link-icon" src="/images/logos/ratings.png" alt="">
-                <p class="link-text">Reviews</p>
-            </a>
-            <a class="link" href="#">
-                <img class="link-icon" src="/images/logos/settings.png" alt="">
+                <img class="link-icon" src="/images/logos/settings.png" alt="Settings">
                 <p class="link-text">Settings</p>
             </a>
-            <a class="link" href="#">
-                <img class="link-icon" src="/images/logos/logout.png" alt="">
+            <a class="link" href="#" @click="loginStore.logout()">
+                <img class="link-icon" src="/images/logos/logout.png" alt="Logout">
                 <p class="link-text">Logout</p>
             </a>
         </div>
@@ -42,7 +41,7 @@ const headerStore = useHeaderStore();
     position: absolute;
     width: 100%;
     height: 100%;
-    z-index: 98;
+    z-index: 10;
     top: 0;
     left: 0;
 }
@@ -65,13 +64,13 @@ const headerStore = useHeaderStore();
 
 .dropdown {
     position: absolute;
-    margin: 22rem 0 0 0;
+    margin: 19rem 0 0 0;
     padding: 10px 0;
     width: $profile-dropdown-width;
     left: 50%;
     margin-left: calc(($profile-dropdown-width / 1.15) * -1);
     box-sizing: border-box;
-    z-index: 2;
+    z-index: 99;
 
     background: white;
     border-radius: 6px;

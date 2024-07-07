@@ -8,16 +8,6 @@ const loginStore = useLoginStore()
 
 const popups = [...document.getElementsByClassName('popup')];
 
-// onMounted(() => {
-//     window.addEventListener('click', ({ target }) => {
-//       const popup = (target as HTMLElement).closest('.dropdown');
-//     //   const clickedOnClosedPopup = popup && !popup.classList.contains('show');
-      
-//     //   popups.forEach(p => p.classList.remove('show'));
-      
-//       if (headerStore.loginDropdownIsOpened) headerStore.loginDropdownIsOpened = false;  
-//     });
-// })
 </script>
 
 <template>

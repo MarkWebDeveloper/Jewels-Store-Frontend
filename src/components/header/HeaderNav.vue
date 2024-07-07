@@ -1,10 +1,11 @@
 <script setup lang="ts">
 
 import { ref } from 'vue';
-import ProfileDropdown from './ProfileDropdown.vue';
 import { useLoginStore } from '@/stores/loginStore';
 import LoginDropdown from './LoginDropdown.vue';
 import LoginForm from '../global/LoginForm.vue';
+import UserProfileDropdown from './UserProfileDropdown.vue';
+import AdminProfileDropdown from './AdminProfileDropdown.vue';
 const searchInput = ref()
 
 const loginStore = useLoginStore()
@@ -41,7 +42,8 @@ const loginStore = useLoginStore()
                     </button>
 
                 <LoginDropdown v-if="!loginStore.isLoggedIn" />
-                <ProfileDropdown v-if="loginStore.isLoggedIn"/>
+                <UserProfileDropdown v-if="loginStore.loggedUserRole == 'ROLE_USER'"/>
+                <AdminProfileDropdown v-if="loginStore.loggedUserRole == 'ROLE_ADMIN'"/>
                 <LoginForm v-if="loginStore.loginFormIsOpened"/>
 
             </div>
