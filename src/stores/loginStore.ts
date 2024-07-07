@@ -12,8 +12,6 @@ export const useLoginStore = defineStore("login", {
             loginFormIsOpened: false as boolean,
             loggedUserId: 0 as number,
             loggedUserRole: "" as string,
-            isUser: false as boolean,
-            isAdmin: false as boolean,
             JWTToken: {} as ITokenDTO,
             alertsStore: useAlertsStore(),
             headerStore: useHeaderStore()
