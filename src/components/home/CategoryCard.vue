@@ -26,6 +26,7 @@ const imageDirectory: string = imageURL + `/${props.category.categoryImage.image
     flex-direction: column;
     align-items: center;
     margin-bottom: 3rem;
+    cursor: pointer;
 }
 
 .category-frame {

@@ -9,6 +9,8 @@ export const useProductsStore = defineStore("products", {
   state: () => {
     return {
       products: [] as IProduct[],
+      filteredByCategory: [] as IProduct[],
+      productService: new ProductService,
       newProductId: 0 as number,
       editingProductId: 0 as number,
       isLoaded: false as boolean,
@@ -22,19 +24,27 @@ export const useProductsStore = defineStore("products", {
 
   actions: {
     async getAllProducts(this: any): Promise<IProduct[]> {
-      const service = new ProductService();
       if (this.isLoaded == true) {
         this.isLoaded = false;
       }
-      this.products = await service.get();
+      this.products = await this.productService.getAll();
       this.isLoaded = true;
       return this.products;
     },
 
-    async saveProduct(product: IProductDTO): Promise<void> {
-      const service = new ProductService();
+    async getProductsByCategory(categoryName: string): Promise<IProduct[]> {
       try {
-        const response = await service.post(product);
+        this.filteredByCategory = await this.productService.getAllByCategory(categoryName)
+        return this.filteredByCategory
+      } catch (error) {
+        console.error('Error fetching products by category:', error)
+      }
+      return this.filteredByCategory
+    },
+
+    async saveProduct(product: IProductDTO): Promise<void> {
+      try {
+        const response = await this.productService.post(product);
         this.newProductId = response.id
         this.addProductToArray(response)
         this.alertsStore.createAlert("success", "New product is saved successfully")
@@ -44,9 +54,8 @@ export const useProductsStore = defineStore("products", {
     },
     
     async updateProduct(product: IProductDTO, id: number): Promise<void> {
-      const service = new ProductService();
       try {
-        const response = await service.put(product, id);
+        const response = await this.productService.put(product, id);
         this.replaceProductInArray(this.products.findIndex((element) => element.id == response.id), response)
         this.alertsStore.createAlert("success", "The product is updated successfully")
       } catch (error) {
@@ -55,9 +64,8 @@ export const useProductsStore = defineStore("products", {
     },
 
     async deleteProduct(id: number): Promise<void> {
-      const service = new ProductService();
       try {
-        await service.delete(id);
+        await this.productService.delete(id);
         this.deleteProductFromArray(this.products.findIndex((element) => element.id == id));
         this.alertsStore.createAlert("success", "The product is deleted successfully")
       } catch (error) {

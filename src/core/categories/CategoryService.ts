@@ -5,7 +5,7 @@ export default class CategoryService {
 
     private uri = import.meta.env.VITE_APP_API_CATEGORIES
 
-    async get(): Promise<ICategory[]> {
+    async getAll(): Promise<ICategory[]> {
         try {
             const response = await axios.get(this.uri)
             const data: ICategory[] = await response.data

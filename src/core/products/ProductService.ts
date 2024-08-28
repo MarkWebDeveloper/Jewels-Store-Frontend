@@ -6,8 +6,9 @@ export default class ProductService {
 
     private userUri: string = import.meta.env.VITE_APP_API_USER_PRODUCTS
     private adminUri: string = import.meta.env.VITE_APP_API_ADMIN_PRODUCTS
+    private byCategoryUri: string = import.meta.env.VITE_APP_API_PRODUCTS_BY_CATEGORY
 
-    async get(): Promise<IProduct[]> {
+    async getAll(): Promise<IProduct[]> {
 
         try {
             const response = await axios.get(this.userUri)
@@ -19,12 +20,19 @@ export default class ProductService {
     }
 
     async getOneById(id: number): Promise<IProduct> {
-        let config: AxiosRequestConfig = {
-        }
-
         try {
-            const response = await axios.get(`${this.userUri}/${id}`, config)
+            const response = await axios.get(`${this.userUri}/${id}`)
             const data: IProduct = await response.data
+            return data
+        } catch (error) {
+            throw new Error('Error with API calling: ' + error)
+        }
+    }
+
+    async getAllByCategory(categoryName: string): Promise<IProduct[]> {
+        try {
+            const response = await axios.get(`${this.byCategoryUri}/${categoryName}`)
+            const data: IProduct[] = await response.data
             return data
         } catch (error) {
             throw new Error('Error with API calling: ' + error)

@@ -19,8 +19,6 @@ useLoginStore()
 
 productsStore.getAllProducts()
 categoriesStore.getAllCategories()
-// const gettingProducts = async () => { await productsStore.getAllProducts() }
-// gettingProducts()
 
 </script>
 

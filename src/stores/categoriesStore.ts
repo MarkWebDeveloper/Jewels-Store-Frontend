@@ -6,17 +6,17 @@ export const useCategoriesStore = defineStore("categories", {
   state: () => {
     return {
       categories: [] as ICategory[],
+      categoryService: new CategoryService,
       isLoaded: false as boolean,
     };
   },
 
   actions: {
     async getAllCategories(this: any): Promise<ICategory[]> {
-      const service = new CategoryService();
       if (this.isLoaded == true) {
         this.isLoaded = false;
       }
-      this.categories = await service.get();
+      this.categories = await this.categoryService.getAll();
       this.isLoaded = true;
       return this.categories;
     },
