@@ -11,12 +11,12 @@ const imageDirectory: string = imageURL + `/${props.category.categoryImage.image
 </script>
 
 <template>
-    <div class="category-container">
-        <div class="category-frame">
-            <img class="category-image" aspect-ratio="1/1" :src="imageDirectory">
-        </div>
-        <p class="category-name">{{ props.category.categoryName }}</p>
-    </div>
+    <router-link :to="{ name: 'Products', params: { categoryName: category.categoryName } }" class="category-container">  
+            <div class="category-frame">
+                <img class="category-image" aspect-ratio="1/1" :src="imageDirectory">
+            </div>
+            <p class="category-name">{{ props.category.categoryName }}</p>
+    </router-link>
 </template>
 
 <style lang="scss" scoped>

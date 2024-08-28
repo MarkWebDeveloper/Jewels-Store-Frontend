@@ -24,6 +24,11 @@ const router = createRouter({
       name: 'return',
       component: () => import('../views/StripeReturnView.vue')
     }, 
+    {
+      path: '/products/:categoryName',
+      name: 'Products',
+      component: () => import('../views/Products.vue'),
+    }
   ]
 })
 
