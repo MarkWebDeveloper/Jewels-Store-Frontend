@@ -13,7 +13,7 @@ const loginStore = useLoginStore()
 </script>
 
 <template>
-    <header>
+    <header class="header">
         <div class="first-row-container">
             <img id="main-logo" src="/images/logos/jj-full-logo-black.png" class="main-logo"></img>
 
@@ -69,6 +69,7 @@ const loginStore = useLoginStore()
 <style lang="scss" scoped>
 .header {
     width: 100%;
+    box-shadow: 2px 6px 3px lightgray;
 }
 
 .first-row-container {

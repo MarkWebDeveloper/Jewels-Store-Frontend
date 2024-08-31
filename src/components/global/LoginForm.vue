@@ -127,7 +127,7 @@ h3 {
     border: black solid 1px;
     padding: 0.3rem 1rem 0.3rem 1rem;
     box-shadow: 2px 4px 3px lightgray;
-    width: 10rem;
+    width: 3rem;
     min-height: 2.5rem;
     font-family: "Aleo", serif;
 }
