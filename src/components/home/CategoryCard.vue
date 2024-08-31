@@ -27,6 +27,7 @@ const imageDirectory: string = imageURL + `/${props.category.categoryImage.image
     align-items: center;
     margin-bottom: 3rem;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .category-frame {
@@ -50,6 +51,7 @@ const imageDirectory: string = imageURL + `/${props.category.categoryImage.image
     font-weight: bold;
     text-align: center;
     margin: 0.2rem auto 0.2rem auto;
+    color: black;
 }
 
 @media only screen and (min-width: 600px) {
