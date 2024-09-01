@@ -35,16 +35,19 @@ productsStore.getProductsByCategory(categoryName)
     justify-content: center;
     align-items: center;
     margin-top: 1.5rem;
-    border-radius: 15px;
+    border-radius: 12px;
     border: black solid 1px;
     padding: 0.3rem 0.8rem 0.3rem 0.8rem;
     box-shadow: 2px 4px 3px lightgray;
-    width: 8rem;
-    min-height: 2.5rem;
+    width: 7rem;
+    min-height: 1.5rem;
+}
+.button-text {
     font-family: "Aleo", serif;
+    font-size: 0.8rem;
 }
 .button-logo {
-    width: 2rem;
+    width: 1.5rem;
     margin-left: 0.5rem;
 }
 </style>
