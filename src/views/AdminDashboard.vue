@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import HeaderNav from '@/components/header/HeaderNav.vue';
-import Product from '@/components/admin-dashboard/Product.vue';
+import Product from '@/components/admin-dashboard/AdminProductCard.vue';
 import { useProductsStore } from '@/stores/productsStore';
 import CreateProductForm from '@/components/admin-dashboard/CreateProductForm.vue';
 import Alerts from '@/components/admin-dashboard/Alerts.vue';

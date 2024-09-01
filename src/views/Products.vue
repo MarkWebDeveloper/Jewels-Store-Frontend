@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import HeaderNav from '@/components/header/HeaderNav.vue';
+import ProductCard from '@/components/products/ProductCard.vue';
 import { useProductsStore } from '@/stores/productsStore';
 import { useRouter } from 'vue-router';
 
@@ -15,12 +16,15 @@ productsStore.getProductsByCategory(categoryName)
     <div class="buttons-container">
         <button class="button" id="filter-button" type="submit">
             <p class="button-text">Filter</p>
-            <img class="button-logo" src="./../../public/images/logos/filter-menu-outline.svg" alt="filter-logo">
+            <img class="button-logo" src="/images/logos/filter-menu-outline.svg" alt="filter-logo">
         </button>
         <button class="button" id="filter-button" type="submit">
             <p class="button-text">Sort By</p>
-            <img class="button-logo" src="./../../public/images/logos/sort.svg" alt="filter-logo">
+            <img class="button-logo" src="/images/logos/sort.svg" alt="filter-logo">
         </button>
+    </div>
+    <div class="products-container">
+        <ProductCard v-for="product in productsStore.filteredByCategory" :key="product.id" :product="product" v-if="productsStore.isLoaded"/>
     </div>
 </template>
 
@@ -28,13 +32,12 @@ productsStore.getProductsByCategory(categoryName)
 .buttons-container {
     display: flex;
     justify-content: space-between;
-    margin: 0 2rem 0 2rem;
+    margin: 2rem 2rem 1rem 2rem;
 }
 .button {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 1.5rem;
     border-radius: 12px;
     border: black solid 1px;
     padding: 0.3rem 0.8rem 0.3rem 0.8rem;
@@ -49,5 +52,12 @@ productsStore.getProductsByCategory(categoryName)
 .button-logo {
     width: 1.5rem;
     margin-left: 0.5rem;
+}
+.products-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 1rem;
+    padding-inline-start: 20px;
+    padding-inline-end: 20px;
 }
 </style>
