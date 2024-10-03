@@ -57,7 +57,57 @@ productsStore.getProductsByCategory(categoryName)
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 1rem;
-    padding-inline-start: 20px;
-    padding-inline-end: 20px;
+    padding-inline-start: 10%;
+    padding-inline-end: 10%;
+}
+
+@media only screen and (min-width: 960px) {
+.buttons-container {
+    justify-content: flex-start;
+    margin: 3rem;
+}
+.button {
+    border-radius: 12px;
+    width: 10rem;
+    min-height: 2rem;
+    margin-right: 1.5rem;
+}
+.button-text {
+    font-size: 1.5rem;
+}
+.button-logo {
+    width: 1.5rem;
+    margin-left: 0.5rem;
+}
+.products-container {
+    grid-template-columns: repeat(3, 1fr);
+    padding-inline-start: 10%;
+    padding-inline-end: 10%;
+}
+}
+
+@media only screen and (min-width: 1264px) {
+.buttons-container {
+    justify-content: flex-start;
+    margin: 3rem;
+}
+.button {
+    border-radius: 12px;
+    width: 8rem;
+    min-height: 2rem;
+    margin-right: 1.5rem;
+}
+.button-text {
+    font-size: 1rem;
+}
+.button-logo {
+    width: 1.5rem;
+    margin-left: 0.5rem;
+}
+.products-container {
+    grid-template-columns: repeat(5, 1fr);
+    padding-inline-start: 10%;
+    padding-inline-end: 10%;
+}
 }
 </style>

@@ -16,7 +16,7 @@ const imageDirectory: string | undefined = productsStore.findMainImage(props.pro
             <div class="product-frame">
                 <img class="product-image" :src="imageDirectory">
             </div>
-            <p class="product-name">{{ props.product.productName }}</p>
+            <p class="product-name" :title="props.product.productName">{{ props.product.productName }}</p>
             <p class="product-price">${{ productsStore.convertToDecimal(props.product.price)}}</p>
     </router-link>
 </template>
@@ -66,53 +66,62 @@ const imageDirectory: string | undefined = productsStore.findMainImage(props.pro
 
 @media only screen and (min-width: 600px) {
     .product-container {
-    margin-bottom: 3rem;
-}
-.product-frame {
-    width: 100%;
-}
-.product-image {
-    max-height: 8em;
-    margin: 1.5rem auto 1.5rem auto;
-}
-.product-name {
-    font-size: 1.5rem;
-    margin: 0.4rem auto 0.4rem auto;
-}
+        margin-bottom: 3rem;
+    }
+
+    .product-frame {
+        width: 100%;
+    }
+
+    .product-image {
+        max-height: 8em;
+        margin: 1.5rem auto 1.5rem auto;
+    }
+
+    .product-name {
+        font-size: 1.5rem;
+        margin: 0.4rem auto 0.4rem auto;
+    }
+
 }
 
 @media only screen and (min-width: 960px) {
     .product-container {
-    margin-bottom: 3rem;
-}
-.product-frame {
-    width: 100%;
-}
-.product-image {
-    max-height: 12em;
-    margin: 1.5rem auto 1.5rem auto;
-}
-.product-name {
-    font-size: 2rem;
-    margin: 0.7rem auto 0.7rem auto;
-}
+        margin-bottom: 3rem;
+    }
+
+    .product-image {
+        max-height: 9em;
+        margin: 1.5rem auto 1.5rem auto;
+    }
+
+    .product-name {
+        font-size: 1.4rem;
+        margin: 0.7rem auto 0.7rem auto;
+    }
+
+    .product-price {
+        font-size: 1.5rem;
+    }
 }
 
 @media only screen and (min-width: 1264px) {
     .product-container {
-    width: 20%;
-    margin-bottom: 3rem;
-}
-.product-frame {
-    width: 100%;
-}
-.product-image {
-    max-height: 12em;
-    margin: 1.5rem auto 1.5rem auto;
-}
-.product-name {
-    font-size: 2rem;
-    margin: 0.7rem auto 0.7rem auto;
-}
+        margin-bottom: 1rem;
+    }
+
+    .product-image {
+        max-height: 8em;
+        margin: 1.5rem auto 1.5rem auto;
+    }
+
+    .product-name {
+        font-size: 1.1rem;
+        margin: 0.5rem auto 0.5rem auto;
+    }
+
+    .product-price {
+        font-size: 1.2rem;
+    }
 }
 </style>
