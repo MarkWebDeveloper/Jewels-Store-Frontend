@@ -57,8 +57,8 @@ productsStore.getProductsByCategory(categoryName)
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 1rem;
-    padding-inline-start: 10%;
-    padding-inline-end: 10%;
+    padding-inline-start: 4%;
+    padding-inline-end: 4%;
 }
 
 @media only screen and (min-width: 960px) {
