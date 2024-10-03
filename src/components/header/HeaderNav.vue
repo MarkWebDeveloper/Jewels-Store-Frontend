@@ -15,7 +15,9 @@ const loginStore = useLoginStore()
 <template>
     <header class="header">
         <div class="first-row-container">
-            <img id="main-logo" src="/images/logos/jj-full-logo-black.png" class="main-logo"></img>
+            <RouterLink class="link" to="/">
+                <img id="main-logo" src="/images/logos/jj-full-logo-black.png" class="main-logo"></img>
+            </RouterLink>
 
             <div class="first-row-search-container">
                 <div class="categories-container">
