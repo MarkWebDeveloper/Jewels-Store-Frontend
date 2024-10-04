@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import Pagination from '@/components/global/Pagination.vue';
 import HeaderNav from '@/components/header/HeaderNav.vue';
 import ProductCard from '@/components/products/ProductCard.vue';
 import { useProductsStore } from '@/stores/productsStore';
@@ -26,6 +27,7 @@ productsStore.getProductsByCategory(categoryName)
     <div class="products-container">
         <ProductCard v-for="product in productsStore.filteredByCategory" :key="product.id" :product="product" v-if="productsStore.isLoaded"/>
     </div>
+    <Pagination />
 </template>
 
 <style lang="scss" scoped>
