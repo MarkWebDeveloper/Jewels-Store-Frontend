@@ -34,8 +34,12 @@ export const useProductsStore = defineStore("products", {
 
     async getProductsByCategory(categoryName: string): Promise<IProduct[]> {
       try {
+        if (this.isLoaded == true) {
+          this.isLoaded = false;
+        }
         this.filteredByCategory = await this.productService.getAllByCategory(categoryName)
         console.log(this.filteredByCategory)
+        this.isLoaded = true;
         return this.filteredByCategory
       } catch (error) {
         console.error('Error fetching products by category:', error)

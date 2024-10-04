@@ -17,7 +17,6 @@ useImagesStore()
 useHeaderStore()
 useLoginStore()
 
-productsStore.getAllProducts()
 categoriesStore.getAllCategories()
 
 </script>
