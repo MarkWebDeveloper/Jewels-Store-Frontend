@@ -61,6 +61,7 @@ productsStore.getProductsByCategory(categoryName)
     grid-gap: 1rem;
     padding-inline-start: 4%;
     padding-inline-end: 4%;
+    margin-bottom: 1rem;
 }
 
 @media only screen and (min-width: 960px) {
