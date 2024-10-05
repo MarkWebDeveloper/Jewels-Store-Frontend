@@ -40,9 +40,16 @@ export default class ProductService {
         }
     }
 
-    async getAllByCategory(categoryName: string): Promise<IProduct[]> {
+    async getAllByCategory(categoryName: string, page: number, size: number): Promise<IProduct[]> {
+        let config: AxiosRequestConfig = {
+            params: {
+                page,
+                size
+            }
+        }
+
         try {
-            const response = await axios.get(`${this.byCategoryUri}/${categoryName}`)
+            const response = await axios.get(`${this.byCategoryUri}/${categoryName}`, config)
             const data: IProduct[] = await response.data
             return data
         } catch (error) {

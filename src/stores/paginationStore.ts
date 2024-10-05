@@ -6,8 +6,9 @@ export const usePaginationStore = defineStore("pagination", {
         return {
             isLoaded: false as boolean,
             pagesCount: 1 as number,
+            currentPage: 1 as number,
             productsCount: 0 as number,
-            productsPerPage: 10 as number,
+            productsPerPage: 4 as number,
             productService: new ProductService,
           };
     },

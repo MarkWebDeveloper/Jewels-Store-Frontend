@@ -4,6 +4,7 @@ import type { IProduct } from "@/core/products/IProduct";
 import type { IProductDTO } from "@/core/products/IProductDTO";
 import type { IImage } from "@/core/images/IImage";
 import { useAlertsStore } from "./alertsStore";
+import { usePaginationStore } from "./paginationStore";
 
 export const useProductsStore = defineStore("products", {
   state: () => {
@@ -18,7 +19,8 @@ export const useProductsStore = defineStore("products", {
       showImageUploadForm: false as boolean,
       showImageUpdateForm: false as boolean,
       showCreateProductForm: false as boolean,
-      alertsStore: useAlertsStore()
+      alertsStore: useAlertsStore(),
+      paginationStore: usePaginationStore()
     };
   },
 
@@ -37,7 +39,7 @@ export const useProductsStore = defineStore("products", {
         if (this.isLoaded == true) {
           this.isLoaded = false;
         }
-        this.filteredByCategory = await this.productService.getAllByCategory(categoryName)
+        this.filteredByCategory = await this.productService.getAllByCategory(categoryName, this.paginationStore.currentPage - 1, this.paginationStore.productsPerPage)
         console.log(this.filteredByCategory)
         this.isLoaded = true;
         return this.filteredByCategory
