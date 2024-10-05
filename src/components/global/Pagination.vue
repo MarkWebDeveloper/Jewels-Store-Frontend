@@ -9,6 +9,8 @@ const productsStore = useProductsStore()
 onMounted(() => paginationStore.countProductsAndPages())
 
 const categoryName: string = router.currentRoute.value.params.categoryName as string
+paginationStore.categoryName = categoryName
+
 productsStore.getProductsByCategory(categoryName)
 
 watch (() => paginationStore.currentPage, (): void => {
