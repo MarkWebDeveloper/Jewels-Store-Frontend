@@ -13,7 +13,6 @@ productsStore.getProductsByCategory(categoryName)
 </script>
 
 <template>
-    <HeaderNav />
     <div class="buttons-container">
         <button class="button" id="filter-button" type="submit">
             <p class="button-text">Filter</p>

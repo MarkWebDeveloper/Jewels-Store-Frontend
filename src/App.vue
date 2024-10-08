@@ -9,6 +9,7 @@ import { useLoginStore } from './stores/loginStore';
 import axios, { type AxiosRequestConfig, type AxiosResponse } from 'axios';
 import type { IRefreshTokenDTO } from './core/auth/IRefreshTokenDTO';
 import type { ITokenDTO } from './core/auth/ITokenDTO';
+import HeaderNav from './components/header/HeaderNav.vue';
 
 const productsStore = useProductsStore()
 const categoriesStore = useCategoriesStore()
@@ -30,6 +31,7 @@ categoriesStore.getAllCategories()
         <RouterLink class="link" to="/stripe-payment">Stripe</RouterLink>
       </nav>
     </div>
+    <HeaderNav />
   </div>
 
   <RouterView />

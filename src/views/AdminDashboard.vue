@@ -12,7 +12,6 @@ productsStore.getAllProducts()
 </script>
 
 <template>
-  <HeaderNav />
   <main>
     <Alerts />
     <h1 class="products-title">Products</h1>

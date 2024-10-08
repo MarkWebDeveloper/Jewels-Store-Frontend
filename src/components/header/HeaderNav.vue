@@ -39,9 +39,9 @@ const loginStore = useLoginStore()
                         <img src="/images/logos/heart-outline.svg" alt="">
                     </button>
 
-                    <button class="button button-with-margin">
+                    <RouterLink class="button button-with-margin" to="/cart">
                         <img src="/images/logos/cart-outline.svg" alt="">
-                    </button>
+                    </RouterLink>
 
                 <LoginDropdown v-if="!loginStore.isLoggedIn" />
                 <UserProfileDropdown v-if="loginStore.loggedUserRole == 'ROLE_USER'"/>
