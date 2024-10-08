@@ -4,8 +4,9 @@ import { defineStore } from "pinia";
 export const useCartStore = defineStore("cart", {
   state: () => {
     return {
-      products: [] as IProduct[],
-      productsCount: 0 as number,
+        isLoaded: false as boolean,
+        products: [] as IProduct[],
+        productsCount: 0 as number,
     };
   },
 
@@ -31,6 +32,7 @@ export const useCartStore = defineStore("cart", {
         this.products = JSON.parse(localStorage.getItem("cart")!);
         this.productsCount = JSON.parse(localStorage.getItem("cartCount")!);
       }
+      this.isLoaded = true;
     },
   },
 });

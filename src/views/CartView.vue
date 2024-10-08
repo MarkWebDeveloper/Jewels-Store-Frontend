@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useCartStore } from '@/stores/cartStore';
+import ProductCard from '@/components/cart/ProductCard.vue';
 
 const cartStore = useCartStore()
 
@@ -8,6 +9,9 @@ const cartStore = useCartStore()
 <template>
     <div>
         <h2 id="products-count-title">You have {{ cartStore.productsCount }} products in the cart</h2>
+        <div id="products-container">
+            <ProductCard v-for="product in cartStore.products" :key="product.id" :product="product" v-if="cartStore.isLoaded"/>
+        </div>
     </div>
 </template>
 
