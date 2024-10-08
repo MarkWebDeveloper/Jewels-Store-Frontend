@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { IProduct } from '@/core/products/IProduct';
+import { useCartStore } from '@/stores/cartStore';
 import { useProductsStore } from '@/stores/productsStore';
 
 const props = defineProps<{
@@ -7,27 +8,39 @@ const props = defineProps<{
 }>()
 
 const productsStore = useProductsStore()
+const cartStore = useCartStore()
 
 const imageDirectory: string | undefined = productsStore.findMainImage(props.product)
 </script>
 
 <template>
-    <router-link :to="{ name: 'product-details', params: { productName: product.productName } }" class="product-container">
+    <div id="general-container">
+        <router-link :to="{ name: 'product-details', params: { productName: product.productName } }"
+            class="product-container">
             <div class="product-frame">
                 <img class="product-image" :src="imageDirectory">
             </div>
             <p class="product-name" :title="props.product.productName">{{ props.product.productName }}</p>
-            <p class="product-price">${{ productsStore.convertToDecimal(props.product.price)}}</p>
-    </router-link>
+            <p class="product-price">${{ productsStore.convertToDecimal(props.product.price) }}</p>
+        </router-link>
+        <button @click="cartStore.addToCart(props.product)">Add to cart</button>
+    </div>
 </template>
 
 <style lang="scss" scoped>
+#general-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .product-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     cursor: pointer;
     text-decoration: none;
+    margin-bottom: .5rem;
 }
 
 .product-frame {
@@ -64,8 +77,16 @@ const imageDirectory: string | undefined = productsStore.findMainImage(props.pro
     color: black;
 }
 
+button {
+    box-shadow: 1px 2px 2px lightgray;
+    border-radius: 12px;
+    border: lightgray solid 1px;
+    padding: 0.3rem 0.8rem 0.3rem 0.8rem;
+    font-family: "Aleo", serif;
+}
+
 @media only screen and (min-width: 600px) {
-    .product-container {
+    #general-container {
         margin-bottom: 3rem;
     }
 
@@ -86,7 +107,7 @@ const imageDirectory: string | undefined = productsStore.findMainImage(props.pro
 }
 
 @media only screen and (min-width: 960px) {
-    .product-container {
+    #general-container {
         margin-bottom: 3rem;
     }
 
@@ -106,7 +127,7 @@ const imageDirectory: string | undefined = productsStore.findMainImage(props.pro
 }
 
 @media only screen and (min-width: 1264px) {
-    .product-container {
+    #general-container {
         margin-bottom: 1rem;
     }
 

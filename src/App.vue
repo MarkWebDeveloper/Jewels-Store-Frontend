@@ -6,19 +6,20 @@ import { useAlertsStore } from './stores/alertsStore';
 import { useImagesStore } from './stores/imagesStore';
 import { useHeaderStore } from './stores/headerStore';
 import { useLoginStore } from './stores/loginStore';
-import axios, { type AxiosRequestConfig, type AxiosResponse } from 'axios';
-import type { IRefreshTokenDTO } from './core/auth/IRefreshTokenDTO';
-import type { ITokenDTO } from './core/auth/ITokenDTO';
 import HeaderNav from './components/header/HeaderNav.vue';
+import { useCartStore } from './stores/cartStore';
 
-const productsStore = useProductsStore()
 const categoriesStore = useCategoriesStore()
+const cartStore = useCartStore()
+useProductsStore()
 useAlertsStore()
 useImagesStore()
 useHeaderStore()
 useLoginStore()
 
 categoriesStore.getAllCategories()
+cartStore.createEventForCartSyncOnClose()
+cartStore.synchronizeWithStoredCart()
 
 </script>
 
