@@ -22,4 +22,7 @@ const cartStore = useCartStore()
     margin: 1rem auto 1rem auto;
     text-align: center;
 }
+#products-container {
+    padding: 0rem 2rem 0rem 2rem;
+}
 </style>
