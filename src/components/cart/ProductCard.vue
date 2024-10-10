@@ -2,6 +2,8 @@
 import type { IProduct } from '@/core/products/IProduct';
 import { useCartStore } from '@/stores/cartStore';
 import { useProductsStore } from '@/stores/productsStore';
+import QuantityDropdown from './QuantityDropdown.vue';
+import { ref, watch } from 'vue';
 
 const props = defineProps<{
     product: IProduct
@@ -9,6 +11,20 @@ const props = defineProps<{
 
 const cartStore = useCartStore()
 const productsStore = useProductsStore()
+
+const selectOptions: number[] = Array.from({length: 10}, (_, i) => i + 1)
+const selectedOption = ref<number>(1);
+const initialConvertedPrice = ref<number>(Number(productsStore.convertToDecimal(props.product.price)))
+const productPrice = ref<number>(initialConvertedPrice.value)
+
+const calculatePrice = (): void => {
+    const newPrice = initialConvertedPrice.value * selectedOption.value
+    productPrice.value = Math.round((newPrice + Number.EPSILON) * 100) / 100
+}
+
+watch(() => selectedOption.value, (): void => {
+    calculatePrice()
+})
 
 const imageDirectory: string | undefined = productsStore.findMainImage(props.product)
 </script>
@@ -21,15 +37,13 @@ const imageDirectory: string | undefined = productsStore.findMainImage(props.pro
         <div id="info-container">
             <div id="name-price-container">
                 <p id="product-name">{{ props.product.productName }}</p>
-                <p id="price">${{ productsStore.convertToDecimal(props.product.price) }}</p>
+                <p id="price">${{ productPrice }}</p>
             </div>
             <div id="quantity-remove-container">
                 <div id="quantity-container">
-                    <p id="quantity-title">Quantity</p>
-                    <select name="quantity-select" id="quantity-select">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                    </select>
+                    <p id="quantity-title">Quantity:</p>
+                    <v-select class="pa-0 ma-0" id="select-dropdown" :items="selectOptions" variant="outlined"
+                        density="compact" hide-details="auto" v-model="selectedOption"></v-select>
                 </div>
                 <button id="remove-button">Remove</button>
             </div>
@@ -61,6 +75,7 @@ img {
 #info-container{
     display: grid;
     grid-template-rows: repeat(2, 1fr);
+    padding-left: 1rem;
 }
 #name-price-container {
     display: flex;
@@ -82,9 +97,6 @@ img {
 #quantity-title {
     font-family: "Aleo", serif;
     font-size: 0.7rem;
-}
-#quantity-select {
-    width: 5rem;
 }
 #remove-button {
     font-family: "Aleo", serif;

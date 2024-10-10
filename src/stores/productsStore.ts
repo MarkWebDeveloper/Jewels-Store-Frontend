@@ -120,11 +120,11 @@ export const useProductsStore = defineStore("products", {
       let decimalNumber = ""
       
       if (numberStr.length == 1) {
-        decimalNumber = `0,0${numberStr}`
+        decimalNumber = `0.0${numberStr}`
       }
 
       if (numberStr.length == 2) {
-        decimalNumber = `0,${numberStr}`
+        decimalNumber = `0.${numberStr}`
       }
   
       if (lastTwoDigits == "00") {
@@ -132,7 +132,7 @@ export const useProductsStore = defineStore("products", {
       }
   
       if (lastTwoDigits != "00" && numberStr.length != 1 && numberStr.length != 2) {
-        decimalNumber = numberStr.slice(0, -2) + ',' + lastTwoDigits;
+        decimalNumber = numberStr.slice(0, -2) + '.' + lastTwoDigits;
       }
 
       return decimalNumber;
