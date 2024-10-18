@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useCartStore } from '@/stores/cartStore';
 import ProductCard from '@/components/cart/ProductCard.vue';
+import TotalSection from '@/components/cart/TotalSection.vue';
 
 const cartStore = useCartStore()
 
@@ -12,6 +13,7 @@ const cartStore = useCartStore()
         <div id="products-container">
             <ProductCard v-for="product in cartStore.products" :key="product.id" :product="product" v-if="cartStore.isLoaded"/>
         </div>
+        <TotalSection />
     </div>
 </template>
 

@@ -2,7 +2,6 @@
 import type { IProduct } from '@/core/products/IProduct';
 import { useCartStore } from '@/stores/cartStore';
 import { useProductsStore } from '@/stores/productsStore';
-import QuantityDropdown from './QuantityDropdown.vue';
 import { ref, watch } from 'vue';
 
 const props = defineProps<{
